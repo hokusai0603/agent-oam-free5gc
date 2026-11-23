@@ -1,0 +1,9 @@
+recorded_at=2026-11-17T21:33:11+08:00
+hostname=oam-node1
+os=Ubuntu 22.04.5 LTS
+kernel=5.15.0-144-generic
+gtp5g=v0.9.16 loaded=1
+sctp_loaded=1
+k3s=k3s version v1.37.2+k3s1 (f6973cb8)
+helm=v3.22.1+gd6c1a0e
+cpus=4 mem_mb=9941

@@ -1,0 +1,54 @@
+[  ok ] plmn                   AMF servedGuamiList = 208/93
+[  ok ] plmn                   AMF supportTaiList = 208/93
+[  ok ] plmn                   AMF plmnSupportList = 208/93
+[  ok ] plmn                   SMF plmnList = 208/93
+[extra] plmn                   AUSF plmnSupportList 除了 208/93 還有 ['123/45']
+[  ok ] plmn                   NRF DefaultPlmnId = 208/93
+[  ok ] plmn                   NSSF supportedPlmnList = 208/93
+[  ok ] plmn                   NSSF supportedNssaiInPlmnList = 208/93
+[ warn] plmn                   NSSF taList 沒有 208/93 的 TA（只有 ['466/92']）；L1 流程用不到，AMF 需要向 NSSF 查 slice 可用性時會查不到
+[  ok ] plmn                   gNB free5gc/gnb-configmap:gnb-config.yaml = 208/93
+[  ok ] plmn                   UE free5gc/ue-configmap:ue-config.yaml = 208/93
+[ info] plmn.nssf_demo         NSSF amfSetList 有其他 PLMN 的範例資料 ['466/92']（chart template 內建）
+[  ok ] supi.ue                UE free5gc/ue-configmap:ue-config.yaml 的 SUPI = imsi-208930000000001
+[  ok ] tac.gnb_in_amf         gNB free5gc/gnb-configmap:gnb-config.yaml 的 TAC 1 在 AMF supportTaiList [1]
+[extra] snssai.amf             AMF plmnSupportList 的 S-NSSAI 多了 ['1/112233']
+[  ok ] snssai.smf             SMF snssaiInfos 的 S-NSSAI = ['1/010203']
+[extra] snssai.nssf            NSSF supportedNssaiInPlmnList 的 S-NSSAI 多了 ['1/000003', '1/112233', '2/000001', '2/000002']
+[ warn] snssai.nssf_ta         NSSF taList 沒有 208/93 的 TA，所以也沒有 slice 資料
+[ info] snssai.nssf_nsi        NSSF nsiList 還有 ['1/-', '1/000001', '1/000002', '1/000003', '2/-', '2/000001']（chart template 內建的範例）
+[  ok ] snssai.gnb             gNB free5gc/gnb-configmap:gnb-config.yaml 的 S-NSSAI = ['1/010203']
+[  ok ] snssai.ue_session      UE free5gc/ue-configmap:ue-config.yaml 的 PDU session 的 S-NSSAI = ['1/010203']
+[  ok ] snssai.ue_configured   UE free5gc/ue-configmap:ue-config.yaml 的 configured-nssai = ['1/010203']
+[ warn] snssai.ue_default      UE free5gc/ue-configmap:ue-config.yaml 的 default-nssai 是 ['1/000001']，和唯一的 slice 1/010203 不同（UE 註冊時會一併請求；chart 預設 1/000001）
+[ warn] snssai.amf_without_smf AMF 宣告了 ['1/112233']，但 SMF 沒有服務這些 slice
+[  ok ] dnn.amf                AMF 的 supportDnnList = ['internet']
+[  ok ] dnn.smf                SMF snssaiInfos[1/010203] 的 DNN = ['internet']
+[  ok ] dnn.upf                UPF free5gc/free5gc-helm-free5gc-upf-iupf1-configmap:upfcfg.yaml 的 dnnList = ['internet']
+[  ok ] dnn.upf                UPF free5gc/free5gc-helm-free5gc-upf-psaupf1-configmap:upfcfg.yaml 的 dnnList = ['internet']
+[  ok ] dnn.upf                UPF free5gc/free5gc-helm-free5gc-upf-psaupf2-configmap:upfcfg.yaml 的 dnnList = ['internet']
+[  ok ] dnn.ue                 UE free5gc/ue-configmap:ue-config.yaml 的 PDU session 的 APN = ['internet']
+[  ok ] upf.map                SMF 的 UPF ↔ UPF 設定檔：{'BranchingUPF': 'free5gc/free5gc-helm-free5gc-upf-iupf1-configmap:upfcfg.yaml', 'AnchorUPF1': 'free5gc/free5gc-helm-free5gc-upf-psaupf1-configmap:upfcfg.yaml', 'AnchorUPF2': 'free5gc/free5gc-helm-free5gc-upf-psaupf2-configmap:upfcfg.yaml'}
+[  ok ] pool.match             UPF AnchorUPF1 的 SMF pool ['10.60.0.0/17'] 在 它的 dnnList cidr ['10.60.0.0/17'] 裡
+[  ok ] pool.match             UPF AnchorUPF2 的 SMF pool ['10.60.128.0/17'] 在 它的 dnnList cidr ['10.60.128.0/17'] 裡
+[  ok ] ulcl.enabled           SMF ulcl = true
+[  ok ] ulcl.members           uerouting 群組 UE1 包含 imsi-208930000000001
+[  ok ] ulcl.default_path      預設路徑：gNB1 → ['BranchingUPF'] → ['AnchorUPF1']
+[  ok ] ulcl.mec_dest          群組 UE1 的 specificPath dest ['10.43.200.10/32']涵蓋 MEC 10.43.200.10
+[  ok ] ulcl.path              specificPath ['BranchingUPF', 'AnchorUPF2']
+[ERROR] ulcl.psa_route         MEC PSA AnchorUPF2 的 dnnList cidr ['10.60.128.0/17'] 不涵蓋 UE 的 pool ['10.60.0.0/17']：PSA 沒有回 UE 的 upfgtp 路由，MEC 連不到（坑 C）
+[  ok ] ulcl.psa2_n3           MEC PSA AnchorUPF2 有 N3 interface
+[  ok ] topo.smf_upf_count     SMF upNodes 有 3 個 UPF（['AnchorUPF1', 'AnchorUPF2', 'BranchingUPF']），規格 3
+[  ok ] topo.an_link           gNB（AN）直接連到的 UPF：['BranchingUPF']
+[ info] dnai                   SMF 的 UPF dnaiList：[('BranchingUPF', ['mec'])]
+[  ok ] ref.nrf                所有 NF 的 nrfUri = http://nrf-nnrf:8000
+[  ok ] ref.gnb_amf            gNB free5gc/gnb-configmap:gnb-config.yaml → Service free5gc-helm-free5gc-amf-amf-n2 38412/SCTP
+[  ok ] sec.integrity          AMF integrityOrder ['NIA2']，UE free5gc/ue-configmap:ue-config.yaml 支援 ['NIA0', 'NIA1', 'NIA2', 'NIA3']
+[  ok ] sec.ciphering          AMF cipheringOrder ['NEA0']，UE free5gc/ue-configmap:ue-config.yaml 支援 ['NEA0', 'NEA1', 'NEA2', 'NEA3']
+[ info] sec.null_cipher        NAS 用 NEA0（不加密），是 free5GC chart 預設
+[ info] subs.count             UDR 共有 1 個 subscriber
+[  ok ] subs.k                 K 和 UE free5gc/ue-configmap:ue-config.yaml 一致
+[  ok ] subs.opc               OPc 和 UE free5gc/ue-configmap:ue-config.yaml 一致
+[  ok ] subs.nssai             UDR amData 的 訂閱的 S-NSSAI = ['1/010203']
+[  ok ] subs.dnn               UDR smData 的 訂閱的 slice＋DNN = ['1/010203 internet']
+V5 FAIL  exact=no  {'ok': 40, 'error': 1, 'extra': 3, 'warn': 4, 'info': 5, 'skip': 0}

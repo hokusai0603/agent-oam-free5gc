@@ -1,0 +1,17 @@
+# L1 參考答案：free5gc-helm v4.2.2 的覆寫值（搭配 build-chart.sh 產生的 chart 使用）
+global:
+  # 單一 UPF（chart 預設是 ULCL：iupf1 + psaupf1 + psaupf2）
+  userPlaneArchitecture: single
+
+# build-chart.sh 換上的 single-upf-values.yaml 把 SMF image 寫成 v4.1.0，其他 NF 都是 v4.2.2；改回一致。
+free5gc-smf:
+  smf:
+    image:
+      tag: v4.2.2
+
+# mongodb 子 chart 預設寫死一個給 microk8s 用的 PV（storageClass microk8s-hostpath、node 名稱 free5gc），
+# 在 K3s 上永遠 Pending。拿掉它，改用 K3s 內建的 local-path provisioner。
+mongodb:
+  extraDeploy: []
+  persistence:
+    storageClass: local-path

@@ -1,0 +1,86 @@
+[19:10:58] trial L1-normal-haiku-5-5-high-20261118-191058  task=L1 model=claude-haiku-5-5 effort=high timeout=60m budget=$15 auth=subscription_oauth snapshot=S1-agent
+==> oam-node1: Forcing shutdown of VM...
+==> oam-node1: Restoring the snapshot 'S1-agent'...
+[KProgress: 0%[KProgress: 30%[KProgress: 90%[K==> oam-node1: Clearing any previously set forwarded ports...
+==> oam-node1: Clearing any previously set network interfaces...
+==> oam-node1: Preparing network interfaces based on configuration...
+    oam-node1: Adapter 1: nat
+    oam-node1: Adapter 2: hostonly
+==> oam-node1: Forwarding ports...
+    oam-node1: 22 (guest) => 2222 (host) (adapter 1)
+==> oam-node1: Running 'pre-boot' VM customizations...
+==> oam-node1: Booting VM...
+==> oam-node1: Waiting for machine to boot. This may take a few minutes...
+    oam-node1: SSH address: 127.0.0.1:2222
+    oam-node1: SSH username: vagrant
+    oam-node1: SSH auth method: private key
+    oam-node1: Warning: Connection reset. Retrying...
+    oam-node1: Warning: Remote connection disconnect. Retrying...
+==> oam-node1: Machine booted and ready!
+==> oam-node1: Checking for guest additions in VM...
+    oam-node1: The guest additions on this VM do not match the installed version of
+    oam-node1: VirtualBox! In most cases this is fine, but in rare cases it can
+    oam-node1: prevent things such as shared folders from working properly. If you see
+    oam-node1: shared folder errors, please make sure the guest additions within the
+    oam-node1: virtual machine match the version of VirtualBox you have installed on
+    oam-node1: your host and reload your VM.
+    oam-node1: 
+    oam-node1: Guest Additions Version: 6.0.0 r127566
+    oam-node1: VirtualBox Version: 7.2
+==> oam-node1: Setting hostname...
+==> oam-node1: Configuring and enabling network interfaces...
+==> oam-node1: Machine not provisioned because `--no-provision` is specified.
+gtp5g: ok
+sctp: ok
+NAME        STATUS   ROLES           AGE   VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION               CONTAINER-RUNTIME
+oam-node1   Ready    control-plane   21h   v1.37.2+k3s1   192.168.57.11   <none>        Ubuntu 22.04.5 LTS   5.15.0-144-generic (amd64)   containerd://2.3.7-k3s1
+kube-system: ok
+non-system namespaces: 0
+reset to S1-agent in 38s
+[19:11:36] env reset to S1-agent in 38s
+[19:11:46] agent started
+[19:11:49] running... transcript lines=7
+[19:12:23] running... transcript lines=61
+[19:12:56] running... transcript lines=107
+[19:13:29] running... transcript lines=158
+[19:14:01] running... transcript lines=181
+[19:14:34] running... transcript lines=182
+[19:15:07] running... transcript lines=183
+[19:15:40] running... transcript lines=209
+[19:16:13] running... transcript lines=215
+[19:16:46] running... transcript lines=249
+[19:17:19] running... transcript lines=291
+[19:17:52] running... transcript lines=306
+[19:18:25] running... transcript lines=321
+[19:18:58] running... transcript lines=323
+[19:19:31] running... transcript lines=327
+[19:20:03] running... transcript lines=332
+[19:20:36] running... transcript lines=333
+[19:21:09] running... transcript lines=339
+[19:21:42] running... transcript lines=364
+[19:22:15] running... transcript lines=382
+[19:22:48] running... transcript lines=394
+[19:23:21] running... transcript lines=414
+[19:23:54] running... transcript lines=422
+[19:24:27] running... transcript lines=456
+[19:25:00] running... transcript lines=488
+[19:25:32] running... transcript lines=522
+[19:26:06] running... transcript lines=558
+[19:26:38] running... transcript lines=581
+[19:27:12] running... transcript lines=594
+[19:27:45] running... transcript lines=624
+[19:28:16] agent exited: exit_code=0
+V1 pods     PASS  pods=17 not_ready=0 restarts=0
+V2 control  PASS  gnb=1 ngap_up=True ue=1 registered=1 pdu_active=1
+V3 e2e      PASS  ueransim-ue-6d864ddc7b-rqrnk:4/4
+  req upf_count  PASS  expect=1 actual=1
+  req supi       PASS  expect=imsi-208930000000001 actual=['imsi-208930000000001']
+  req plmn       PASS  expect=208/93 actual=208/93
+  req dnn        PASS  expect=internet actual=internet
+  req slice      PASS  expect={'sst': 1, 'sd': '010203'} actual={'sst': 1, 'sd': '010203'}
+  req gnb_count  PASS  expect=1 actual=1
+  req ue_count   PASS  expect=1 actual=1
+  req free5gc_version PASS  expect=v4.3.0 actual={'amf': ['v4.3.0'], 'ausf': ['v4.3.0'], 'bsf': ['v4.3.0'], 'chf': ['v4.3.0'], 'nef': ['v4.3.0'], 'nrf': ['v4.3.0'], 'nssf': ['v4.3.0'], 'pcf': ['v4.3.0'], 'scp': ['v4.3.0'], 'smf': ['v4.3.0'], 'udm': ['v4.3.0'], 'udr': ['v4.3.0'], 'upf': ['v4.3.0'], 'webui': ['v4.3.0']}
+OVERALL     PASS
+[19:29:37] recorded in results/phase1/trials.jsonl
+RESULT L1-normal-haiku-5-5-high-20261118-191058: pass=True (V1=True V2=True V3=True req=True) cost=$0.63302906 (est.) turns=89 wall=967s exit=0 valid=True 

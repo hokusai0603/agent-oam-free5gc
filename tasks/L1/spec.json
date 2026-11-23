@@ -1,0 +1,1 @@
+{"task": "L1", "start_snapshot": "S1-agent", "prompt_file": "tasks/L1/prompt-normal.md", "expect": {"upf_count": 1, "gnb_count": 1, "ue_count": 1, "supi": "imsi-208930000000001", "plmn": "208/93", "sst": 1, "sd": "010203", "dnn": "internet", "free5gc_version": "v4.3.0"}}

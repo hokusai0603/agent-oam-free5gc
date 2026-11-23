@@ -1,0 +1,59 @@
+==> oam-node1: Forcing shutdown of VM...
+==> oam-node1: Restoring the snapshot 'S1-k3s-ready'...
+[KProgress: 0%[KProgress: 30%[KProgress: 90%[K==> oam-node1: Clearing any previously set forwarded ports...
+==> oam-node1: Clearing any previously set network interfaces...
+==> oam-node1: Preparing network interfaces based on configuration...
+    oam-node1: Adapter 1: nat
+    oam-node1: Adapter 2: hostonly
+==> oam-node1: Forwarding ports...
+    oam-node1: 22 (guest) => 2222 (host) (adapter 1)
+==> oam-node1: Running 'pre-boot' VM customizations...
+==> oam-node1: Booting VM...
+==> oam-node1: Waiting for machine to boot. This may take a few minutes...
+    oam-node1: SSH address: 127.0.0.1:2222
+    oam-node1: SSH username: vagrant
+    oam-node1: SSH auth method: private key
+    oam-node1: Warning: Connection reset. Retrying...
+==> oam-node1: Machine booted and ready!
+==> oam-node1: Checking for guest additions in VM...
+    oam-node1: The guest additions on this VM do not match the installed version of
+    oam-node1: VirtualBox! In most cases this is fine, but in rare cases it can
+    oam-node1: prevent things such as shared folders from working properly. If you see
+    oam-node1: shared folder errors, please make sure the guest additions within the
+    oam-node1: virtual machine match the version of VirtualBox you have installed on
+    oam-node1: your host and reload your VM.
+    oam-node1: 
+    oam-node1: Guest Additions Version: 6.0.0 r127566
+    oam-node1: VirtualBox Version: 7.2
+==> oam-node1: Setting hostname...
+==> oam-node1: Configuring and enabling network interfaces...
+==> oam-node1: Machine not provisioned because `--no-provision` is specified.
+gtp5g: ok
+sctp: ok
+NAME        STATUS   ROLES           AGE     VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION               CONTAINER-RUNTIME
+oam-node1   Ready    control-plane   5d17h   v1.37.2+k3s1   192.168.57.11   <none>        Ubuntu 22.04.5 LTS   5.15.0-144-generic (amd64)   containerd://2.3.7-k3s1
+kube-system: ok
+non-system namespaces: 0
+reset to S1-k3s-ready in 39s
+[15:24:08] 0/7 environment: MEC app (10.43.200.10)
+[15:24:16] 1/7 build chart
+chart built at /home/king25158986/agent-oam-free5gc/tasks/L2/reference/build/charts (free5gc-helm 07139fc, ULCL, MEC 10.43.200.10, SKIP_FIX=C)
+[15:24:16] 2/7 copy chart + values into VM (/home/vagrant/free5gc-deploy)
+[15:24:17] 3/7 helm install free5gc + ueransim
+namespace/free5gc created
+NAME        	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
+free5gc-helm	free5gc  	1       	2026-11-23 15:24:20.196833335 +0800 CST	deployed	free5gc-1.1.7  	latest     
+ueransim    	free5gc  	1       	2026-11-23 15:24:21.127357396 +0800 CST	deployed	ueransim-2.0.17	latest     
+[15:24:21] 4/7 wait for pods
+[15:27:10]    all pods ready
+[15:27:10] 5/7 create subscriber imsi-208930000000001 via WebUI API (ClusterIP, from inside the VM)
+   subscriber created
+[15:27:12] 6/7 restart UE so it registers with the new subscriber
+[15:27:50] 7/7 end-to-end checks
+uesimtun0        UNKNOWN        10.60.0.2/16 fe80::846e:1b9:f667:f512/64 
+PING 8.8.8.8 (8.8.8.8) from 10.60.0.2 uesimtun0: 56(84) bytes of data.
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 10.046/11.679/12.554/0.987 ms
+   psa1=10.42.0.18 psa2=10.42.0.25 mec_saw=none internet_nat_psa1=+1 internet_nat_psa2=+0
+   smf_log: dnn_mismatch=0 psa2_lines=10
+[15:28:11] FAIL: UE cannot reach MEC 10.43.200.10 via uesimtun0

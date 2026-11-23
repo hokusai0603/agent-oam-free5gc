@@ -1,0 +1,2 @@
+Nov 18 18:53:40 oam-node1 kernel: [  334.101830] [gtp5g] gtp5g_encap_enable: enable gtp5g for the fd(11) type(5)
+Nov 18 18:53:40 oam-node1 kernel: [  334.107406] upfgtp:[gtp5g] gtp5g_newlink: Registered a new 5G GTP interface

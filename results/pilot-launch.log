@@ -1,0 +1,17 @@
+[17:10:32] trial L1-normal-opus-5-5-high-20261118-171032  task=L1 model=claude-opus-5-5 effort=high timeout=60m budget=$15 auth=subscription_oauth snapshot=S1-agent
+[17:11:11] env reset to S1-agent in 39s
+[17:11:21] agent started
+[17:25:10] agent exited: exit_code=0
+V1 pods     PASS  pods=17 not_ready=0 restarts=0
+V2 control  PASS  gnb=1 ngap_up=True ue=1 registered=1 pdu_active=1
+V3 e2e      PASS  ueransim-ue-6f67f6fdfd-dzn57:4/4
+  req upf_count  PASS  expect=1 actual=1
+  req supi       PASS  expect=imsi-208930000000001 actual=['imsi-208930000000001']
+  req plmn       PASS  expect=208/93 actual=208/93
+  req dnn        PASS  expect=internet actual=internet
+  req slice      PASS  expect={'sst': 1, 'sd': '010203'} actual={'sst': 1, 'sd': '010203'}
+  req gnb_count  PASS  expect=1 actual=1
+  req ue_count   PASS  expect=1 actual=1
+OVERALL     PASS
+[17:26:29] recorded in results/phase1-pilot/trials.jsonl
+RESULT L1-normal-opus-5-5-high-20261118-171032: pass=True (V1=True V2=True V3=True req=True) cost=$1.8239274000000003 (est.) turns=48 wall=817s exit=0 valid=False auth_error

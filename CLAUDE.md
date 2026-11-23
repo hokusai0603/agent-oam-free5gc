@@ -29,7 +29,28 @@
 - [x] 會議逐字稿整理、摘要
 - [x] 實驗規劃初版（實驗規劃.md）
 - [ ] Phase 0：建立可重置環境、L1/L2 手動參考答案、驗證腳本 V1–V3
-- [ ] Phase 1：Opus / Sonnet / Haiku 跑 L1、L2（第一個里程碑，約 3 天，完成後回報老師）
+  - [x] 可重置環境：VM `oam-node1` ＋ snapshot `S1-k3s-ready`（2026-11-17，見 [env/README.md](env/README.md)；smoke test 端到端通過）
+  - [x] L1 參考答案（單一 UPF）→ snapshot `S2-l1-ref`（2026-11-18，見 [tasks/L1/reference](tasks/L1/reference/)；從 S1 部署 256 s，UE ping 通）
+  - [x] 驗證腳本 V1–V3（[verify/](verify/)，正反測試都通過）、trial runner（[trial/run_trial.sh](trial/run_trial.sh)，dry run 通過）（2026-11-18）
+  - [x] VM 內安裝 Claude Code 2.1.325 → snapshot `S1-agent`、`S2-agent`
+  - [x] 使用者在 VM 內 `claude setup-token`，token 放到 `env/secrets/oauth.env`（用訂閱，2026-11-18 決定）
+- [x] Phase 1：Opus / Sonnet / Haiku 5.5 跑 L1 各 3 次（條件見 [results/phase1/README.md](results/phase1/README.md)）
+  - [x] Opus pilot 1 次：PASS，13.6 分、估計 $1.82（2026-11-18，[ANALYSIS.md](results/phase1/ANALYSIS.md)）
+  - [x] 決定：prompt 固定 free5GC v4.3.0；Fable 5.2 需另購額度，先不跑
+  - [x] 正式矩陣 9 個 trial：**9/9 通過**；平均 Opus 7.4 分／$1.91、Sonnet 10.2 分／$0.62、Haiku 15.8 分／$0.48（估計）。分析與錯誤分類在 [ANALYSIS.md](results/phase1/ANALYSIS.md)（2026-11-18）
+  - [x] Docker Hub pull-through cache：host `192.168.57.1:5050`，`S1-agent`／`S2-agent` 已重存（2026-11-18，見 [env/README.md](env/README.md#docker-hub-快取)）
+  - [x] 驗證加「VM／K3s 層變更清單」：`verify/hoststate.sh`＋`sidefx.py`，runner 開始前／結束後各拍一次，只記錄不判分（2026-11-19，見 [verify/README.md](verify/README.md)）
+  - [x] V3x（老師建議）：經 uesimtun0 抓網頁（HTTP／HTTPS／1 MB）、DNS、第一跳必須是 UPF；外網問題用對照組排除；記為 `pass_strict`，原本的 `pass` 不變（2026-11-19，見 [verify/README.md](verify/README.md)）
+  - [x] 重跑（phase1-r2，含 V3x／副作用）：**9/9 通過、嚴格版 9/9**；infra／tooling 副作用全 0（部署時自動載入的 netfilter module 另列 `auto`）；Opus 2／3 因盲等 MongoDB Pending 拉長到 18～23 分（2026-11-19，[ANALYSIS.md](results/phase1-r2/ANALYSIS.md)）
+  - [x] V5 跨 NF 設定一致性（`verify/consistency.py`，靜態看 configmaps＋subscriber）：18 個 trial 補算，全部 pass、只有 2 個 exact（其餘留著 chart 預設的 slice／PLMN；AMF 多宣告 112233 的 5 個有 4 個是 Haiku）；反向測試 22/22（2026-11-20）
+  - [x] V6 NF 間 dataflow 與封包內容（`verify/dataflow.sh`）：UE 去註冊→自動重新註冊，cni0 抓封包，tshark 解 NGAP／NAS／SBI／PFCP／GTP-U，檢查 28 個流程步驟、內容與 TEID 一致；正常 3/3 PASS，故障 3 種都抓到；已接進 `run_trial.sh`，V5／V6 先只記錄不併進 PASS（2026-11-20，見 [verify/README.md](verify/README.md)）
+  - 結論：L1 碰不到 Claude 的邊界 → Claude 要往 L2／L3／L7 測；L1 留給 Phase 2 開源模型
+- [ ] L2（ULCL＋MEC，**從零開始**，起點同 L1；2026-11-20 決定 L2／L3 都從零開始，「在已部署的 L1 上加 MEC」歸 L6）
+  - [x] 參考答案（free5gc-helm `07139fc`／v4.3.0，[tasks/L2/reference](tasks/L2/reference/)）：從 S1 部署 270 s PASS；MEC 看到的來源 = PSA-UPF2。chart 預設的 ULCL 其實不會導流，要修 3 個坑：template 沒 `ulcl: true`、v4.3.0 SMF 的 PSA2 選路 bug（上游 a510e92 才修）、psaupf2 的 cidr 不含 UE pool（2026-11-20）。可信度補強（2026-11-23）：從零共 3/3 PASS、逐跳 GTP-U 封包證據、`SKIP_FIX=A|B|C` 反向版本 3/3 照預測失敗、三個坑都和上游官方範例對得上（見 [RUNS.md](tasks/L2/reference/RUNS.md)）
+  - [x] prompt 普通版、spec（[tasks/L2](tasks/L2/)）；MEC 應用是環境的一部分（[setup/mec-app.yaml](tasks/L2/setup/mec-app.yaml)，`traefik/whoami`，固定 IP 10.43.200.10）
+  - [x] 驗證擴充（2026-11-23，見 [verify/README.md](verify/README.md)）：V4 MEC 路徑（看每個 UPF 的 `upfgtp` 計數判斷 anchor，不靠 NAT；**算進 L2 的 PASS**）；V5／V6 改成多 UPF（誤判 1／5 → 0）。實測：參考答案全 PASS；A／B／C 反向版本 V4 都 FAIL，V5、V6 也都點出對應的坑；L1 迴歸（V5 18 個 trial、V6 5 份封包、反向測試 22/22）結果不變；L2 V5 反向測試 12/12
+  - [x] runner 支援 spec 的 `setup`（還原後、拍基準前套用；前後比對 `setup_untouched`），dry run 通過
+  - [ ] 跑 Opus／Sonnet／Haiku 各 3 次
 - [ ] 確認 Ollama 能不能讓 Claude Code 跑開源模型、tool calling 穩不穩；不行就自己寫 agent loop
 - [ ] 文獻：找有沒有開源模型微調的 Kubernetes 設定專用模型，當作對照組
 - [ ] 和 Alex 討論 planner / sub-agent 架構

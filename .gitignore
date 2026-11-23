@@ -2,3 +2,12 @@
 *.tmp
 .DS_Store
 Thumbs.db
+
+# 實驗環境
+env/vendor/
+env/logs/
+env/.vagrant/
+tasks/*/reference/build/
+env/secrets/
+results/**/work.tgz
+env/registry-cache/

@@ -1,0 +1,40 @@
+# L2 環境預先準備的 MEC 應用（agent 開始前就部署好，不屬於 agent 的工作）。
+# 一個 HTTP 服務，回應內容含 "RemoteAddr: <來源 IP>:<port>"，用來判斷 UE 的流量是從哪個 PSA-UPF 出來的。
+# 固定 ClusterIP 10.43.200.10:80（K3s service CIDR 10.43.0.0/16），任務描述裡直接給 agent 這個 IP。
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mec
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mec-app
+  namespace: mec
+  labels: {app: mec-app}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: mec-app}
+  template:
+    metadata:
+      labels: {app: mec-app}
+    spec:
+      containers:
+        - name: whoami
+          image: traefik/whoami:v1.10.3
+          args: ["--port", "80", "--name", "mec-app"]
+          ports: [{containerPort: 80}]
+          readinessProbe:
+            httpGet: {path: /health, port: 80}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mec-app
+  namespace: mec
+spec:
+  clusterIP: 10.43.200.10
+  selector: {app: mec-app}
+  ports:
+    - {name: http, port: 80, targetPort: 80}

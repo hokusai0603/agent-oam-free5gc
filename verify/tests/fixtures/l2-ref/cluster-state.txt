@@ -1,0 +1,52 @@
+NAMESPACE     NAME                                                    READY   STATUS      RESTARTS        AGE     IP           NODE        NOMINATED NODE   READINESS GATES
+free5gc       pod/free5gc-helm-free5gc-amf-amf-5b59bc4c94-lszkf       1/1     Running     0               4m21s   10.42.0.16   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-ausf-ausf-65665d474c-qtsjw     1/1     Running     0               4m21s   10.42.0.19   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-bsf-bsf-765fbcc649-xwqfz       1/1     Running     0               4m21s   10.42.0.14   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-chf-chf-58d4d99464-4c6vj       1/1     Running     0               4m21s   10.42.0.22   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-nef-nef-d6d5b6889-xt9jm        1/1     Running     0               4m21s   10.42.0.12   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-nrf-nrf-7fdf6ddddc-2swjh       1/1     Running     0               4m21s   10.42.0.21   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-nssf-nssf-cdfdcf6c6-h645t      1/1     Running     0               4m21s   10.42.0.18   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-pcf-pcf-55f4fcc548-9w6fg       1/1     Running     0               4m21s   10.42.0.11   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-scp-scp-77c7f47d7b-fl9wb       1/1     Running     0               4m20s   10.42.0.23   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-smf-smf-5b9d549b56-x577s       1/1     Running     0               4m21s   10.42.0.13   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-udm-udm-84ff4df648-xwgfc       1/1     Running     0               4m20s   10.42.0.27   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-udr-udr-74878c446-p2s4n        1/1     Running     0               4m21s   10.42.0.17   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-iupf1-b76c4875-hnmsl       1/1     Running     0               4m20s   10.42.0.24   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-psaupf1-7ffb4c968d-pxdvl   1/1     Running     0               4m20s   10.42.0.25   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-psaupf2-5c45765b67-dmp2q   1/1     Running     0               4m20s   10.42.0.26   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-webui-webui-6986bd7c45-ktw6m   1/1     Running     0               4m21s   10.42.0.15   oam-node1   <none>           <none>
+free5gc       pod/mongodb-0                                           1/1     Running     0               4m21s   10.42.0.30   oam-node1   <none>           <none>
+free5gc       pod/ueransim-gnb-79cb499969-7jsjp                       1/1     Running     0               4m19s   10.42.0.28   oam-node1   <none>           <none>
+free5gc       pod/ueransim-ue-f5dc6d7f5-pdqvs                         1/1     Running     0               55s     10.42.0.31   oam-node1   <none>           <none>
+kube-system   pod/coredns-577d995dff-btjvw                            1/1     Running     1 (2d17h ago)   2d18h   10.42.0.9    oam-node1   <none>           <none>
+kube-system   pod/helm-install-gateway-api-crd-4mt4j                  0/1     Completed   0               2d18h   <none>       oam-node1   <none>           <none>
+kube-system   pod/local-path-provisioner-56c6584955-jq2lt             1/1     Running     1 (2d17h ago)   2d18h   10.42.0.7    oam-node1   <none>           <none>
+kube-system   pod/metrics-server-778c4649b4-kx4tr                     1/1     Running     1 (2d17h ago)   2d18h   10.42.0.8    oam-node1   <none>           <none>
+mec           pod/mec-app-6c88c84d99-4v6lx                            1/1     Running     0               4m31s   10.42.0.10   oam-node1   <none>           <none>
+
+NAMESPACE     NAME                                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE     SELECTOR
+default       service/kubernetes                                 ClusterIP   10.43.0.1       <none>        443/TCP                  2d18h   <none>
+free5gc       service/free5gc-helm-free5gc-amf-amf-n2            ClusterIP   10.43.238.237   <none>        38412/SCTP               4m21s   nf=amf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-amf-service           ClusterIP   10.43.198.54    <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-amf,nf=amf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-ausf-service          ClusterIP   10.43.35.167    <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-ausf,nf=ausf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-bsf-service           ClusterIP   10.43.135.5     <none>        8000/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-bsf
+free5gc       service/free5gc-helm-free5gc-chf-service           ClusterIP   10.43.93.238    <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-chf,nf=chf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-nef-service           ClusterIP   10.43.228.20    <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nef,nf=nef,project=free5gc
+free5gc       service/free5gc-helm-free5gc-nssf-service          ClusterIP   10.43.95.225    <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nssf,nf=nssf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-pcf-service           ClusterIP   10.43.118.115   <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-pcf,nf=pcf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-scp-service           ClusterIP   10.43.253.182   <none>        8000/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-scp
+free5gc       service/free5gc-helm-free5gc-smf-service           ClusterIP   10.43.130.151   <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-smf,nf=smf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-udm-service           ClusterIP   10.43.82.20     <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udm,nf=udm,project=free5gc
+free5gc       service/free5gc-helm-free5gc-udr-service           ClusterIP   10.43.238.74    <none>        8080/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udr,nf=udr,project=free5gc
+free5gc       service/free5gc-helm-free5gc-upf-iupf1-service     ClusterIP   None            <none>        8805/UDP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=iupf1,project=free5gc
+free5gc       service/free5gc-helm-free5gc-upf-psaupf1-service   ClusterIP   None            <none>        8805/UDP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf1,project=free5gc
+free5gc       service/free5gc-helm-free5gc-upf-psaupf2-service   ClusterIP   None            <none>        8805/UDP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf2,project=free5gc
+free5gc       service/gnb-service                                ClusterIP   10.43.237.59    <none>        4997/UDP                 4m21s   app=ueransim,component=gnb
+free5gc       service/mongodb                                    ClusterIP   10.43.87.246    <none>        27017/TCP                4m21s   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=mongodb
+free5gc       service/nrf-nnrf                                   ClusterIP   10.43.199.100   <none>        8000/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nrf,nf=nrf,project=free5gc
+free5gc       service/webui-nbiling                              ClusterIP   10.43.240.2     <none>        2122/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-webui,nf=webui,project=free5gc
+free5gc       service/webui-ncgf                                 ClusterIP   10.43.52.72     <none>        2121/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-chf,nf=chf,project=free5gc
+free5gc       service/webui-service                              ClusterIP   10.43.125.216   <none>        5000/TCP                 4m21s   app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-webui,nf=webui,project=free5gc
+kube-system   service/kube-dns                                   ClusterIP   10.43.0.10      <none>        53/UDP,53/TCP,9153/TCP   2d18h   k8s-app=kube-dns
+kube-system   service/metrics-server                             ClusterIP   10.43.14.53     <none>        443/TCP                  2d18h   k8s-app=metrics-server
+mec           service/mec-app                                    ClusterIP   10.43.200.10    <none>        80/TCP                   4m31s   app=mec-app

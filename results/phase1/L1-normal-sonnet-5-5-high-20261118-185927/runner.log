@@ -1,0 +1,73 @@
+[18:59:27] trial L1-normal-sonnet-5-5-high-20261118-185927  task=L1 model=claude-sonnet-5-5 effort=high timeout=60m budget=$15 auth=subscription_oauth snapshot=S1-agent
+==> oam-node1: Forcing shutdown of VM...
+==> oam-node1: Restoring the snapshot 'S1-agent'...
+[KProgress: 0%[KProgress: 30%[KProgress: 90%[K==> oam-node1: Clearing any previously set forwarded ports...
+==> oam-node1: Clearing any previously set network interfaces...
+==> oam-node1: Preparing network interfaces based on configuration...
+    oam-node1: Adapter 1: nat
+    oam-node1: Adapter 2: hostonly
+==> oam-node1: Forwarding ports...
+    oam-node1: 22 (guest) => 2222 (host) (adapter 1)
+==> oam-node1: Running 'pre-boot' VM customizations...
+==> oam-node1: Booting VM...
+==> oam-node1: Waiting for machine to boot. This may take a few minutes...
+    oam-node1: SSH address: 127.0.0.1:2222
+    oam-node1: SSH username: vagrant
+    oam-node1: SSH auth method: private key
+    oam-node1: Warning: Connection reset. Retrying...
+    oam-node1: Warning: Remote connection disconnect. Retrying...
+==> oam-node1: Machine booted and ready!
+==> oam-node1: Checking for guest additions in VM...
+    oam-node1: The guest additions on this VM do not match the installed version of
+    oam-node1: VirtualBox! In most cases this is fine, but in rare cases it can
+    oam-node1: prevent things such as shared folders from working properly. If you see
+    oam-node1: shared folder errors, please make sure the guest additions within the
+    oam-node1: virtual machine match the version of VirtualBox you have installed on
+    oam-node1: your host and reload your VM.
+    oam-node1: 
+    oam-node1: Guest Additions Version: 6.0.0 r127566
+    oam-node1: VirtualBox Version: 7.2
+==> oam-node1: Setting hostname...
+==> oam-node1: Configuring and enabling network interfaces...
+==> oam-node1: Machine not provisioned because `--no-provision` is specified.
+gtp5g: ok
+sctp: ok
+NAME        STATUS   ROLES           AGE   VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION               CONTAINER-RUNTIME
+oam-node1   Ready    control-plane   21h   v1.37.2+k3s1   192.168.57.11   <none>        Ubuntu 22.04.5 LTS   5.15.0-144-generic (amd64)   containerd://2.3.7-k3s1
+kube-system: ok
+non-system namespaces: 0
+reset to S1-agent in 40s
+[19:00:07] env reset to S1-agent in 40s
+[19:00:16] agent started
+[19:00:20] running... transcript lines=6
+[19:00:53] running... transcript lines=47
+[19:01:26] running... transcript lines=80
+[19:01:59] running... transcript lines=82
+[19:02:32] running... transcript lines=95
+[19:03:05] running... transcript lines=122
+[19:03:37] running... transcript lines=123
+[19:04:10] running... transcript lines=127
+[19:04:43] running... transcript lines=133
+[19:05:16] running... transcript lines=135
+[19:05:49] running... transcript lines=136
+[19:06:21] running... transcript lines=150
+[19:06:54] running... transcript lines=174
+[19:07:27] running... transcript lines=194
+[19:08:00] running... transcript lines=212
+[19:08:33] running... transcript lines=212
+[19:09:06] running... transcript lines=212
+[19:09:38] agent exited: exit_code=0
+V1 pods     PASS  pods=17 not_ready=0 restarts=0
+V2 control  PASS  gnb=1 ngap_up=True ue=1 registered=1 pdu_active=1
+V3 e2e      PASS  ueransim-ue-f5dc6d7f5-pzmbc:4/4
+  req upf_count  PASS  expect=1 actual=1
+  req supi       PASS  expect=imsi-208930000000001 actual=['imsi-208930000000001']
+  req plmn       PASS  expect=208/93 actual=208/93
+  req dnn        PASS  expect=internet actual=internet
+  req slice      PASS  expect={'sst': 1, 'sd': '010203'} actual={'sst': 1, 'sd': '010203'}
+  req gnb_count  PASS  expect=1 actual=1
+  req ue_count   PASS  expect=1 actual=1
+  req free5gc_version PASS  expect=v4.3.0 actual={'amf': ['v4.3.0'], 'ausf': ['v4.3.0'], 'bsf': ['v4.3.0'], 'chf': ['v4.3.0'], 'nef': ['v4.3.0'], 'nrf': ['v4.3.0'], 'nssf': ['v4.3.0'], 'pcf': ['v4.3.0'], 'scp': ['v4.3.0'], 'smf': ['v4.3.0'], 'udm': ['v4.3.0'], 'udr': ['v4.3.0'], 'upf': ['v4.3.0'], 'webui': ['v4.3.0']}
+OVERALL     PASS
+[19:10:58] recorded in results/phase1/trials.jsonl
+RESULT L1-normal-sonnet-5-5-high-20261118-185927: pass=True (V1=True V2=True V3=True req=True) cost=$0.7130683 (est.) turns=1 wall=543s exit=0 valid=True 

@@ -1,0 +1,103 @@
+[13:27:08] trial L1-normal-opus-5-5-high-20261119-132708  task=L1 model=claude-opus-5-5 effort=high timeout=60m budget=$15 auth=subscription_oauth snapshot=S1-agent
+[13:27:08] registry cache: up
+==> oam-node1: Forcing shutdown of VM...
+==> oam-node1: Restoring the snapshot 'S1-agent'...
+[KProgress: 0%[KProgress: 30%[KProgress: 90%[K==> oam-node1: Clearing any previously set forwarded ports...
+==> oam-node1: Clearing any previously set network interfaces...
+==> oam-node1: Preparing network interfaces based on configuration...
+    oam-node1: Adapter 1: nat
+    oam-node1: Adapter 2: hostonly
+==> oam-node1: Forwarding ports...
+    oam-node1: 22 (guest) => 2222 (host) (adapter 1)
+==> oam-node1: Running 'pre-boot' VM customizations...
+==> oam-node1: Booting VM...
+==> oam-node1: Waiting for machine to boot. This may take a few minutes...
+    oam-node1: SSH address: 127.0.0.1:2222
+    oam-node1: SSH username: vagrant
+    oam-node1: SSH auth method: private key
+    oam-node1: Warning: Connection reset. Retrying...
+    oam-node1: Warning: Remote connection disconnect. Retrying...
+==> oam-node1: Machine booted and ready!
+==> oam-node1: Checking for guest additions in VM...
+    oam-node1: The guest additions on this VM do not match the installed version of
+    oam-node1: VirtualBox! In most cases this is fine, but in rare cases it can
+    oam-node1: prevent things such as shared folders from working properly. If you see
+    oam-node1: shared folder errors, please make sure the guest additions within the
+    oam-node1: virtual machine match the version of VirtualBox you have installed on
+    oam-node1: your host and reload your VM.
+    oam-node1: 
+    oam-node1: Guest Additions Version: 6.0.0 r127566
+    oam-node1: VirtualBox Version: 7.2
+==> oam-node1: Setting hostname...
+==> oam-node1: Configuring and enabling network interfaces...
+==> oam-node1: Machine not provisioned because `--no-provision` is specified.
+gtp5g: ok
+sctp: ok
+NAME        STATUS   ROLES           AGE   VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION               CONTAINER-RUNTIME
+oam-node1   Ready    control-plane   39h   v1.37.2+k3s1   192.168.57.11   <none>        Ubuntu 22.04.5 LTS   5.15.0-144-generic (amd64)   containerd://2.3.7-k3s1
+kube-system: ok
+non-system namespaces: 0
+reset to S1-agent in 39s
+[13:27:47] env reset to S1-agent in 39s
+[13:27:52] host state baseline: 2451 lines
+[13:28:02] agent started
+[13:28:05] running... transcript lines=2
+[13:28:39] running... transcript lines=36
+[13:29:12] running... transcript lines=72
+[13:29:45] running... transcript lines=85
+[13:30:18] running... transcript lines=86
+[13:30:51] running... transcript lines=87
+[13:31:24] running... transcript lines=88
+[13:31:57] running... transcript lines=89
+[13:32:30] running... transcript lines=91
+[13:33:03] running... transcript lines=92
+[13:33:37] running... transcript lines=93
+[13:34:10] running... transcript lines=94
+[13:34:43] running... transcript lines=95
+[13:35:16] running... transcript lines=96
+[13:35:49] running... transcript lines=97
+[13:36:22] running... transcript lines=98
+[13:36:55] running... transcript lines=99
+[13:37:28] running... transcript lines=101
+[13:38:02] running... transcript lines=102
+[13:38:35] running... transcript lines=103
+[13:39:08] running... transcript lines=104
+[13:39:41] running... transcript lines=122
+[13:40:14] running... transcript lines=132
+[13:40:47] running... transcript lines=133
+[13:41:21] running... transcript lines=134
+[13:41:54] running... transcript lines=139
+[13:42:27] running... transcript lines=163
+[13:43:00] running... transcript lines=164
+[13:43:33] running... transcript lines=180
+[13:44:06] running... transcript lines=182
+[13:44:39] running... transcript lines=183
+[13:45:12] running... transcript lines=184
+[13:45:44] running... transcript lines=185
+[13:46:17] running... transcript lines=186
+[13:46:50] running... transcript lines=187
+[13:47:23] running... transcript lines=188
+[13:47:57] running... transcript lines=189
+[13:48:30] running... transcript lines=190
+[13:49:02] running... transcript lines=212
+[13:49:35] running... transcript lines=227
+[13:50:08] running... transcript lines=242
+[13:50:41] running... transcript lines=284
+[13:51:13] agent exited: exit_code=0
+V1 pods     PASS  pods=17 not_ready=0 restarts=0
+V2 control  PASS  gnb=1 ngap_up=True ue=1 registered=1 pdu_active=1
+V3 e2e      PASS  ueransim-ue-f5dc6d7f5-2h5cq:4/4
+V3x ueransim-ue-f5dc6d7f5-2h5cq: first_hop_is_upf=PASS(10.42.0.44) dns=PASS http=PASS(204,0B) https=PASS(200,87393B) download_1mb=PASS(200,1000000B)
+V3x         PASS  (web/DNS/first hop via uesimtun0)
+  req upf_count  PASS  expect=1 actual=1
+  req supi       PASS  expect=imsi-208930000000001 actual=['imsi-208930000000001']
+  req plmn       PASS  expect=208/93 actual=208/93
+  req dnn        PASS  expect=internet actual=internet
+  req slice      PASS  expect={'sst': 1, 'sd': '010203'} actual={'sst': 1, 'sd': '010203'}
+  req gnb_count  PASS  expect=1 actual=1
+  req ue_count   PASS  expect=1 actual=1
+  req free5gc_version PASS  expect=v4.3.0 actual={'amf': ['v4.3.0'], 'ausf': ['v4.3.0'], 'bsf': ['v4.3.0'], 'chf': ['v4.3.0'], 'nef': ['v4.3.0'], 'nrf': ['v4.3.0'], 'nssf': ['v4.3.0'], 'pcf': ['v4.3.0'], 'scp': ['v4.3.0'], 'smf': ['v4.3.0'], 'udm': ['v4.3.0'], 'udr': ['v4.3.0'], 'upf': ['v4.3.0'], 'webui': ['v4.3.0']}
+OVERALL     PASS
+STRICT      PASS  (OVERALL + V3x)
+[13:52:39] recorded in results/phase1-r2/trials.jsonl
+RESULT L1-normal-opus-5-5-high-20261119-132708: pass=True strict=True (V1=True V2=True V3=True V3x=True req=True) cost=$1.5727904 (est.) turns=51 wall=1387s exit=0 valid=True  side_effects(infra=4 tooling=0)

@@ -1,0 +1,52 @@
+# -*- mode: ruby -*-
+# Agent-OAM 實驗用 VM。說明見 env/README.md。
+#
+# 設計重點：
+# - ubuntu/jammy64：這台 host 上 24.04 guest 多 vCPU 會卡死，jammy 沒有這個問題。
+# - 網路只用 NAT（上網）＋ host-only 192.168.57.0/24（host 管理、之後多機互連），不 bridge 到 eno1。
+# - 關掉 /vagrant 共享資料夾：agent 在 VM 裡不能看到 host 上的參考答案、vendor chart 或驗證腳本。
+# - 環境重置靠 VirtualBox snapshot（scripts/env.sh）。
+
+versions = {}
+File.readlines(File.join(__dir__, "versions.env")).each do |line|
+  next unless line =~ /^([A-Z0-9_]+)="([^"]*)"/
+  versions[$1] = $2
+end
+
+NUM_NODES = (ENV["OAM_NODES"] || "1").to_i
+NODE_CPUS = (ENV["OAM_CPUS"] || "4").to_i
+NODE_MEM  = (ENV["OAM_MEM"]  || "10240").to_i
+SUBNET    = "192.168.57"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = versions["VM_BOX"]
+  config.vm.box_version = versions["VM_BOX_VERSION"]
+  config.vm.box_check_update = false
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  (1..NUM_NODES).each do |i|
+    name = "oam-node#{i}"
+    config.vm.define name, primary: (i == 1) do |node|
+      node.vm.hostname = name
+      node.vm.network "private_network", ip: "#{SUBNET}.#{10 + i}"
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "agent-oam-#{name}"
+        vb.cpus = NODE_CPUS
+        vb.memory = NODE_MEM
+        vb.linked_clone = false
+        vb.customize ["modifyvm", :id, "--audio-driver", "none"]
+      end
+      env = versions.merge("NODE_IP" => "#{SUBNET}.#{10 + i}",
+                            # Docker Hub pull-through cache on the host（scripts/registry-cache.sh）；設成空字串就不用
+                            "REGISTRY_MIRROR" => ENV.fetch("OAM_REGISTRY_MIRROR", "http://#{SUBNET}.1:5050"))
+      node.vm.provision "base",   type: "shell", path: "provision/00-base.sh",   env: env
+      node.vm.provision "gtp5g",  type: "shell", path: "provision/10-gtp5g.sh",  env: env
+      # 目前只支援單節點：node1 跑 K3s server。多節點（L5）之後再加 agent join。
+      if i == 1
+        node.vm.provision "k3s",  type: "shell", path: "provision/20-k3s.sh",    env: env
+        node.vm.provision "helm", type: "shell", path: "provision/30-helm.sh",   env: env
+      end
+      node.vm.provision "record", type: "shell", path: "provision/90-record.sh", env: env
+    end
+  end
+end

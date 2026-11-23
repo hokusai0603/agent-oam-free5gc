@@ -1,0 +1,22 @@
+# L2 參考答案：free5gc-helm 07139fc（free5GC v4.3.0）的覆寫值，搭配 build-chart.sh 產生的 chart 使用。
+global:
+  # chart 預設就是 ULCL（iupf1 + psaupf1 + psaupf2），這裡寫明。
+  userPlaneArchitecture: ulcl
+
+# mongodb 子 chart 預設寫死一個給 microk8s 用的 PV（storageClass microk8s-hostpath），在 K3s 上永遠 Pending。
+# 拿掉它，改用 K3s 內建的 local-path provisioner。（和 L1 同一個坑）
+mongodb:
+  extraDeploy: []
+  persistence:
+    storageClass: local-path
+
+# 坑：UE 的 IP 是從 AnchorUPF1 的 pool（SMF 設定 10.60.0.0/17）分配，ULCL 把往 MEC 的流量轉給 AnchorUPF2，
+# 但 chart 給 psaupf2 的 dnnList.cidr 只有 10.60.128.0/17。UPF 只替自己的 cidr 加 "dev upfgtp" 路由，
+# psaupf2 沒有回 UE 的路由，往 MEC 的封包解封裝後就沒有出去（MASQUERADE 計數 0），MEC 完全連不到。
+# 改成整個 UE 網段。（SMF 端 AnchorUPF2 的 pool 不用改：這個 UE 的 IP 不會從那裡分配）
+free5gc-upf:
+  psaupf2:
+    configuration:
+      dnnList:
+        - dnn: internet
+          cidr: 10.60.0.0/16
