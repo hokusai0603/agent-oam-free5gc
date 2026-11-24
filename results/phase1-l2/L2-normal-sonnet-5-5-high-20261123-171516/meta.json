@@ -1,0 +1,158 @@
+{
+  "trial_id": "L2-normal-sonnet-5-5-high-20261123-171516",
+  "task": "L2",
+  "prompt_variant": "normal",
+  "prompt_sha256": "02c6e20e79058f14",
+  "model": "claude-sonnet-5-5",
+  "effort": "high",
+  "harness": {
+    "name": "claude-code",
+    "version": "2.1.325",
+    "tools": [
+      "Task",
+      "Bash",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "DesignSync",
+      "Edit",
+      "EnterWorktree",
+      "ExitWorktree",
+      "ListAgents",
+      "Monitor",
+      "NotebookEdit",
+      "PushNotification",
+      "Read",
+      "RemoteTrigger",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "SendMessage",
+      "Skill",
+      "TaskStop",
+      "ToolSearch",
+      "Workflow",
+      "Write"
+    ],
+    "disallowed": [
+      "WebSearch",
+      "WebFetch"
+    ]
+  },
+  "limits": {
+    "timeout_min": 60,
+    "budget_usd": 15.0
+  },
+  "auth": "subscription_oauth",
+  "start_snapshot": "S1-agent",
+  "agent": {
+    "exit_code": "1",
+    "result_subtype": "success",
+    "is_error": true,
+    "num_turns": 62,
+    "result_segments": 1,
+    "cost_usd": 1.2746435,
+    "cost_is_estimate": true,
+    "duration_ms": 1519378,
+    "wall_s": 1521,
+    "usage": {
+      "input_tokens": 116,
+      "output_tokens": 31297,
+      "cache_read_input_tokens": 4752455,
+      "cache_creation_input_tokens": 121549
+    },
+    "models_seen": {
+      "claude-sonnet-5-5": 124,
+      "<synthetic>": 1
+    },
+    "off_model_messages": {},
+    "stop_reasons": {
+      "stop_sequence": 1
+    },
+    "refusal": false,
+    "tool_calls": {
+      "Bash": 61
+    },
+    "final_text": "API Error: 529 Overloaded. This is a server-side issue, usually temporary — try again in a moment. If it persists, check https://status.claude.com."
+  },
+  "verify": {
+    "pass": false,
+    "v1": false,
+    "v2": true,
+    "v3": true,
+    "req": false,
+    "v3x": true,
+    "v3x_checks": {
+      "first_hop_is_upf": true,
+      "dns": true,
+      "http": true,
+      "https": true,
+      "download_1mb": true
+    },
+    "pass_strict": false,
+    "v4": false,
+    "v4_checks": {
+      "mec_reachable": false,
+      "separate_anchors": true,
+      "via_branching_upf": true,
+      "remote_addr_consistent": null
+    },
+    "setup_untouched": true,
+    "failed_req": [
+      "upf_count"
+    ],
+    "v5": {
+      "pass": false,
+      "exact": false,
+      "counts": {
+        "ok": 40,
+        "error": 1,
+        "extra": 3,
+        "warn": 4,
+        "info": 5,
+        "skip": 0
+      },
+      "issues": [
+        "plmn: AUSF plmnSupportList 除了 208/93 還有 ['123/45']",
+        "snssai.amf: AMF plmnSupportList 的 S-NSSAI 多了 ['1/112233']",
+        "snssai.nssf: NSSF supportedNssaiInPlmnList 的 S-NSSAI 多了 ['1/000003', '1/112233', '2/000001', '2/000002']",
+        "ulcl.psa_route: MEC PSA AnchorUPF2 的 dnnList cidr ['10.60.128.0/17'] 不涵蓋 UE 的 pool ['10.60.0.0/17']：PSA 沒有回 UE 的 upfgtp 路由，MEC 連不到（坑 C）"
+      ]
+    },
+    "v6": {
+      "pass": false,
+      "exact": false,
+      "counts": {
+        "ok": 59,
+        "error": 1,
+        "extra": 1,
+        "warn": 0,
+        "info": 11,
+        "skip": 0
+      },
+      "issues": [
+        "content.ngsetup_amf_slice: AMF 回應支援的 S-NSSAI = ['1/010203', '1/112233']",
+        "data.mec_dl: MEC 的回應：['psaupf2'] → iupf1 0 個（PSA 收到了但沒有回程：可能沒有回 UE 的路由，坑 C）"
+      ]
+    }
+  },
+  "side_effects": {
+    "infra_changes": 0,
+    "tooling_changes": 0,
+    "auto_changes": 4,
+    "infra": [],
+    "tooling": [],
+    "auto": [
+      "modules:added:ip_set_hash_ip",
+      "modules:added:xt_sctp",
+      "modules:added:xt_set",
+      "modules:added:xt_statistic"
+    ]
+  },
+  "valid": false,
+  "invalid_reasons": [
+    "api_overloaded"
+  ],
+  "human_interventions": 0,
+  "error_class": null,
+  "notes": "2026-11-23 重新分類：原本記 rate_limited，實際是 529 Overloaded（summarize.py 已把 529 分成 api_overloaded）"
+}

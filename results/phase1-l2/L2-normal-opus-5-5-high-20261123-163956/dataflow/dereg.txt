@@ -1,0 +1,1 @@
+De-registration procedure triggered. UE device will be switched off.

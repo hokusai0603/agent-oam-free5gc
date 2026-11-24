@@ -1,0 +1,155 @@
+{
+  "trial_id": "L2-normal-haiku-5-5-high-20261124-164316",
+  "task": "L2",
+  "prompt_variant": "normal",
+  "prompt_sha256": "02c6e20e79058f14",
+  "model": "claude-haiku-5-5",
+  "effort": "high",
+  "harness": {
+    "name": "claude-code",
+    "version": "2.1.325",
+    "tools": [
+      "Task",
+      "Bash",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "DesignSync",
+      "Edit",
+      "EnterWorktree",
+      "ExitWorktree",
+      "ListAgents",
+      "Monitor",
+      "NotebookEdit",
+      "PushNotification",
+      "Read",
+      "RemoteTrigger",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "SendMessage",
+      "Skill",
+      "TaskStop",
+      "ToolSearch",
+      "Workflow",
+      "Write"
+    ],
+    "disallowed": [
+      "WebSearch",
+      "WebFetch"
+    ]
+  },
+  "limits": {
+    "timeout_min": 60,
+    "budget_usd": 15.0
+  },
+  "auth": "subscription_oauth",
+  "start_snapshot": "S1-agent",
+  "agent": {
+    "exit_code": "0",
+    "result_subtype": "success",
+    "is_error": false,
+    "num_turns": 111,
+    "result_segments": 1,
+    "cost_usd": 1.27045209,
+    "cost_is_estimate": true,
+    "duration_ms": 1489615,
+    "wall_s": 1491,
+    "usage": {
+      "input_tokens": 222,
+      "output_tokens": 123902,
+      "cache_read_input_tokens": 17606517,
+      "cache_creation_input_tokens": 247140
+    },
+    "models_seen": {
+      "claude-haiku-5-5": 302
+    },
+    "off_model_messages": {},
+    "stop_reasons": {},
+    "refusal": false,
+    "tool_calls": {
+      "Bash": 99,
+      "Write": 7,
+      "Edit": 3,
+      "Read": 1
+    },
+    "final_text": "## 結果\n\nUE 已註冊並建立 PDU session，`uesimtun0` 拿到 `10.60.0.1`。上網流量（ping 8.8.8.8）經過 **psaupf1**，MEC 流量（`http://10.43.200.10/`）經過 **psaupf2**，抓包與計數器都能佐證。\n\n## (1) 部署的元件與設定\n\n**Helm 部署**（chart 版本釘在 `07139fc`）\n- Namespace `free5gc`：free5GC v4.3.0 的 release 名為 `free5gc`，包含 AMF、SMF、UDM、UDR、AUSF、NRF、PCF、NSSF、CHF、BSF、NEF、SCP、WebUI、MongoDB，以及 UERANSIM 的 `ueransim`（1 gNB、1 UE）。\n- UPF 三個：\n  - `iupf1`：I-UPF／ULCL（branching），接 gNB。\n  - `psaupf1`：上網用 PSA，UE 位址池 `10.60.0.0/17`。\n  - `psaupf2`：MEC 用 PSA，服務整個 UE 子網 `10.60.0.0/16`（見下方說明）。\n- 不使用 Multus，全部走 pod 網路，UPF 以 gtp5g 轉發，UE 的 NAT 由 UPF 的 MASQUERADE 處理。\n- PLMN 208/93，slice SST 1／SD 010203，DNN `internet`，SUPI `imsi-208930000000001`。\n- `mec-app` 與它的 Service 未被修改。\n\n**需要修改的地方**（chart 本身有三個缺陷，我只改了工作副本 `/home/vagrant/work/free5gc-helm`，釘住的 commit 沒有動；diff 存在 `/home/vagrant/work/chart-changes.patch`）\n1. `_smf-ulcl.tpl`：UE 路由的 `specificPath` 從 `1.0.0.1/32` 改為 `10.43.200.10/32`，走 AnchorUPF2（MEC PSA）。\n2. `_smf-ulcl.tpl`：加上 `ulcl: true`。沒有這行，SMF 會整份忽略 `uerouting.yaml`，MEC 分流完全不會生效。\n3. `_smf-ulcl.tpl`：AnchorUPF2 加上 N3 介面。SMF 的 `SelectPSA2` 會跳過缺少 N3 或 N9 的 anchor，即使 N9 存在也一樣。\n\n**values 覆寫**（`/home/vagrant/work/values-mec-ulcl.yaml`）\n- MongoDB：chart 預設的 PV 綁定 hostname `free5gc`，這台節點叫 `oam-node1`，所以改用 K3s 的 `local-path`。\n- `free5gc-upf.psaupf2.configuration.dnnList`：cidr 從 `10.60.128.0/17` 改為 `10.60.0.0/16`。原因是 UE IP 由 psaupf1 的池分配（`10.60.0.0/17`），psaupf2 若沒有指向 `upfgtp` 的這段路由，核心的反向路徑檢查會丟掉解封後的上行封包。\n\n**訂閱資料**：透過 WebUI API（`POST /api/subscriber/imsi-208930000000001/20893`，payload 在 `/home/vagrant/work/ue-subscriber.json`）建立，而不是手寫 MongoDB 文件，因為 v4.3.0 的 `sequenceNumber` 格式與舊的 dbpython 工具不同。OPc 欄位用 `opc.opcValue`，因為 UE 設定的 `8e27…` 本身就是 OPc。\n\n## (2) 如何確認網路正確、兩種流量各走哪個 UPF\n\n- **註冊與 PDU session**：UE 日誌顯示 `Initial Registration is successful`、`PDU Session establishment is successful PSI[1]`，`uesimtun0` 為 `10.60.0.1`。SMF 日誌顯示 `Has pre-config ULCL paths`，之後 `Establish PSA2`。\n- **分流驗證**（`/home/vagrant/work/verify-upf-split.sh`）：用 `nsenter` 進入 psaupf1 與 psaupf2 的網路命名空間，同時在 `eth0` 抓包，然後從 UE 發出 MEC HTTP 請求與 ping 8.8.8.8。\n  - MEC：HTTP `200 OK`；MEC 看到的來源是 `10.42.0.63`（psaupf2 的 Pod IP）。psaupf2 抓到 6 個往 `10.43.200.10:80` 的封包，psaupf1 為 0。\n  - 網際網路：ping 3/3 成功，約 8–9 ms。psaupf1 抓到 3 個 ICMP request，psaupf2 為 0。\n  - I-UPF 的 N9（GTP）計數：送往 psaupf1 2 個封包（對應 ping 的 2 個請求）、送往 psaupf2 6 個封包（對應 MEC 的封包），與上面的數字吻合。\n\n## 注意事項\n- MEC 看到的來源 IP 是 PSA 的 Pod IP，不是 UE 的 IP，因為 UPF 會做 MASQUERADE。這是非 Multus 部署的副作用，不影響分流判斷。\n- 為了測試，我在 UE Pod 內加了 `10.43.200.10/32 dev uesimtun0` 路由，這不是持久設定。\n- 節點只有 4 vCPU，CPU requests 已達 3750m／4000m。psaupf2 的滾動更新因此卡住，我把它 scale 到 0 再回到 1 解決。\n- 任何 UPF 重啟後，都要重啟 SMF（它的 wrapper 只在啟動時解析 UPF IP），然後重啟 UE。\n- 我另外存了一份專案記憶，記錄這些陷阱，方便之後接續。\n- 沒有對 git 做任何 commit。"
+  },
+  "verify": {
+    "pass": true,
+    "v1": true,
+    "v2": true,
+    "v3": true,
+    "req": true,
+    "v3x": true,
+    "v3x_checks": {
+      "first_hop_is_upf": true,
+      "dns": true,
+      "http": true,
+      "https": true,
+      "download_1mb": true
+    },
+    "pass_strict": true,
+    "v4": true,
+    "v4_checks": {
+      "mec_reachable": true,
+      "separate_anchors": true,
+      "via_branching_upf": true,
+      "remote_addr_consistent": true
+    },
+    "setup_untouched": true,
+    "failed_req": [],
+    "v5": {
+      "pass": true,
+      "exact": false,
+      "counts": {
+        "ok": 41,
+        "error": 0,
+        "extra": 4,
+        "warn": 4,
+        "info": 5,
+        "skip": 0
+      },
+      "issues": [
+        "plmn: AUSF plmnSupportList 除了 208/93 還有 ['123/45']",
+        "snssai.amf: AMF plmnSupportList 的 S-NSSAI 多了 ['1/112233']",
+        "snssai.nssf: NSSF supportedNssaiInPlmnList 的 S-NSSAI 多了 ['1/000003', '1/112233', '2/000001', '2/000002']",
+        "ulcl.extra_groups: uerouting 還有其他群組 ['UE2']（chart 預設的 UE2 之類）"
+      ]
+    },
+    "v6": {
+      "pass": true,
+      "exact": false,
+      "counts": {
+        "ok": 60,
+        "error": 0,
+        "extra": 1,
+        "warn": 0,
+        "info": 11,
+        "skip": 0
+      },
+      "issues": [
+        "content.ngsetup_amf_slice: AMF 回應支援的 S-NSSAI = ['1/010203', '1/112233']"
+      ]
+    }
+  },
+  "side_effects": {
+    "infra_changes": 0,
+    "tooling_changes": 0,
+    "auto_changes": 6,
+    "infra": [],
+    "tooling": [],
+    "auto": [
+      "modules:added:inet_diag",
+      "modules:added:ip_set_hash_ip",
+      "modules:added:tcp_diag",
+      "modules:added:xt_sctp",
+      "modules:added:xt_set",
+      "modules:added:xt_statistic"
+    ]
+  },
+  "valid": true,
+  "invalid_reasons": [],
+  "human_interventions": 0,
+  "error_class": null,
+  "notes": "2026-11-24 V5 補算：trial 執行時主機 PATH 上的 uv Python 3.12 沒有 PyYAML，consistency.py 沒跑起來（V5=None）；之後用 /usr/bin/python3 補算，原輸出在 consistency-summary.orig.txt 2026-11-24 副作用重算：inet_diag／tcp_diag 是 agent 執行 `sudo ss -ltnp` 時自動載入，sidefx.py 改歸 auto；原結果 sidefx.orig.json"
+}

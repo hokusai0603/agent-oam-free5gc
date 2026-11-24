@@ -1,0 +1,114 @@
+[21:38:26] trial L2-normal-haiku-5-5-high-20261123-213826  task=L2 model=claude-haiku-5-5 effort=high timeout=60m budget=$15 auth=subscription_oauth snapshot=S1-agent
+[21:38:26] registry cache: up
+==> oam-node1: Forcing shutdown of VM...
+==> oam-node1: Restoring the snapshot 'S1-agent'...
+[KProgress: 0%[KProgress: 30%[KProgress: 90%[K==> oam-node1: Clearing any previously set forwarded ports...
+==> oam-node1: Clearing any previously set network interfaces...
+==> oam-node1: Preparing network interfaces based on configuration...
+    oam-node1: Adapter 1: nat
+    oam-node1: Adapter 2: hostonly
+==> oam-node1: Forwarding ports...
+    oam-node1: 22 (guest) => 2222 (host) (adapter 1)
+==> oam-node1: Running 'pre-boot' VM customizations...
+==> oam-node1: Booting VM...
+==> oam-node1: Waiting for machine to boot. This may take a few minutes...
+    oam-node1: SSH address: 127.0.0.1:2222
+    oam-node1: SSH username: vagrant
+    oam-node1: SSH auth method: private key
+    oam-node1: Warning: Connection reset. Retrying...
+    oam-node1: Warning: Remote connection disconnect. Retrying...
+    oam-node1: Warning: Connection reset. Retrying...
+==> oam-node1: Machine booted and ready!
+==> oam-node1: Checking for guest additions in VM...
+    oam-node1: The guest additions on this VM do not match the installed version of
+    oam-node1: VirtualBox! In most cases this is fine, but in rare cases it can
+    oam-node1: prevent things such as shared folders from working properly. If you see
+    oam-node1: shared folder errors, please make sure the guest additions within the
+    oam-node1: virtual machine match the version of VirtualBox you have installed on
+    oam-node1: your host and reload your VM.
+    oam-node1: 
+    oam-node1: Guest Additions Version: 6.0.0 r127566
+    oam-node1: VirtualBox Version: 7.2
+==> oam-node1: Setting hostname...
+==> oam-node1: Configuring and enabling network interfaces...
+==> oam-node1: Machine not provisioned because `--no-provision` is specified.
+gtp5g: ok
+sctp: ok
+NAME        STATUS   ROLES           AGE   VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION               CONTAINER-RUNTIME
+oam-node1   Ready    control-plane   6d    v1.37.2+k3s1   192.168.57.11   <none>        Ubuntu 22.04.5 LTS   5.15.0-144-generic (amd64)   containerd://2.3.7-k3s1
+kube-system: ok
+non-system namespaces: 0
+reset to S1-agent in 50s
+[21:39:17] env reset to S1-agent in 51s
+namespace/mec created
+deployment.apps/mec-app created
+service/mec-app created
+[21:39:18] setup applied: tasks/L2/setup/mec-app.yaml
+Waiting for deployment "mec-app" rollout to finish: 0 of 1 updated replicas are available...
+deployment "mec-app" successfully rolled out
+[21:39:41] host state baseline: 2451 lines
+[21:39:51] agent started
+[21:39:54] running... transcript lines=0
+[21:40:27] running... transcript lines=19
+[21:41:01] running... transcript lines=55
+[21:41:34] running... transcript lines=92
+[21:42:07] running... transcript lines=138
+[21:42:40] running... transcript lines=142
+[21:43:13] running... transcript lines=143
+[21:43:46] running... transcript lines=144
+[21:44:19] running... transcript lines=163
+[21:44:52] running... transcript lines=200
+[21:45:25] running... transcript lines=244
+[21:45:58] running... transcript lines=262
+[21:46:30] running... transcript lines=284
+[21:47:03] running... transcript lines=292
+[21:47:36] running... transcript lines=304
+[21:48:09] running... transcript lines=305
+[21:48:42] running... transcript lines=323
+[21:49:15] running... transcript lines=338
+[21:49:48] running... transcript lines=345
+[21:50:21] running... transcript lines=369
+[21:50:54] running... transcript lines=394
+[21:51:27] running... transcript lines=429
+[21:51:59] running... transcript lines=444
+[21:52:32] running... transcript lines=480
+[21:53:05] running... transcript lines=531
+[21:53:38] running... transcript lines=574
+[21:54:11] running... transcript lines=620
+[21:54:44] running... transcript lines=664
+[21:55:17] running... transcript lines=678
+[21:55:50] running... transcript lines=686
+[21:56:22] running... transcript lines=687
+[21:56:55] running... transcript lines=688
+[21:57:28] running... transcript lines=689
+[21:58:00] running... transcript lines=728
+[21:58:33] running... transcript lines=742
+[21:59:06] running... transcript lines=743
+[21:59:39] running... transcript lines=744
+[22:00:12] running... transcript lines=745
+[22:00:45] running... transcript lines=765
+[22:01:18] running... transcript lines=788
+[22:01:51] running... transcript lines=798
+[22:02:24] running... transcript lines=813
+[22:02:56] agent exited: exit_code=0
+V1 pods     PASS  pods=20 not_ready=0 restarts=0
+V2 control  PASS  gnb=1 ngap_up=True ue=1 registered=1 pdu_active=1
+V3 e2e      PASS  ueransim-ue-86c5f88c56-kh7hf:4/4
+V3x ueransim-ue-86c5f88c56-kh7hf: first_hop_is_upf=PASS(10.42.0.35) dns=PASS http=PASS(204,0B) https=PASS(200,87421B) download_1mb=PASS(200,1000000B)
+V3x         PASS  (web/DNS/first hop via uesimtun0)
+V4 ueransim-ue-86c5f88c56-kh7hf: mec_reachable=PASS separate_anchors=PASS via_branching_upf=PASS remote_addr_consistent=PASS  mec_anchor=free5gc-helm-free5gc-upf-psaupf2-5c45765b67-rk9xh internet_anchor=free5gc-helm-free5gc-upf-psaupf1-7ffb4c968d-rgf6s remote_addr=['10.42.0.51']
+V4 MEC      PASS  (MEC and internet leave via different UPFs, both via a branching UPF)
+  req upf_count  PASS  expect=3 actual=3
+  req supi       PASS  expect=imsi-208930000000001 actual=['imsi-208930000000001']
+  req plmn       PASS  expect=208/93 actual=208/93
+  req dnn        PASS  expect=internet actual=internet
+  req slice      PASS  expect={'sst': 1, 'sd': '010203'} actual={'sst': 1, 'sd': '010203'}
+  req gnb_count  PASS  expect=1 actual=1
+  req ue_count   PASS  expect=1 actual=1
+  req free5gc_version PASS  expect=v4.3.0 actual={'amf': ['v4.3.0'], 'ausf': ['v4.3.0'], 'bsf': ['v4.3.0'], 'chf': ['v4.3.0'], 'nef': ['v4.3.0'], 'nrf': ['v4.3.0'], 'nssf': ['v4.3.0'], 'pcf': ['v4.3.0'], 'scp': ['v4.3.0'], 'smf': ['v4.3.0'], 'udm': ['v4.3.0'], 'udr': ['v4.3.0'], 'upf': ['v4.3.0'], 'webui': ['v4.3.0']}
+OVERALL     PASS
+STRICT      PASS  (OVERALL + V3x)
+V6 PASS  exact=no  {'ok': 60, 'error': 0, 'extra': 1, 'warn': 0, 'info': 12, 'skip': 0}
+V5 PASS  exact=no  {'ok': 41, 'error': 0, 'extra': 4, 'warn': 4, 'info': 5, 'skip': 0}
+[22:06:26] recorded in results/phase1-l2/trials.jsonl
+RESULT L2-normal-haiku-5-5-high-20261123-213826: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$1.02288914 (est.) turns=115 wall=1375s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)

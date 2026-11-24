@@ -50,7 +50,8 @@
   - [x] prompt 普通版、spec（[tasks/L2](tasks/L2/)）；MEC 應用是環境的一部分（[setup/mec-app.yaml](tasks/L2/setup/mec-app.yaml)，`traefik/whoami`，固定 IP 10.43.200.10）
   - [x] 驗證擴充（2026-11-23，見 [verify/README.md](verify/README.md)）：V4 MEC 路徑（看每個 UPF 的 `upfgtp` 計數判斷 anchor，不靠 NAT；**算進 L2 的 PASS**）；V5／V6 改成多 UPF（誤判 1／5 → 0）。實測：參考答案全 PASS；A／B／C 反向版本 V4 都 FAIL，V5、V6 也都點出對應的坑；L1 迴歸（V5 18 個 trial、V6 5 份封包、反向測試 22/22）結果不變；L2 V5 反向測試 12/12
   - [x] runner 支援 spec 的 `setup`（還原後、拍基準前套用；前後比對 `setup_untouched`），dry run 通過
-  - [ ] 跑 Opus／Sonnet／Haiku 各 3 次
+  - [x] 跑 Opus／Sonnet／Haiku 各 3 次（[results/phase1-l2](results/phase1-l2/)，2026-11-23～24）：**有效 9/9 通過**（含 V4 MEC 路徑），V5／V6 也全過；平均 Opus 24.2 分／$3.12、Sonnet 30.9 分／$1.66、Haiku 26.6 分／$1.52（估計）。另有 3 個無效 trial（Sonnet 2 次 529 Overloaded、Haiku 1 次撞到訂閱 5 小時上限，已重跑）。過程中修了：runner 對 529 自動重試、常駐監控 `trial/watch_matrix.sh`、V6 把萬用 SDF 當預設 PDR（Opus r3 誤判）、runner 固定系統 Python（主機新裝的 uv Python 沒有 PyYAML）、`ss` 載入的 *_diag module 歸 auto
+  - [ ] L2 ANALYSIS.md（每個模型怎麼解三個坑、錯誤分類）
 - [ ] 確認 Ollama 能不能讓 Claude Code 跑開源模型、tool calling 穩不穩；不行就自己寫 agent loop
 - [ ] 文獻：找有沒有開源模型微調的 Kubernetes 設定專用模型，當作對照組
 - [ ] 和 Alex 討論 planner / sub-agent 架構

@@ -1,0 +1,1 @@
+{"pass": false, "exact": false, "meta": {"ok": false, "error": "no UERANSIM UE pod with nr-cli found"}, "counts": {"ok": 0, "error": 1, "extra": 0, "warn": 0, "info": 0, "skip": 0}, "checks": [{"id": "capture", "status": "error", "msg": "沒有抓到封包：no UERANSIM UE pod with nr-cli found"}]}

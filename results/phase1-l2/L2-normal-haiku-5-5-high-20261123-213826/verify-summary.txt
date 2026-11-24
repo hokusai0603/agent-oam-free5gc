@@ -1,0 +1,17 @@
+V1 pods     PASS  pods=20 not_ready=0 restarts=0
+V2 control  PASS  gnb=1 ngap_up=True ue=1 registered=1 pdu_active=1
+V3 e2e      PASS  ueransim-ue-86c5f88c56-kh7hf:4/4
+V3x ueransim-ue-86c5f88c56-kh7hf: first_hop_is_upf=PASS(10.42.0.35) dns=PASS http=PASS(204,0B) https=PASS(200,87421B) download_1mb=PASS(200,1000000B)
+V3x         PASS  (web/DNS/first hop via uesimtun0)
+V4 ueransim-ue-86c5f88c56-kh7hf: mec_reachable=PASS separate_anchors=PASS via_branching_upf=PASS remote_addr_consistent=PASS  mec_anchor=free5gc-helm-free5gc-upf-psaupf2-5c45765b67-rk9xh internet_anchor=free5gc-helm-free5gc-upf-psaupf1-7ffb4c968d-rgf6s remote_addr=['10.42.0.51']
+V4 MEC      PASS  (MEC and internet leave via different UPFs, both via a branching UPF)
+  req upf_count  PASS  expect=3 actual=3
+  req supi       PASS  expect=imsi-208930000000001 actual=['imsi-208930000000001']
+  req plmn       PASS  expect=208/93 actual=208/93
+  req dnn        PASS  expect=internet actual=internet
+  req slice      PASS  expect={'sst': 1, 'sd': '010203'} actual={'sst': 1, 'sd': '010203'}
+  req gnb_count  PASS  expect=1 actual=1
+  req ue_count   PASS  expect=1 actual=1
+  req free5gc_version PASS  expect=v4.3.0 actual={'amf': ['v4.3.0'], 'ausf': ['v4.3.0'], 'bsf': ['v4.3.0'], 'chf': ['v4.3.0'], 'nef': ['v4.3.0'], 'nrf': ['v4.3.0'], 'nssf': ['v4.3.0'], 'pcf': ['v4.3.0'], 'scp': ['v4.3.0'], 'smf': ['v4.3.0'], 'udm': ['v4.3.0'], 'udr': ['v4.3.0'], 'upf': ['v4.3.0'], 'webui': ['v4.3.0']}
+OVERALL     PASS
+STRICT      PASS  (OVERALL + V3x)

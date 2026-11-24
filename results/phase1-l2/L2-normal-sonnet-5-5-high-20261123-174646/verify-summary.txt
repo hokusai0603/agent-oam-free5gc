@@ -1,0 +1,15 @@
+V1 pods     PASS  pods=1 not_ready=0 restarts=0
+V2 control  FAIL  gnb=0 ngap_up=False ue=0 registered=0 pdu_active=0
+V3 e2e      FAIL  no uesimtun0
+V3x         FAIL  (web/DNS/first hop via uesimtun0)
+V4 MEC      FAIL  (MEC and internet leave via different UPFs, both via a branching UPF)
+  req upf_count  FAIL  expect=3 actual=0
+  req supi       FAIL  expect=imsi-208930000000001 actual=[]
+  req plmn       FAIL  expect=208/93 actual=None
+  req dnn        FAIL  expect=internet actual=None
+  req slice      FAIL  expect={'sst': 1, 'sd': '010203'} actual=None
+  req gnb_count  FAIL  expect=1 actual=0
+  req ue_count   FAIL  expect=1 actual=0
+  req free5gc_version FAIL  expect=v4.3.0 actual={}
+OVERALL     FAIL
+STRICT      FAIL  (OVERALL + V3x)

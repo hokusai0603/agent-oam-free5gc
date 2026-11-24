@@ -1,0 +1,144 @@
+{
+  "trial_id": "L2-normal-sonnet-5-5-high-20261123-174646",
+  "task": "L2",
+  "prompt_variant": "normal",
+  "prompt_sha256": "02c6e20e79058f14",
+  "model": "claude-sonnet-5-5",
+  "effort": "high",
+  "harness": {
+    "name": "claude-code",
+    "version": "2.1.325",
+    "tools": [
+      "Task",
+      "Bash",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "DesignSync",
+      "Edit",
+      "EnterWorktree",
+      "ExitWorktree",
+      "ListAgents",
+      "Monitor",
+      "NotebookEdit",
+      "PushNotification",
+      "Read",
+      "RemoteTrigger",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "SendMessage",
+      "Skill",
+      "TaskStop",
+      "ToolSearch",
+      "Workflow",
+      "Write"
+    ],
+    "disallowed": [
+      "WebSearch",
+      "WebFetch"
+    ]
+  },
+  "limits": {
+    "timeout_min": 60,
+    "budget_usd": 15.0
+  },
+  "auth": "subscription_oauth",
+  "start_snapshot": "S1-agent",
+  "agent": {
+    "exit_code": "1",
+    "result_subtype": "success",
+    "is_error": true,
+    "num_turns": 3,
+    "result_segments": 1,
+    "cost_usd": 0.01355,
+    "cost_is_estimate": true,
+    "duration_ms": 189139,
+    "wall_s": 191,
+    "usage": {
+      "input_tokens": 4,
+      "output_tokens": 485,
+      "cache_read_input_tokens": 35320,
+      "cache_creation_input_tokens": 1290
+    },
+    "models_seen": {
+      "claude-sonnet-5-5": 5,
+      "<synthetic>": 1
+    },
+    "off_model_messages": {},
+    "stop_reasons": {
+      "tool_use": 3,
+      "stop_sequence": 1
+    },
+    "refusal": false,
+    "tool_calls": {
+      "Bash": 2
+    },
+    "final_text": "API Error: 529 Overloaded. This is a server-side issue, usually temporary — try again in a moment. If it persists, check https://status.claude.com."
+  },
+  "verify": {
+    "pass": false,
+    "v1": true,
+    "v2": false,
+    "v3": false,
+    "req": false,
+    "v3x": false,
+    "v3x_checks": {},
+    "pass_strict": false,
+    "v4": false,
+    "v4_checks": {},
+    "setup_untouched": true,
+    "failed_req": [
+      "upf_count",
+      "supi",
+      "plmn",
+      "dnn",
+      "slice",
+      "gnb_count",
+      "ue_count",
+      "free5gc_version"
+    ],
+    "v5": {
+      "pass": true,
+      "exact": true,
+      "counts": {
+        "ok": 0,
+        "error": 0,
+        "extra": 0,
+        "warn": 0,
+        "info": 0,
+        "skip": 12
+      },
+      "issues": []
+    },
+    "v6": {
+      "pass": false,
+      "exact": false,
+      "counts": {
+        "ok": 0,
+        "error": 1,
+        "extra": 0,
+        "warn": 0,
+        "info": 0,
+        "skip": 0
+      },
+      "issues": [
+        "capture: 沒有抓到封包：no UERANSIM UE pod with nr-cli found"
+      ]
+    }
+  },
+  "side_effects": {
+    "infra_changes": 0,
+    "tooling_changes": 0,
+    "auto_changes": 0,
+    "infra": [],
+    "tooling": [],
+    "auto": []
+  },
+  "valid": false,
+  "invalid_reasons": [
+    "api_overloaded"
+  ],
+  "human_interventions": 0,
+  "error_class": null,
+  "notes": "2026-11-23 重新分類：原本記 rate_limited，實際是 529 Overloaded（summarize.py 已把 529 分成 api_overloaded）"
+}

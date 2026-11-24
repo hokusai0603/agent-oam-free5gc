@@ -1,0 +1,2 @@
+[ERROR] capture                  沒有抓到封包：no UERANSIM UE pod with nr-cli found
+V6 FAIL  exact=no  {'ok': 0, 'error': 1, 'extra': 0, 'warn': 0, 'info': 0, 'skip': 0}

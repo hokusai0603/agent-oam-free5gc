@@ -1,0 +1,125 @@
+[19:16:40] trial L2-normal-sonnet-5-5-high-20261123-191640  task=L2 model=claude-sonnet-5-5 effort=high timeout=60m budget=$15 auth=subscription_oauth snapshot=S1-agent
+[19:16:40] registry cache: up
+==> oam-node1: Forcing shutdown of VM...
+==> oam-node1: Restoring the snapshot 'S1-agent'...
+[KProgress: 0%[KProgress: 90%[K==> oam-node1: Clearing any previously set forwarded ports...
+==> oam-node1: Clearing any previously set network interfaces...
+==> oam-node1: Preparing network interfaces based on configuration...
+    oam-node1: Adapter 1: nat
+    oam-node1: Adapter 2: hostonly
+==> oam-node1: Forwarding ports...
+    oam-node1: 22 (guest) => 2222 (host) (adapter 1)
+==> oam-node1: Running 'pre-boot' VM customizations...
+==> oam-node1: Booting VM...
+==> oam-node1: Waiting for machine to boot. This may take a few minutes...
+    oam-node1: SSH address: 127.0.0.1:2222
+    oam-node1: SSH username: vagrant
+    oam-node1: SSH auth method: private key
+    oam-node1: Warning: Connection reset. Retrying...
+    oam-node1: Warning: Remote connection disconnect. Retrying...
+==> oam-node1: Machine booted and ready!
+==> oam-node1: Checking for guest additions in VM...
+    oam-node1: The guest additions on this VM do not match the installed version of
+    oam-node1: VirtualBox! In most cases this is fine, but in rare cases it can
+    oam-node1: prevent things such as shared folders from working properly. If you see
+    oam-node1: shared folder errors, please make sure the guest additions within the
+    oam-node1: virtual machine match the version of VirtualBox you have installed on
+    oam-node1: your host and reload your VM.
+    oam-node1: 
+    oam-node1: Guest Additions Version: 6.0.0 r127566
+    oam-node1: VirtualBox Version: 7.2
+==> oam-node1: Setting hostname...
+==> oam-node1: Configuring and enabling network interfaces...
+==> oam-node1: Machine not provisioned because `--no-provision` is specified.
+gtp5g: ok
+sctp: ok
+NAME        STATUS   ROLES           AGE     VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION               CONTAINER-RUNTIME
+oam-node1   Ready    control-plane   5d21h   v1.37.2+k3s1   192.168.57.11   <none>        Ubuntu 22.04.5 LTS   5.15.0-144-generic (amd64)   containerd://2.3.7-k3s1
+kube-system: ok
+non-system namespaces: 0
+reset to S1-agent in 39s
+[19:17:19] env reset to S1-agent in 39s
+namespace/mec created
+deployment.apps/mec-app created
+service/mec-app created
+[19:17:22] setup applied: tasks/L2/setup/mec-app.yaml
+Waiting for deployment "mec-app" rollout to finish: 0 of 1 updated replicas are available...
+deployment "mec-app" successfully rolled out
+[19:17:32] host state baseline: 2452 lines
+[19:17:42] agent started
+[19:17:45] running... transcript lines=3
+[19:18:18] running... transcript lines=34
+[19:18:52] running... transcript lines=65
+[19:19:25] running... transcript lines=97
+[19:19:58] running... transcript lines=98
+[19:20:31] running... transcript lines=141
+[19:21:04] running... transcript lines=142
+[19:21:37] running... transcript lines=143
+[19:22:10] running... transcript lines=151
+[19:22:43] running... transcript lines=171
+[19:23:15] running... transcript lines=189
+[19:23:48] running... transcript lines=240
+[19:24:21] running... transcript lines=276
+[19:24:54] running... transcript lines=277
+[19:25:27] running... transcript lines=278
+[19:25:59] running... transcript lines=279
+[19:26:32] running... transcript lines=280
+[19:27:05] running... transcript lines=281
+[19:27:38] running... transcript lines=283
+[19:28:11] running... transcript lines=284
+[19:28:44] running... transcript lines=285
+[19:29:17] running... transcript lines=286
+[19:29:50] running... transcript lines=287
+[19:30:23] running... transcript lines=288
+[19:30:55] running... transcript lines=289
+[19:31:28] running... transcript lines=290
+[19:32:01] running... transcript lines=303
+[19:32:34] running... transcript lines=315
+[19:33:07] running... transcript lines=322
+[19:33:40] running... transcript lines=327
+[19:34:13] running... transcript lines=363
+[19:34:46] running... transcript lines=364
+[19:35:18] running... transcript lines=371
+[19:35:51] running... transcript lines=372
+[19:36:24] running... transcript lines=373
+[19:36:57] running... transcript lines=374
+[19:37:30] running... transcript lines=397
+[19:38:03] running... transcript lines=399
+[19:38:36] running... transcript lines=409
+[19:39:09] running... transcript lines=476
+[19:39:42] running... transcript lines=517
+[19:40:15] running... transcript lines=518
+[19:40:47] running... transcript lines=532
+[19:41:20] running... transcript lines=559
+[19:41:53] running... transcript lines=627
+[19:42:26] running... transcript lines=629
+[19:42:59] running... transcript lines=632
+[19:43:32] running... transcript lines=662
+[19:44:05] running... transcript lines=698
+[19:44:38] running... transcript lines=699
+[19:45:10] running... transcript lines=756
+[19:45:44] running... transcript lines=774
+[19:46:16] running... transcript lines=775
+[19:46:49] running... transcript lines=783
+[19:47:20] agent exited: exit_code=0
+V1 pods     PASS  pods=20 not_ready=0 restarts=0
+V2 control  PASS  gnb=1 ngap_up=True ue=1 registered=1 pdu_active=1
+V3 e2e      PASS  ueransim-ue-75cd89fcf7-chpcq:4/4
+V3x ueransim-ue-75cd89fcf7-chpcq: first_hop_is_upf=PASS(10.42.0.90) dns=PASS http=PASS(204,0B) https=PASS(200,87423B) download_1mb=PASS(200,1000000B)
+V3x         PASS  (web/DNS/first hop via uesimtun0)
+V4 ueransim-ue-75cd89fcf7-chpcq: mec_reachable=PASS separate_anchors=PASS via_branching_upf=PASS remote_addr_consistent=PASS  mec_anchor=free5gc-helm-free5gc-upf-psaupf2-c655cfb8d-ppwlq internet_anchor=free5gc-helm-free5gc-upf-psaupf1-7ccd68c8f8-xlcrm remote_addr=['10.42.0.91']
+V4 MEC      PASS  (MEC and internet leave via different UPFs, both via a branching UPF)
+  req upf_count  PASS  expect=3 actual=3
+  req supi       PASS  expect=imsi-208930000000001 actual=['imsi-208930000000001']
+  req plmn       PASS  expect=208/93 actual=208/93
+  req dnn        PASS  expect=internet actual=internet
+  req slice      PASS  expect={'sst': 1, 'sd': '010203'} actual={'sst': 1, 'sd': '010203'}
+  req gnb_count  PASS  expect=1 actual=1
+  req ue_count   PASS  expect=1 actual=1
+  req free5gc_version PASS  expect=v4.3.0 actual={'amf': ['v4.3.0'], 'ausf': ['v4.3.0'], 'bsf': ['v4.3.0'], 'chf': ['v4.3.0'], 'nef': ['v4.3.0'], 'nrf': ['v4.3.0'], 'nssf': ['v4.3.0'], 'pcf': ['v4.3.0'], 'scp': ['v4.3.0'], 'smf': ['v4.3.0'], 'udm': ['v4.3.0'], 'udr': ['v4.3.0'], 'upf': ['v4.3.0'], 'webui': ['v4.3.0']}
+OVERALL     PASS
+STRICT      PASS  (OVERALL + V3x)
+V6 PASS  exact=no  {'ok': 60, 'error': 0, 'extra': 1, 'warn': 0, 'info': 11, 'skip': 0}
+V5 PASS  exact=no  {'ok': 41, 'error': 0, 'extra': 3, 'warn': 4, 'info': 5, 'skip': 0}
+[19:50:49] recorded in results/phase1-l2/trials.jsonl
+RESULT L2-normal-sonnet-5-5-high-20261123-191640: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$1.6179224999999997 (est.) turns=70 wall=1774s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)

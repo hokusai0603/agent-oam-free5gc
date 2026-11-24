@@ -673,9 +673,12 @@ def check_multi_upf(R, ev, found, meta, upf_nodes, ue_ip, want_dnn, mec):
             if p["ueip"] and ue_ip and p["ueip"] != ue_ip:
                 R.add("pfcp.ue_ip", "error", f"UPF {nm(ip)} 的 PDR {p['id']} 的 UE IP {p['ueip']} 和 uesimtun0 {ue_ip} 不同")
         R.add("pfcp.node_ul_dl", "ok" if ul and dl else "error", f"UPF {nm(ip)}：上行 PDR {len(ul)} 條、下行 {len(dl)} 條")
-    # 上行：N3 UPF 的預設上行 PDR（沒有 SDF）
+    # 上行：N3 UPF 的預設上行 PDR（沒有 SDF，或只有「全部流量」的 SDF，例如 subscriber／PCF 帶了
+    # permit out ip from any to assigned；2026-11-24 Opus L2 r3 遇到，原本只認沒有 SDF → 誤判）
     pdrs, fars = rules[n3]
-    ul_def = [p for p in pdrs.values() if p["src"] == 0 and not p["sdf"]]
+    catch_all = lambda sdf: all(re.fullmatch(r"permit out ip from any to (assigned|any)", s.strip()) for s in sdf)
+    ul_def = [p for p in pdrs.values() if p["src"] == 0 and catch_all(p["sdf"])]
+    ul_def.sort(key=lambda p: (bool(p["sdf"]), -(p["prec"] or 0)))   # 沒有 SDF 的優先，其次優先序最低的
     ul_fteid = (ul_def[0]["teid"], ul_def[0]["fip"]) if ul_def else None
     R.add("teid.ul_ngap_pfcp", "ok" if ul_fteid in ngap_ul else "error",
           f"AMF 告訴 gNB 的上行 TEID/IP {sorted(ngap_ul)}，PFCP 給 {nm(n3)} 的預設上行 F-TEID {ul_fteid}")

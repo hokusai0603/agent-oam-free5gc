@@ -1,0 +1,1 @@
+UE did not recover by itself after gNB restart; restarting the UE pod

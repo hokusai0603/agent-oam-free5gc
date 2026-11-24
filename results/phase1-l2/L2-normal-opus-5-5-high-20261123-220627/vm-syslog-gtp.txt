@@ -1,0 +1,3 @@
+Nov 23 22:18:15 oam-node1 systemd[1]: var-lib-kubelet-pods-21723439\x2dad91\x2d49ca\x2da501\x2d4db43272125c-volumes-kubernetes.io\x7eprojected-free5gc\x2dhelm\x2dfree5gc\x2dupf\x2dpsaupf2\x2dvolume.mount: Deactivated successfully.
+Nov 23 22:18:15 oam-node1 systemd[1]: var-lib-kubelet-pods-b67b3c35\x2d324e\x2d400f\x2d80fe\x2d00b1d4bec17e-volumes-kubernetes.io\x7eprojected-free5gc\x2dhelm\x2dfree5gc\x2dupf\x2dpsaupf1\x2dvolume.mount: Deactivated successfully.
+Nov 23 22:18:15 oam-node1 systemd[1]: var-lib-kubelet-pods-207479f4\x2dec9e\x2d4d08\x2d9a3e\x2de7646b969a11-volumes-kubernetes.io\x7eprojected-free5gc\x2dhelm\x2dfree5gc\x2dupf\x2diupf1\x2dvolume.mount: Deactivated successfully.

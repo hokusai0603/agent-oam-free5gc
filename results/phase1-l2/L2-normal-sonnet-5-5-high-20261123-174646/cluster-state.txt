@@ -1,0 +1,32 @@
+NAME           	NAMESPACE  	REVISION	UPDATED                                	STATUS  	CHART                  	APP VERSION
+gateway-api-crd	kube-system	1       	2026-11-17 13:33:18.595604881 +0000 UTC	deployed	gateway-api-crd-1.6.301	v1.6.3     
+
+NAMESPACE     NAME                                          READY   STATUS      RESTARTS        AGE     IP           NODE        NOMINATED NODE   READINESS GATES
+kube-system   pod/coredns-577d995dff-btjvw                  1/1     Running     4 (4d19h ago)   5d20h   10.42.0.17   oam-node1   <none>           <none>
+kube-system   pod/helm-install-gateway-api-crd-4mt4j        0/1     Completed   0               5d20h   <none>       oam-node1   <none>           <none>
+kube-system   pod/local-path-provisioner-56c6584955-jq2lt   1/1     Running     4 (4d19h ago)   5d20h   10.42.0.19   oam-node1   <none>           <none>
+kube-system   pod/metrics-server-778c4649b4-kx4tr           1/1     Running     4 (4d19h ago)   5d20h   10.42.0.18   oam-node1   <none>           <none>
+mec           pod/mec-app-6c88c84d99-qnmwl                  1/1     Running     0               3m50s   10.42.0.20   oam-node1   <none>           <none>
+
+NAMESPACE     NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                  AGE     SELECTOR
+default       service/kubernetes       ClusterIP   10.43.0.1      <none>        443/TCP                  5d20h   <none>
+kube-system   service/kube-dns         ClusterIP   10.43.0.10     <none>        53/UDP,53/TCP,9153/TCP   5d20h   k8s-app=kube-dns
+kube-system   service/metrics-server   ClusterIP   10.43.14.53    <none>        443/TCP                  5d20h   k8s-app=metrics-server
+mec           service/mec-app          ClusterIP   10.43.200.10   <none>        80/TCP                   3m51s   app=mec-app
+
+NAMESPACE     NAME                                     READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS               IMAGES                                    SELECTOR
+kube-system   deployment.apps/coredns                  1/1     1            1           5d20h   coredns                  rancher/mirrored-coredns-coredns:1.14.7   k8s-app=kube-dns
+kube-system   deployment.apps/local-path-provisioner   1/1     1            1           5d20h   local-path-provisioner   rancher/local-path-provisioner:v0.0.37    app=local-path-provisioner
+kube-system   deployment.apps/metrics-server           1/1     1            1           5d20h   metrics-server           rancher/mirrored-metrics-server:v0.9.0    k8s-app=metrics-server
+mec           deployment.apps/mec-app                  1/1     1            1           3m51s   whoami                   traefik/whoami:v1.10.3                    app=mec-app
+
+NAMESPACE     NAME                                                DESIRED   CURRENT   READY   AGE     CONTAINERS               IMAGES                                    SELECTOR
+kube-system   replicaset.apps/coredns-577d995dff                  1         1         1       5d20h   coredns                  rancher/mirrored-coredns-coredns:1.14.7   k8s-app=kube-dns,pod-template-hash=577d995dff
+kube-system   replicaset.apps/local-path-provisioner-56c6584955   1         1         1       5d20h   local-path-provisioner   rancher/local-path-provisioner:v0.0.37    app=local-path-provisioner,pod-template-hash=56c6584955
+kube-system   replicaset.apps/metrics-server-778c4649b4           1         1         1       5d20h   metrics-server           rancher/mirrored-metrics-server:v0.9.0    k8s-app=metrics-server,pod-template-hash=778c4649b4
+mec           replicaset.apps/mec-app-6c88c84d99                  1         1         1       3m51s   whoami                   traefik/whoami:v1.10.3                    app=mec-app,pod-template-hash=6c88c84d99
+
+NAMESPACE     NAME                                     STATUS     COMPLETIONS   DURATION   AGE     CONTAINERS   IMAGES                                       SELECTOR
+kube-system   job.batch/helm-install-gateway-api-crd   Complete   1/1           17s        5d20h   helm         rancher/klipper-helm:v0.13.3-build20261021   batch.kubernetes.io/controller-uid=68aa2809-ac45-469f-9ee1-6036d1389cf7
+
+mec               kube-root-ca.crt                                       1     3m51s

@@ -34,6 +34,9 @@ trial_id="$TASK-$PROMPT-$short-$EFFORT-$(date +%Y%m%d-%H%M%S)"
 out="$root/results/$PHASE/$trial_id"
 mkdir -p "$out"
 log() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$out/runner.log"; }
+# 驗證腳本都用系統的 python3（3.10，有 PyYAML）。2026-11-24 主機另外裝了 uv 的 Python 3.12 並排到 PATH 最前面，
+# 沒有 PyYAML → V5（consistency.py）整個跑不起來。固定 /usr/bin 在前面，並記下實際用的版本。
+export PATH="/usr/bin:$PATH"
 vm() { (cd "$envdir" && vagrant ssh oam-node1 -c "$1" 2>/dev/null) | tr -d '\r'; }
 
 # ---- 認證 ----
@@ -54,6 +57,7 @@ unset tok key
 
 cp "$prompt_file" "$out/prompt.md"
 log "trial $trial_id  task=$TASK model=$MODEL effort=$EFFORT timeout=${TIMEOUT_MIN}m budget=\$$BUDGET auth=$auth_kind snapshot=$snap"
+py_ver=$(python3 -c "import sys; print(sys.version.split()[0])" 2>&1); python3 -c "import yaml" 2>/dev/null && log "python3 $py_ver (yaml ok)" || log "WARNING python3 $py_ver has no PyYAML: V5 will be None"
 
 # Docker Hub 快取（env/scripts/registry-cache.sh）：掛掉時 trial 照跑（containerd 會退回 Docker Hub），但記下來
 if curl -fsS -m 5 http://192.168.57.1:5050/v2/ >/dev/null 2>&1; then log "registry cache: up"

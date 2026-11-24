@@ -1,0 +1,1964 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    amfcfg.yaml: |
+      info:
+        version: 1.0.9
+        description: AMF initial local configuration
+
+      configuration:
+        serviceNameList:
+          - namf-comm
+          - namf-evts
+          - namf-mt
+          - namf-loc
+          - namf-oam
+
+        ngapIpList:
+          - 0.0.0.0  # Bind to all interfaces for cloud-native deployment
+        ngapPort: 38412 # the SCTP port listened by NGAP
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-amf-service # IP used to register to NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8080
+          tls:
+            verify: false
+            key: ./cert/amf.key
+            pem: ./cert/amf.pem
+
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: cert/nrf.pem
+        amfName: AMF
+        serviceNameList:
+          - namf-comm
+          - namf-evts
+          - namf-mt
+          - namf-loc
+          - namf-oam
+        servedGuamiList:
+          - plmnId:
+              mcc: 208
+              mnc: 93
+            amfId: cafe00
+        supportTaiList:
+          - plmnId:
+              mcc: 208
+              mnc: 93
+            tac: 000001
+        plmnSupportList:
+          - plmnId:
+              mcc: 208
+              mnc: 93
+            snssaiList:
+              - sst: 1
+                sd: 010203
+              - sst: 1
+                sd: 112233
+        supportDnnList:
+          - internet
+        security:
+          integrityOrder:
+            - NIA2
+          cipheringOrder:
+            - NEA0
+        networkName:
+          full: free5GC
+          short: free
+        ngapIE: # Optional NGAP IEs
+          mobilityRestrictionList: # Mobility Restriction List IE, refer to TS 38.413
+            enable: true # append this IE in related message or not
+          maskedIMEISV: # Masked IMEISV IE, refer to TS 38.413
+            enable: true # append this IE in related message or not
+          redirectionVoiceFallback: # Redirection Voice Fallback IE, refer to TS 38.413
+            enable: false # append this IE in related message or not
+        nasIE: # Optional NAS IEs
+          networkFeatureSupport5GS: # 5gs Network Feature Support IE, refer to TS 24.501
+            enable: true # append this IE in Registration accept or not
+            length: 1 # IE content length (uinteger, range: 1~3)
+            imsVoPS: 0 # IMS voice over PS session indicator (uinteger, range: 0~1)
+            emc: 0 # Emergency service support indicator for 3GPP access (uinteger, range: 0~3)
+            emf: 0 # Emergency service fallback indicator for 3GPP access (uinteger, range: 0~3)
+            iwkN26: 0 # Interworking without N26 interface indicator (uinteger, range: 0~1)
+            mpsi: 0 # MPS indicator (uinteger, range: 0~1)
+            emcN3: 0 # Emergency service support indicator for Non-3GPP access (uinteger, range: 0~1)
+            mcsi: 0 # MCS indicator (uinteger, range: 0~1)
+        t3502Value: 720
+        t3512Value: 3600
+        non3gppDeregTimerValue: 3240
+        # retransmission timer for paging message
+        t3513:
+          enable: true     # true or false
+          expireTime: 6s   # default is 6 seconds
+          maxRetryTimes: 4 # the max number of retransmission
+        # retransmission timer for NAS Registration Accept message
+        t3522:
+          enable: true     # true or false
+          expireTime: 6s   # default is 6 seconds
+          maxRetryTimes: 4 # the max number of retransmission
+        # retransmission timer for NAS Registration Accept message
+        t3550:
+          enable: true     # true or false
+          expireTime: 6s   # default is 6 seconds
+          maxRetryTimes: 4 # the max number of retransmission
+        # retransmission timer for NAS Configuration Update Command message
+        t3555:
+          enable: true     # true or false
+          expireTime: 6s   # default is 6 seconds
+          maxRetryTimes: 4 # the max number of retransmission
+        # retransmission timer for NAS Authentication Request/Security Mode Command message
+        t3560:
+          enable: true     # true or false
+          expireTime: 6s   # default is 6 seconds
+          maxRetryTimes: 4 # the max number of retransmission
+        # retransmission timer for NAS Notification message
+        t3565:
+          enable: true     # true or false
+          expireTime: 6s   # default is 6 seconds
+          maxRetryTimes: 4 # the max number of retransmission
+        t3570:
+          enable: true     # true or false
+          expireTime: 6s   # default is 6 seconds
+          maxRetryTimes: 4 # the max number of retransmission
+        locality: area1 # Name of the location where a set of AMF, SMF, PCF and UPFs are located
+        sctp: # set the sctp server setting <optinal>, once this field is set, please also add maxInputStream, maxOsStream, maxAttempts, maxInitTimeOut
+          numOstreams: 3 # the maximum out streams of each sctp connection
+          maxInstreams: 5 # the maximum in streams of each sctp connection
+          maxAttempts: 2 # the maximum attempts of each sctp connection
+          maxInitTimeout: 2 # the maximum init timeout of each sctp connection
+        defaultUECtxReq: false # the default value of UE Context Request to decide when triggering Initial Context Setup procedure
+
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-amf-configmap
+    namespace: free5gc
+    resourceVersion: "2251"
+    uid: 53d491fb-9af4-47ee-9012-c82e5cc76d03
+- apiVersion: v1
+  data:
+    ausfcfg.yaml: |
+      info:
+        version: 1.0.3
+        description: AUSF initial local configuration
+
+      configuration:
+        serviceNameList:
+          - nausf-auth
+
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-ausf-service # IP used to register to NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8080
+          tls:
+            verify: false
+            key: ./cert/ausf.key
+            pem: ./cert/ausf.pem
+
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: ./cert/nrf.pem # NRF Certificate
+        plmnSupportList:
+          - mcc: 208
+            mnc: 93
+          - mcc: 123
+            mnc: 45
+        groupId: ausfGroup001
+        eapAkaSupiImsiPrefix: false
+
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-ausf-configmap
+    namespace: free5gc
+    resourceVersion: "2265"
+    uid: 1e820071-6a4d-4fd4-a767-c6022ce6d031
+- apiVersion: v1
+  data:
+    bsfcfg.yaml: |
+      info:
+        version: 1.0.0
+        description: BSF initial local configuration
+      configuration:
+        bsfName: BSF
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-bsf-service
+          bindingIPv4: 0.0.0.0
+          port: 8000
+          tls:
+            verify: false
+            pem: cert/bsf.pem
+            key: cert/bsf.key
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: cert/nrf.pem
+        mongodb:
+          name: free5gc
+          url: mongodb://mongodb:27017
+        metrics:
+          enable: false
+          scheme: http
+          bindingIPv4: 0.0.0.0
+          port: 9091
+          namespace: free5gc
+          tls:
+            pem: cert/bsf.pem
+            key: cert/bsf.key
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app.kubernetes.io/instance: free5gc
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: free5gc-bsf
+      app.kubernetes.io/version: v4.3.0
+      helm.sh/chart: free5gc-bsf-0.1.0
+    name: free5gc-free5gc-bsf-configmap
+    namespace: free5gc
+    resourceVersion: "2252"
+    uid: bbd66bf3-8c8d-4bec-9b78-909fc9b7e08d
+- apiVersion: v1
+  data:
+    chfcfg.yaml: "info:\n  version: 1.0.3\n  description: CHF initial local configuration\n\nconfiguration:\n
+      \ chfName: CHF # the name of this CHF\n  sbi: # Service-based interface information\n
+      \   scheme: http # the protocol for sbi (http or https)\n    registerIPv4: free5gc-free5gc-chf-service
+      # IP used to register to NRF\n    bindingIPv4: 0.0.0.0 # IP used to bind the
+      service\n    port: 8080 # port used to bind the service\n    tls: # the local
+      path of TLS key\n      verify: false\n      pem: ./cert/chf.pem # CHF TLS Certificate\n
+      \     key: ./cert/chf.key # CHF TLS Private key\n\n  nrfUri: http://nrf-nnrf:8000
+      # a valid URI of NRF\n  nrfCertPem: ./nrf-cert/nrf.pem # NRF Certificate\n  serviceNameList:
+      # the SBI services provided by this CHF, refer to TS 32.291\n    - nchf-convergedcharging
+      # Nchf_AMPolicyControl service\n  mongodb: # the mongodb connected by this CHF\n
+      \   name: free5gc # name of the mongodb\n    url: mongodb://mongodb:27017 #
+      a valid URL of the mongodb\n  \n  quotaValidityTime: 10000\n  volumeLimit: 50000\n
+      \ volumeLimitPDU: 10000\n  volumeThresholdRate: 0.8\n\n  cgf:\n    enable: true\n
+      \   hostIPv4: webui-nbiling\n    port: 2122\n    listenPort: 2121\n    passiveTransferPortRange:\n
+      \     start: 2123\n      end: 2130\n    tls:\n      pem: ./cert/chf.pem\n      key:
+      ./cert/chf.key\n    cdrFilePath: /tmp\n  abmfDiameter:\n    protocol: tcp\n
+      \   hostIPv4: 0.0.0.0\n    port: 3868\n    tls:\n      pem: ./cert/chf.pem\n
+      \     key: ./cert/chf.key\n  rfDiameter:\n    protocol: tcp\n    hostIPv4: 0.0.0.0\n
+      \   port: 3869\n    tls:\n      pem: ./cert/chf.pem # CHF TLS Certificate\n
+      \     key: ./cert/chf.key # CHF TLS Private key\n\nlogger: # log output setting\n
+      \ enable: true\n  level: info\n  reportCaller: false\n"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-chf-configmap
+    namespace: free5gc
+    resourceVersion: "2253"
+    uid: e75ec209-559d-4398-a97e-4181f68a023b
+- apiVersion: v1
+  data:
+    nefcfg.yaml: "info:\n  version: 1.0.1\n  description: NEF initial local configuration\n\nconfiguration:\n
+      \ sbi:\n    scheme: http # The protocol for sbi (http or https)\n    registerIPv4:
+      free5gc-free5gc-nef-service # IP used to register to NRF\n    bindingIPv4: 0.0.0.0
+      # IP used to bind the service\n    port: 8080 # port used to bind the service\n
+      \   tls: # the local path of TLS key\n      verify: false\n      pem: ./cert/nef.pem
+      # NEF TLS Certificate\n      key: ./cert/nef.key # NEF TLS Private key\n  nrfUri:
+      http://nrf-nnrf:8000 # a valid URI of NRF \n  nrfCertPem: ./cert/nrf.pem # NRF
+      Certificate\n  serviceList: # the SBI services provided by this NEF\n    - serviceName:
+      nnef-pfdmanagement # Nnef_PFDManagement Service\n    - serviceName: nnef-oam
+      # OAM service\n\nlogger: # log output setting\n  enable: true\n  level: info\n
+      \ reportCaller: false\n"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-nef-configmap
+    namespace: free5gc
+    resourceVersion: "2258"
+    uid: 343ac569-3fff-479e-9c65-62b7968b4078
+- apiVersion: v1
+  data:
+    nrfcfg.yaml: |
+      info:
+        version: 1.0.2
+        description: NRF initial local configuration
+
+      configuration:
+        MongoDBName: free5gc
+        MongoDBUrl: mongodb://mongodb:27017
+
+        serviceNameList:
+          - nnrf-nfm
+          - nnrf-disc
+
+        sbi:
+          scheme: http
+          registerIPv4: nrf-nnrf # IP used to serve NFs or register to another NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8000
+          cert:
+            verify: false
+            key: ./cert/nrf.key
+            pem: ./cert/nrf.pem
+          rootcert: # the local path of root CA certs
+            pem: cert/nrf.pem
+            key: cert/nrf.key
+          oauth: false
+        DefaultPlmnId:
+          mcc: 208
+          mnc: 93
+
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-nrf-configmap
+    namespace: free5gc
+    resourceVersion: "2259"
+    uid: 6ff88ad3-1f84-48ae-aee2-9eb052b8ff87
+- apiVersion: v1
+  data:
+    nssfcfg.yaml: |
+      info:
+        version: 1.0.2
+        description: NSSF initial local configuration
+
+      configuration:
+        serviceNameList:
+          - nnssf-nsselection
+          - nnssf-nssaiavailability
+
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-nssf-service # IP used to register to NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8080
+          tls:
+            verify: false
+            key: ./cert/nssf.key
+            pem: ./cert/nssf.pem
+
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: cert/nrf.pem
+
+        nsiList:
+          - snssai:
+              sst: 1
+            nsiInformationList:
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 10
+          - snssai:
+              sst: 1
+              sd: 1
+            nsiInformationList:
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 11
+          - snssai:
+              sst: 1
+              sd: 2
+            nsiInformationList:
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 12
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 12
+          - snssai:
+              sst: 1
+              sd: 3
+            nsiInformationList:
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 13
+          - snssai:
+              sst: 2
+            nsiInformationList:
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 20
+          - snssai:
+              sst: 2
+              sd: 1
+            nsiInformationList:
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 21
+          - snssai:
+              sst: 1
+              sd: 010203
+            nsiInformationList:
+              - nrfId: http://nrf-nnrf:8000/nnrf-nfm/v1/nf-instances
+                nsiId: 22
+        amfSetList:
+          - amfSetId: 1
+            amfList:
+              - ffa2e8d7-3275-49c7-8631-6af1df1d9d26
+              - 0e8831c3-6286-4689-ab27-1e2161e15cb1
+              - a1fba9ba-2e39-4e22-9c74-f749da571d0d
+            nrfAmfSet: http://nrf-nnrf:8081/nnrf-nfm/v1/nf-instances
+            supportedNssaiAvailabilityData:
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33456
+                supportedSnssaiList:
+                  - sst: 1
+                    sd: 1
+                  - sst: 1
+                    sd: 2
+                  - sst: 2
+                    sd: 1
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33457
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 1
+                  - sst: 1
+                    sd: 2
+          - amfSetId: 2
+            nrfAmfSet: http://nrf-nnrf:8084/nnrf-nfm/v1/nf-instances
+            supportedNssaiAvailabilityData:
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33456
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 1
+                  - sst: 1
+                    sd: 3
+                  - sst: 2
+                    sd: 1
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33458
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 1
+                  - sst: 2
+        nssfName: NSSF
+        supportedPlmnList:
+          - mcc: 208
+            mnc: 93
+        supportedNssaiInPlmnList:
+          - plmnId:
+              mcc: 208
+              mnc: 93
+            supportedSnssaiList:
+              - sst: 1
+                sd: 010203
+              - sst: 1
+                sd: 112233
+              - sst: 1
+                sd: 3
+              - sst: 2
+                sd: 1
+              - sst: 2
+                sd: 2
+        amfList:
+          - nfId: 469de254-2fe5-4ca0-8381-af3f500af77c
+            supportedNssaiAvailabilityData:
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33456
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 2
+                  - sst: 2
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33457
+                supportedSnssaiList:
+                  - sst: 1
+                    sd: 1
+                  - sst: 1
+                    sd: 2
+          - nfId: fbe604a8-27b2-417e-bd7c-8a7be2691f8d
+            supportedNssaiAvailabilityData:
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33458
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 1
+                  - sst: 1
+                    sd: 3
+                  - sst: 2
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33459
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 1
+                  - sst: 2
+                  - sst: 2
+                    sd: 1
+          - nfId: b9e6e2cb-5ce8-4cb6-9173-a266dd9a2f0c
+            supportedNssaiAvailabilityData:
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33456
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 1
+                  - sst: 1
+                    sd: 2
+                  - sst: 2
+              - tai:
+                  plmnId:
+                    mcc: 466
+                    mnc: 92
+                  tac: 33458
+                supportedSnssaiList:
+                  - sst: 1
+                  - sst: 1
+                    sd: 1
+                  - sst: 2
+                  - sst: 2
+                    sd: 1
+        taList:
+          - tai:
+              plmnId:
+                mcc: 466
+                mnc: 92
+              tac: 33456
+            accessType: 3GPP_ACCESS
+            supportedSnssaiList:
+              - sst: 1
+              - sst: 1
+                sd: 1
+              - sst: 1
+                sd: 2
+              - sst: 2
+          - tai:
+              plmnId:
+                mcc: 466
+                mnc: 92
+              tac: 33457
+            accessType: 3GPP_ACCESS
+            supportedSnssaiList:
+              - sst: 1
+              - sst: 1
+                sd: 1
+              - sst: 1
+                sd: 2
+              - sst: 2
+          - tai:
+              plmnId:
+                mcc: 466
+                mnc: 92
+              tac: 33458
+            accessType: 3GPP_ACCESS
+            supportedSnssaiList:
+              - sst: 1
+              - sst: 1
+                sd: 1
+              - sst: 1
+                sd: 3
+              - sst: 2
+            restrictedSnssaiList:
+              - homePlmnId:
+                  mcc: 310
+                  mnc: 560
+                sNssaiList:
+                  - sst: 1
+                    sd: 3
+          - tai:
+              plmnId:
+                mcc: 466
+                mnc: 92
+              tac: 33459
+            accessType: 3GPP_ACCESS
+            supportedSnssaiList:
+              - sst: 1
+              - sst: 1
+                sd: 1
+              - sst: 2
+              - sst: 2
+                sd: 1
+            restrictedSnssaiList:
+              - homePlmnId:
+                  mcc: 310
+                  mnc: 560
+                sNssaiList:
+                  - sst: 2
+                    sd: 1
+        mappingListFromPlmn:
+          - operatorName: NTT Docomo
+            homePlmnId:
+              mcc: 440
+              mnc: 10
+            mappingOfSnssai:
+              - servingSnssai:
+                  sst: 1
+                  sd: 1
+                homeSnssai:
+                  sst: 1
+                  sd: 1
+              - servingSnssai:
+                  sst: 1
+                  sd: 2
+                homeSnssai:
+                  sst: 1
+                  sd: 3
+              - servingSnssai:
+                  sst: 1
+                  sd: 3
+                homeSnssai:
+                  sst: 1
+                  sd: 4
+              - servingSnssai:
+                  sst: 2
+                  sd: 1
+                homeSnssai:
+                  sst: 2
+                  sd: 2
+          - operatorName: AT&T Mobility
+            homePlmnId:
+              mcc: 310
+              mnc: 560
+            mappingOfSnssai:
+              - servingSnssai:
+                  sst: 1
+                  sd: 1
+                homeSnssai:
+                  sst: 1
+                  sd: 2
+              - servingSnssai:
+                  sst: 1
+                  sd: 2
+                homeSnssai:
+                  sst: 1
+                  sd: 3
+
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-nssf-configmap
+    namespace: free5gc
+    resourceVersion: "2266"
+    uid: 171a7dd2-9be7-4566-92ab-5c332657c4f9
+- apiVersion: v1
+  data:
+    pcfcfg.yaml: |
+      info:
+        version: 1.0.2
+        description: PCF initial local configuration
+
+      configuration:
+        serviceList:
+          - serviceName: npcf-am-policy-control
+          - serviceName: npcf-smpolicycontrol
+            suppFeat: 3fff
+          - serviceName: npcf-bdtpolicycontrol
+          - serviceName: npcf-policyauthorization
+            suppFeat: 3
+          - serviceName: npcf-eventexposure
+          - serviceName: npcf-ue-policy-control
+
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-pcf-service # IP used to register to NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8080
+          tls:
+            verify: false
+            key: ./cert/pcf.key
+            pem: ./cert/pcf.pem
+
+        mongodb:       # the mongodb connected by this PCF
+          name: free5gc                  # name of the mongodb
+          url: mongodb://mongodb:27017 # a valid URL of the mongodb
+
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: cert/nrf.pem
+
+        bsf:
+          enable: false
+        pcfName: PCF
+        timeFormat: 2019-01-02 15:04:05
+        defaultBdtRefId: BdtPolicyId-
+        locality: area1
+
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-pcf-configmap
+    namespace: free5gc
+    resourceVersion: "2261"
+    uid: b866adcd-d940-4d6a-bef2-5fc4f01e6e83
+- apiVersion: v1
+  data:
+    scpcfg.yaml: |
+      info:
+        version: 1.0.1
+        description: SCP initial local configuration
+      configuration:
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-scp-service
+          bindingIPv4: 0.0.0.0
+          port: 8000
+          tls:
+            verify: false
+            pem: cert/scp.pem
+            key: cert/scp.key
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: cert/nrf.pem
+        serviceList:
+          - serviceName: nausf-auth
+          - serviceName: nudm-ueau
+          - serviceName: nudm-sdm
+          - serviceName: nudr-dr
+        amfUri: http://free5gc-free5gc-amf-service:8000
+        ausfUri: http://free5gc-free5gc-ausf-service:8000
+        chfUri: http://free5gc-free5gc-chf-service:8000
+        nefUri: http://free5gc-free5gc-nef-service:8000
+        nssfUri: http://free5gc-free5gc-nssf-service:8000
+        pcfUri: http://free5gc-free5gc-pcf-service:8080
+        smfUri: http://free5gc-free5gc-smf-service:8000
+        udmUri: http://free5gc-free5gc-udm-service:8000
+        udrUri: http://free5gc-free5gc-udr-service:8000
+        upfUri: http://free5gc-free5gc-upf-service:8000
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app.kubernetes.io/instance: free5gc
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: free5gc-scp
+      app.kubernetes.io/version: v4.3.0
+      helm.sh/chart: free5gc-scp-0.1.0
+    name: free5gc-free5gc-scp-configmap
+    namespace: free5gc
+    resourceVersion: "2262"
+    uid: 16113a86-8b6a-49d4-825a-0e618a34b435
+- apiVersion: v1
+  data:
+    smfcfg.yaml: |
+      info:
+        version: 1.0.7
+        description: SMF initial local configuration
+
+      configuration:
+        serviceNameList:
+          - nsmf-pdusession
+          - nsmf-event-exposure
+          - nsmf-oam
+
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-smf-service # IP used to register to NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8080
+          tls:
+            verify: false
+            key: ./cert/smf.key
+            pem: ./cert/smf.pem
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: ./cert/nrf.pem # NRF Certificate
+        urrPeriod: 10 # default usage report period in seconds
+        urrThreshold: 1000 # default usage report threshold in bytes
+        requestedUnit: 1000
+        pfcp:
+          nodeID: POD_IP_ADDR
+          listenAddr: POD_IP_ADDR
+          externalAddr: POD_IP_ADDR
+        smfName: SMF
+        # Without this flag the SMF ignores uerouting.yaml (InitSMFUERouting returns early) and never builds the MEC specificPath.
+        ulcl: true
+        snssaiInfos:
+          - sNssai:
+              sst: 1
+              sd: 010203
+            dnnInfos:
+              - dnn: internet
+                dnaiList:
+                  - mec
+                dns:
+                  ipv4: 8.8.8.8
+                  ipv6: 2001:4860:4860::8888
+        plmnList:
+          - mcc: "208"
+            mnc: "93"
+        userplaneInformation:
+          upNodes:
+            gNB1:
+              type: AN
+            BranchingUPF:
+              type: UPF
+              nodeID: IUPF1_SERVICE_NAME
+              sNssaiUpfInfos:
+                - sNssai:
+                    sst: 1
+                    sd: 010203
+                  dnnUpfInfoList:
+                    - dnn: internet
+                      dnaiList:
+                        - mec
+              interfaces:
+                - interfaceType: N3
+                  endpoints:
+                    - IUPF1_SERVICE_NAME
+                  networkInstances:
+                    - internet
+                - interfaceType: N9
+                  endpoints:
+                    - IUPF1_SERVICE_NAME
+                  networkInstances:
+                    - internet
+            AnchorUPF1:
+              type: UPF
+              nodeID: PSAUPF1_SERVICE_NAME
+              sNssaiUpfInfos:
+                - sNssai:
+                    sst: 1
+                    sd: 010203
+                  dnnUpfInfoList:
+                    - dnn: internet
+                      pools:
+                        - cidr: 10.60.0.0/17
+              interfaces:
+                - interfaceType: N9
+                  endpoints:
+                    - PSAUPF1_SERVICE_NAME
+                  networkInstances:
+                    - internet
+            AnchorUPF2:
+              type: UPF
+              nodeID: PSAUPF2_SERVICE_NAME
+              sNssaiUpfInfos:
+                - sNssai:
+                    sst: 1
+                    sd: 010203
+                  dnnUpfInfoList:
+                    - dnn: internet
+                      pools:
+                        - cidr: 10.60.128.0/17
+              interfaces:
+                # SMF's SelectPSA2 (internal/context/bp_manager.go) skips any anchor that lacks BOTH an N3 and an N9
+                # interface for the DNN, so AnchorUPF2 needs an N3 entry for the ULCL path to be built.
+                - interfaceType: N3
+                  endpoints:
+                    - PSAUPF2_SERVICE_NAME
+                  networkInstances:
+                    - internet
+                - interfaceType: N9
+                  endpoints:
+                    - PSAUPF2_SERVICE_NAME
+                  networkInstances:
+                    - internet
+          links:
+            - A: gNB1
+              B: BranchingUPF
+            - A: BranchingUPF
+              B: AnchorUPF1
+            - A: BranchingUPF
+              B: AnchorUPF2
+        locality: area1
+        t3591:
+          enable: true
+          expireTime: 16s
+          maxRetryTimes: 3
+        t3592:
+          enable: true
+          expireTime: 16s
+          maxRetryTimes: 3
+
+      logger:
+        enable: true
+        level: trace
+        reportCaller: false
+    uerouting.yaml: |
+      info:
+        version: 1.0.7
+        description: Routing information for UE
+      ueRoutingInfo:
+        UE1:
+          members:
+            - imsi-208930000000001
+          topology:
+            - A: gNB1
+              B: BranchingUPF
+            - A: BranchingUPF
+              B: AnchorUPF1
+          specificPath:
+            - dest: 10.43.200.10/32
+              path: [BranchingUPF, AnchorUPF2]
+        UE2:
+          members:
+            - imsi-208930000000004
+          topology:
+            - A: gNB1
+              B: BranchingUPF
+            - A: BranchingUPF
+              B: AnchorUPF1
+          specificPath:
+            - dest: 10.100.100.16/32
+              path: [BranchingUPF, AnchorUPF2]
+    wrapper.sh: |
+      #!/bin/sh
+      set -e
+      # Dynamic Pod IP mode: Replace placeholders at runtime
+      POD_IP=$(hostname -i | awk '{print $1}')
+      echo "[wrapper] SMF Pod IP detected: $POD_IP"
+
+      cp /free5gc/config//smfcfg.yaml /tmp/smfcfg.yaml
+      cp /free5gc/config//uerouting.yaml /tmp/uerouting.yaml
+
+      sed -i "s/POD_IP_ADDR/$POD_IP/g" /tmp/smfcfg.yaml
+      echo "[wrapper] Resolving ULCL UPF Pod IPs from Headless Services..."
+      IUPF1_IP=""
+      PSAUPF1_IP=""
+      PSAUPF2_IP=""
+
+      for i in 1 2 3 4 5 6 7 8 9 10; do
+        IUPF1_IP=$(getent hosts free5gc-free5gc-upf-iupf1-service 2>/dev/null | awk '{print $1}' | head -1)
+        PSAUPF1_IP=$(getent hosts free5gc-free5gc-upf-psaupf1-service 2>/dev/null | awk '{print $1}' | head -1)
+        PSAUPF2_IP=$(getent hosts free5gc-free5gc-upf-psaupf2-service 2>/dev/null | awk '{print $1}' | head -1)
+
+        if [ -n "$IUPF1_IP" ] && [ -n "$PSAUPF1_IP" ] && [ -n "$PSAUPF2_IP" ]; then
+          echo "[wrapper] All ULCL UPF IPs resolved successfully"
+          break
+        fi
+        echo "[wrapper] Waiting for UPF DNS resolution... attempt $i (IUPF1=$IUPF1_IP, PSAUPF1=$PSAUPF1_IP, PSAUPF2=$PSAUPF2_IP)"
+        sleep 3
+      done
+
+      if [ -z "$IUPF1_IP" ] || [ -z "$PSAUPF1_IP" ] || [ -z "$PSAUPF2_IP" ]; then
+        echo "[wrapper] WARNING: Some UPF IPs not resolved, using placeholder"
+        [ -z "$IUPF1_IP" ] && IUPF1_IP="IUPF1_SERVICE_NAME"
+        [ -z "$PSAUPF1_IP" ] && PSAUPF1_IP="PSAUPF1_SERVICE_NAME"
+        [ -z "$PSAUPF2_IP" ] && PSAUPF2_IP="PSAUPF2_SERVICE_NAME"
+      fi
+
+      echo "[wrapper] IUPF1 Pod IP: $IUPF1_IP"
+      echo "[wrapper] PSAUPF1 Pod IP: $PSAUPF1_IP"
+      echo "[wrapper] PSAUPF2 Pod IP: $PSAUPF2_IP"
+
+      sed -i "s/IUPF1_SERVICE_NAME/$IUPF1_IP/g" /tmp/smfcfg.yaml
+      sed -i "s/PSAUPF1_SERVICE_NAME/$PSAUPF1_IP/g" /tmp/smfcfg.yaml
+      sed -i "s/PSAUPF2_SERVICE_NAME/$PSAUPF2_IP/g" /tmp/smfcfg.yaml
+
+      echo "[wrapper] Configuration files prepared in /tmp"
+      echo "[wrapper] SMF PFCP config:"
+      cat /tmp/smfcfg.yaml | grep -A3 "pfcp:"
+      echo "[wrapper] UPF nodeIDs:"
+      cat /tmp/smfcfg.yaml | grep "nodeID:"
+
+      exec ./smf -c /tmp/smfcfg.yaml -u /tmp/uerouting.yaml
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-smf-configmap
+    namespace: free5gc
+    resourceVersion: "3457"
+    uid: 6bbc92bc-3da9-4375-ab65-97c95eeb7d9b
+- apiVersion: v1
+  data:
+    udmcfg.yaml: |
+      info:
+        version: 1.0.3
+        description: UDM initial local configuration
+
+      configuration:
+        serviceNameList:
+          - nudm-sdm
+          - nudm-uecm
+          - nudm-ueau
+          - nudm-ee
+          - nudm-pp
+
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-udm-service # IP used to register to NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8080
+          tls:
+            verify: false
+            key: ./cert/udm.key
+            pem: ./cert/udm.pem
+
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: cert/nrf.pem
+        # test data set from TS33501-f60 Annex C.4
+        SuciProfile:
+          - ProtectionScheme: 1 # Protect Scheme: Profile A
+            PrivateKey: c53c22208b61860b06c62e5406a7b330c2b577aa5558981510d128247d38bd1d
+            PublicKey: 5a8d38864820197c3394b92613b20b91633cbd897119273bf8e4a6f4eec0a650
+          - ProtectionScheme: 2 # Protect Scheme: Profile B
+            PrivateKey: F1AB1074477EBCC7F554EA1C5FC368B1616730155E0041AC447D6301975FECDA
+            PublicKey: 0472DA71976234CE833A6907425867B82E074D44EF907DFB4B3E21C1C2256EBCD15A7DED52FCBB097A4ED250E036C7B9C8C7004C4EEDC4F068CD7BF8D3F900E3B4
+
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-udm-configmap
+    namespace: free5gc
+    resourceVersion: "2260"
+    uid: 63b7855d-397f-4ffb-a68f-0b093396b268
+- apiVersion: v1
+  data:
+    udrcfg.yaml: |
+      info:
+        version: 1.1.0
+        description: UDR initial local configuration
+
+      configuration:
+        sbi:
+          scheme: http
+          registerIPv4: free5gc-free5gc-udr-service # IP used to register to NRF
+          bindingIPv4: 0.0.0.0  # IP used to bind the service
+          port: 8080
+          tls:
+            verify: false
+            key: ./cert/udr.key
+            pem: ./cert/udr.pem
+
+        dbConnectorType: mongodb
+        mongodb:
+          name: free5gc
+          url: mongodb://mongodb:27017
+
+        nrfUri: http://nrf-nnrf:8000
+        nrfCertPem: cert/nrf.pem
+
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-udr-configmap
+    namespace: free5gc
+    resourceVersion: "2257"
+    uid: e0145438-0db8-4faf-8b39-09699e1a4d01
+- apiVersion: v1
+  data:
+    upfcfg.yaml: |
+      version: 1.0.3
+      description: UPF initial local configuration
+
+      # The listen IP and nodeID of the N4 interface on this UPF (Can't set to 0.0.0.0)
+      pfcp:
+        addr: POD_IP_ADDR # IP addr for listening - replaced at runtime
+        nodeID: POD_IP_ADDR # External IP or FQDN can be reached - replaced at runtime
+        retransTimeout: 1s # retransmission timeout
+        maxRetrans: 3 # the max number of retransmission
+
+      gtpu:
+        forwarder: gtp5g
+        # The IP list of the N3/N9 interfaces on this UPF
+        # If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
+        ifList:
+          - addr: POD_IP_ADDR
+            type: N3
+          - addr: POD_IP_ADDR
+            type: N9
+            # name: upf.5gc.nctu.me
+            # ifname: gtpif
+      dnnList:
+      - cidr: 10.60.0.0/16
+        dnn: internet
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+    wrapper.sh: |
+      #!/bin/sh
+      set -e
+      # Dynamic Pod IP mode: Single interface (eth0)
+      # Get Pod IP dynamically
+      POD_IP=$(hostname -i | awk '{print $1}')
+      echo "[wrapper] iupf1 Pod IP detected: $POD_IP"
+
+      # Copy config to writable location
+      cp /free5gc/config//upfcfg.yaml /tmp/upfcfg.yaml
+
+      # Replace POD_IP_ADDR placeholder with actual Pod IP
+      sed -i "s/POD_IP_ADDR/$POD_IP/g" /tmp/upfcfg.yaml
+
+      echo "[wrapper] iupf1 PFCP config:"
+      cat /tmp/upfcfg.yaml | grep -A3 "pfcp:"
+
+      # Wait for upfgtp interface to be created by gtp5g module
+      echo "[wrapper] Waiting for upfgtp interface..."
+      for i in $(seq 1 30); do
+        if ip link show upfgtp > /dev/null 2>&1; then
+          echo "[wrapper] upfgtp interface is ready"
+          break
+        fi
+        sleep 1
+      done
+
+      # Note: Route for UE subnet will be automatically added by UPF based on dnnList configuration
+      # No need to manually add route here
+
+      # Setup iptables for NAT (single interface mode - eth0)
+      iptables -A FORWARD -j ACCEPT
+      # NAT traffic from UE subnet going out via eth0 (for uplink to internet)
+      iptables -t nat -A POSTROUTING -s 10.60.0.0/16 -o eth0 -j MASQUERADE
+
+      echo "[wrapper] Starting iupf1 with dynamic config"
+      exec /free5gc/upf -c /tmp/upfcfg.yaml
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-upf-iupf1-configmap
+    namespace: free5gc
+    resourceVersion: "2250"
+    uid: 4666f901-ffe9-42a2-a69a-968be640c750
+- apiVersion: v1
+  data:
+    upfcfg.yaml: |
+      version: 1.0.3
+      description: UPF initial local configuration
+
+      # The listen IP and nodeID of the N4 interface on this UPF (Can't set to 0.0.0.0)
+      pfcp:
+        addr: POD_IP_ADDR # IP addr for listening - replaced at runtime
+        nodeID: POD_IP_ADDR # External IP or FQDN can be reached - replaced at runtime
+        retransTimeout: 1s # retransmission timeout
+        maxRetrans: 3 # the max number of retransmission
+
+      gtpu:
+        forwarder: gtp5g
+        # The IP list of the N3/N9 interfaces on this UPF
+        # If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
+        ifList:
+          - addr: POD_IP_ADDR
+            type: N9
+            # name: upf.5gc.nctu.me
+            # ifname: gtpif
+      dnnList:
+      - cidr: 10.60.0.0/17
+        dnn: internet
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+    wrapper.sh: |
+      #!/bin/sh
+      set -e
+      # Dynamic Pod IP mode: Single interface (eth0)
+      # Get Pod IP dynamically
+      POD_IP=$(hostname -i | awk '{print $1}')
+      echo "[wrapper] psaupf1 (AnchorUPF1) Pod IP detected: $POD_IP"
+
+      # Copy config to writable location
+      cp /free5gc/config//upfcfg.yaml /tmp/upfcfg.yaml
+
+      # Replace POD_IP_ADDR placeholder with actual Pod IP
+      sed -i "s/POD_IP_ADDR/$POD_IP/g" /tmp/upfcfg.yaml
+
+      echo "[wrapper] psaupf1 PFCP config:"
+      cat /tmp/upfcfg.yaml | grep -A3 "pfcp:"
+
+      # Wait for upfgtp interface to be created by gtp5g module
+      echo "[wrapper] Waiting for upfgtp interface..."
+      for i in $(seq 1 30); do
+        if ip link show upfgtp > /dev/null 2>&1; then
+          echo "[wrapper] upfgtp interface is ready"
+          break
+        fi
+        sleep 1
+      done
+
+      # Note: Route for UE subnet will be automatically added by UPF based on dnnList configuration
+      # No need to manually add route here
+
+      # Setup iptables for NAT (single interface mode - eth0)
+      iptables -A FORWARD -j ACCEPT
+      # NAT traffic from UE subnet going out via eth0 (for uplink to internet)
+      iptables -t nat -A POSTROUTING -s 10.60.0.0/16 -o eth0 -j MASQUERADE
+
+      echo "[wrapper] Starting psaupf1 with dynamic config"
+      exec /free5gc/upf -c /tmp/upfcfg.yaml
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-upf-psaupf1-configmap
+    namespace: free5gc
+    resourceVersion: "2264"
+    uid: 88a3c286-c782-4138-a02c-0bf70fb07b85
+- apiVersion: v1
+  data:
+    upfcfg.yaml: |
+      version: 1.0.3
+      description: UPF initial local configuration
+
+      # The listen IP and nodeID of the N4 interface on this UPF (Can't set to 0.0.0.0)
+      pfcp:
+        addr: POD_IP_ADDR # IP addr for listening - replaced at runtime
+        nodeID: POD_IP_ADDR # External IP or FQDN can be reached - replaced at runtime
+        retransTimeout: 1s # retransmission timeout
+        maxRetrans: 3 # the max number of retransmission
+
+      gtpu:
+        forwarder: gtp5g
+        # The IP list of the N3/N9 interfaces on this UPF
+        # If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
+        ifList:
+          - addr: POD_IP_ADDR
+            type: N9
+            # name: upf.5gc.nctu.me
+            # ifname: gtpif
+      dnnList:
+      - cidr: 10.60.0.0/16
+        dnn: internet
+      logger:
+        enable: true
+        level: info
+        reportCaller: false
+    wrapper.sh: |
+      #!/bin/sh
+      set -e
+      # Dynamic Pod IP mode: Single interface (eth0)
+      # Get Pod IP dynamically
+      POD_IP=$(hostname -i | awk '{print $1}')
+      echo "[wrapper] psaupf2 (AnchorUPF2) Pod IP detected: $POD_IP"
+
+      # Copy config to writable location
+      cp /free5gc/config//upfcfg.yaml /tmp/upfcfg.yaml
+
+      # Replace POD_IP_ADDR placeholder with actual Pod IP
+      sed -i "s/POD_IP_ADDR/$POD_IP/g" /tmp/upfcfg.yaml
+
+      echo "[wrapper] psaupf2 PFCP config:"
+      cat /tmp/upfcfg.yaml | grep -A3 "pfcp:"
+
+      # Wait for upfgtp interface to be created by gtp5g module
+      echo "[wrapper] Waiting for upfgtp interface..."
+      for i in $(seq 1 30); do
+        if ip link show upfgtp > /dev/null 2>&1; then
+          echo "[wrapper] upfgtp interface is ready"
+          break
+        fi
+        sleep 1
+      done
+
+      # Note: Route for UE subnet will be automatically added by UPF based on dnnList configuration
+      # No need to manually add route here
+
+      # Setup iptables for NAT (single interface mode - eth0)
+      iptables -A FORWARD -j ACCEPT
+      # NAT traffic from UE subnet going out via eth0 (for uplink to internet)
+      iptables -t nat -A POSTROUTING -s 10.60.0.0/16 -o eth0 -j MASQUERADE
+
+      echo "[wrapper] Starting psaupf2 with dynamic config"
+      exec /free5gc/upf -c /tmp/upfcfg.yaml
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-free5gc-upf-psaupf2-configmap
+    namespace: free5gc
+    resourceVersion: "3737"
+    uid: 6e88cb07-1846-4233-a30e-9bb5317ee75f
+- apiVersion: v1
+  data:
+    af.pem: |2
+
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyE8115WpDyAYM6Edp0Bo
+      oDNh2hWoIb1fjD9pnN3XCQ/FyXOZVwhMks8DMtlyKrp8qcwGbM656wU29JfAyHc9
+      1oKAba7VDZ3WmP54S6VopuQuiLMz0J/BrPgf+n2UCvRwITyTmOMaao2aWp9hZ+7e
+      tvlwuAYQ6RnfuwNXnyViRD9W7cHVSLcVqKB30BzcjyuFzcE0cK8OtBjHvuaOEZxR
+      PpSaekNXXBqzy6qrRMsGZ/UcQa21j4UgeUyqbxmhFyE1+1LSbBb9VygTcwx/H2pm
+      Hy1FtpkDlXxqKHPSMKsnum+z8IkIQghT7g+HozeX+GyKI/6eBTghWYyQ/X8ZMKPw
+      UwIDAQAB
+      -----END PUBLIC KEY-----
+    amf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDUzCCAjugAwIBAgIJANC4esPC102UMA0GCSqGSIb3DQEBCwUAMEAxCzAJBgNV
+      BAYTAlRXMRAwDgYDVQQIDAdIc2luY2h1MQ0wCwYDVQQHDARjaXR5MRAwDgYDVQQK
+      DAdmcmVlNUdDMB4XDTE5MDcxODA3NTkwOFoXDTI5MDcxNTA3NTkwOFowQDELMAkG
+      A1UEBhMCVFcxEDAOBgNVBAgMB0hzaW5jaHUxDTALBgNVBAcMBGNpdHkxEDAOBgNV
+      BAoMB2ZyZWU1R0MwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCpem9N
+      zValSrDo0jr5VyMEN/i0TZmD95tnHsOve2H0/sYAjrqRXKihWbz1qy9khp2D7SRH
+      O4dHxwCiFoE6scZ1C212jHZPPXic2o60gxODjZiE7EW5L0wsvptH5PMuLo4SVP5J
+      kwUGwYZ01VRHdTSx/RWRuXOCKluIqcmoNCh4f/hEd5yWvAgGqytsqBVKw2EQ9BYJ
+      oSsUedmd9Hjz9QdVj72UWVCwFyBfUgz2VH8SC50FlZgEjHTBNjL5OriRHv4a0nGV
+      +YRZPdsAIja5jUP27XOm+N/dzHDCTQrihPtYsir+idF4hPJNuhwe0yEaq8zqKvKH
+      zU+VoWGZB4EssThZAgMBAAGjUDBOMB0GA1UdDgQWBBTRNsNPYUMfmh6xMHsYpdhz
+      GAlUszAfBgNVHSMEGDAWgBTRNsNPYUMfmh6xMHsYpdhzGAlUszAMBgNVHRMEBTAD
+      AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQANX8eve1eV6G8m6kcBeD664yI9v9ELVXPV
+      XJ06Vlrcx3xYzpyO2aIDlbA++zfS1Fdlczmn1bSh2jKyRi0JPq8Bc2bvpKUPU+jL
+      vYIcbLaUkT+YeknDOOMDLpwpZRyuTWw1dZg/LnlGkuSgjgpvyrNhXdx216TwgjGX
+      ao7hqQDzumH/CIX1/Bw19xjvy8y21fqgIjpgL4yB/1erC4i/I2Z+mZEb3DH459gz
+      sTmrUHUjO0mSVHmnLYKaYJbRYQGPUQTg5fIYasOAFG3K3C485MGRgMiSkrAC7A2M
+      ZHioUNtm3XF9tfE1srtLsPGfypiM/hiGWIlgYJHUh8NYjQIXF9Pb
+      -----END CERTIFICATE-----
+    ausf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDYDCCAkigAwIBAgIJAKhXRBF0PdYcMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
+      BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+      aWRnaXRzIFB0eSBMdGQwHhcNMTkwNzIzMDY1MzIwWhcNMjkwNzIwMDY1MzIwWjBF
+      MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50
+      ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+      CgKCAQEA5tfKck1ZCBa/t6MKLfU9aVpHUHTrTNLU2Ub6HfpflcChaFGcWkW8HcIq
+      CjNY9YzjEBEohlp5Xf2usway3/0PCe2kI4KA44QkFq0J/+hb3zga+GX2vUiGIRZU
+      W09ZUHw7XjJICd8HflC3jUnb2F0On7OyKdAqeVfMxfZfvW6Zs95Gt0b3l4W71KfV
+      r2WH/Jp/w14NtSKsX7HWFVOXw9inGdYqjdlmT4fIK7dHw1KFjR+c5nlRsMV8bos7
+      ntJdhEmwNBwBmRpaky1fCdcTKSV0NYgDBEjB773B/dLBVI61SEYpYNQhqH5sr7Bq
+      xtVOPfUcCTmOkQvnLGaiYHbaIKC8lQIDAQABo1MwUTAdBgNVHQ4EFgQUYD0n5aiC
+      y2cCIvOf2+d4/jX7TokwHwYDVR0jBBgwFoAUYD0n5aiCy2cCIvOf2+d4/jX7Tokw
+      DwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAtWk3cRE4UHm+5zHG
+      aOarrZSsq9kaRBy2j1wPq94CXaNKdKdU5v99Fi7XCkdVow0/7h+RW4bRRxUOc+HJ
+      SKT9TeMTzkY1C4nUDXBiN8hNWQ+EPFliy938OEYRIgeV7u6mMHgV2r76h7ItTE/9
+      no+1vT4LzVNSM3nsEx9W5TgOiXqt/d0+PyTx48befwPN1mKsmOi7ipaD8JlakAnz
+      Nn9aNJMdq/VJaLhP+4F/1UCJANQVzZlSn4LFKJlfvRIBX8wpXYoz3JYAa6wYVF90
+      JVoBhhrhQpbxgQSDskXT5pT5/YVSnPlRuSBMamGsXWcXeMPCCsCJiLC765v0t5vT
+      heItBA==
+      -----END CERTIFICATE-----
+    chf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDazCCAlOgAwIBAgIUeAP9uOZCMS0mlbnaNegzQcIwnNwwDQYJKoZIhvcNAQEL
+      BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM
+      GEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMzA5MDgwNTEyNTZaFw0yMzEw
+      MDgwNTEyNTZaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEw
+      HwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwggEiMA0GCSqGSIb3DQEB
+      AQUAA4IBDwAwggEKAoIBAQC6iTvZu1HXW+vUTrbTERb+WEuNk8GrrkYEEeJdnjPs
+      A5bLGSN6gwJM9aWhiBHggwhtmpx6E6iIa65SNFHughyPB6IF8rpMeYY9q9Wnbsjk
+      7SuXxdtj0NOHC4KkZe9Xj/MiDhm0mirG6aXR9gy3ay14mz+1b2LwmW97PD2+CX/f
+      OHotEk32mnvYffNJvSL+TZrsbst0sfvcV6Pku8EziUlo1wMoKYHhss8PI1ucKCnZ
+      2HNK9Kn8oJyXZiXY41lBQao3cSS+HDKASaEZN+1WLKgJ39hgkNui5IUK2cMHC/Ri
+      iCtSlTAPMhzQ3PoTSCaMFr6zUtZ+zY+BgrC4HQ93fr5TAgMBAAGjUzBRMB0GA1Ud
+      DgQWBBRVzQKLH7rtZPKPbbEQZllA0WhhHzAfBgNVHSMEGDAWgBRVzQKLH7rtZPKP
+      bbEQZllA0WhhHzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQBW
+      GZ+5c5oKBz5oIQDkt/r2VJ82NceBEnEXUntkkK8N0xBPKMC5qoq2rF5PdwkSj3gY
+      qGBv1AQMD4xE7X275UAxmzDKaD/B8XrgcVqv32kSkjJmAqoQdP2iQP4ZjYh2Aikt
+      aG0WaD/ltIOETl/8It7WJ22qrm2NTE5Q0jY5w2L+HoxVum7vHmH6if25ppVuhlJE
+      UU7elyMxEqezf44JmZRGbKMarY4ALKXSoKXUjELNE0L2tJiRT3wKzg0p/9LA0Eq/
+      3vhV6595ptADqzoaSVwtoLhyY+4l/DqdTLtgv6GIw3MZL6Hs0Sy0RDjvKHySjZkA
+      7jUQa9wARB3zRMgkPo0y
+      -----END CERTIFICATE-----
+    n3iwf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIID+TCCAuGgAwIBAgIUC6tC02a9u8PUgOu1sSL1EfS65AUwDQYJKoZIhvcNAQEL
+      BQAwgZwxCzAJBgNVBAYTAlRXMQ8wDQYDVQQIDAZUYWl3YW4xDzANBgNVBAcMBlRh
+      aXBlaTEQMA4GA1UECgwHV2lyZUxhYjERMA8GA1UECwwIV2lyZWxlc3MxKjAoBgkq
+      hkiG9w0BCQEWG3dpcmVsYWJAd2lyZS5jcy5uY3R1LmVkdS50dzEaMBgGA1UEAwwR
+      bjNpd2YuZnJlZTVnYy5vcmcwHhcNMjAwMzI5MTE0MzA1WhcNMzAwMzI3MTE0MzA1
+      WjCBnDELMAkGA1UEBhMCVFcxDzANBgNVBAgMBlRhaXdhbjEPMA0GA1UEBwwGVGFp
+      cGVpMRAwDgYDVQQKDAdXaXJlTGFiMREwDwYDVQQLDAhXaXJlbGVzczEqMCgGCSqG
+      SIb3DQEJARYbd2lyZWxhYkB3aXJlLmNzLm5jdHUuZWR1LnR3MRowGAYDVQQDDBFu
+      M2l3Zi5mcmVlNWdjLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+      AMOQgRPfW5dvPPfy3rkLksdv3CUXwlVZ2Nv9hBPcXWua/hZ4cwMdrd7Ij4rvMmOc
+      QSJhC6a++k9G92/KCdmC3zEgYEVyn3GFfPr1/TGPoXTT+ACKbrK9ivmSpUhvdI9N
+      5kHUGAjXL8VtgFY71k4pzFWMKu4jl/QnxdUnAWECog8dOMeI99cuXqk56yNB1ZQi
+      AJkAyn048jcrkXBUJr/SvdSyJ+8SrfwyNYxGg3BgllkfXGkLGqGvWNsyxmMEDYJB
+      9o9/DYayQxcajN8xrHpWFBzMFVJYnL3ujozD2hovVyQ0dpxc+040PYUrrBg61Qy1
+      fMAbpkhO0h7wrYBmJriIBAkCAwEAAaMxMC8wHAYDVR0RBBUwE4IRbjNpd2YuZnJl
+      ZTVnYy5vcmcwDwYDVR0TBAgwBgEB/wIBADANBgkqhkiG9w0BAQsFAAOCAQEAUaLd
+      BA0CzUuyV822joNkAU3NFNoyfBWUI/j7oWb0WssCYAsGanFmMqqQIzyoqKjT6gjv
+      YgSHqV01W46qZ9u/9qeeqFS3wvAaXr1q7Rb8zKnaRmHzddSj4Mm6wfb1+M8ljhMR
+      Cy3Ea8IdG3FssP+V6AHWaiSJRwtJWSYRikpDLrrcBorNdBi/Ma1+sKYcXNQug9O5
+      2dBwH3NArETEE+mVeI6DeU+812ZPIhc37GISkps96EGvL1L9fYXzx5u0iQypWMo9
+      FUMxp4658G3KCpNoHZCfKd6jWtcrsm7Hz6730i5ZgIuVgIM/BYUS5reQcWA9G5WB
+      eedhdbt2ra+iM0pxVg==
+      -----END CERTIFICATE-----
+    nef.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDUzCCAjugAwIBAgIJANC4esPC102UMA0GCSqGSIb3DQEBCwUAMEAxCzAJBgNV
+      BAYTAlRXMRAwDgYDVQQIDAdIc2luY2h1MQ0wCwYDVQQHDARjaXR5MRAwDgYDVQQK
+      DAdmcmVlNUdDMB4XDTE5MDcxODA3NTkwOFoXDTI5MDcxNTA3NTkwOFowQDELMAkG
+      A1UEBhMCVFcxEDAOBgNVBAgMB0hzaW5jaHUxDTALBgNVBAcMBGNpdHkxEDAOBgNV
+      BAoMB2ZyZWU1R0MwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCpem9N
+      zValSrDo0jr5VyMEN/i0TZmD95tnHsOve2H0/sYAjrqRXKihWbz1qy9khp2D7SRH
+      O4dHxwCiFoE6scZ1C212jHZPPXic2o60gxODjZiE7EW5L0wsvptH5PMuLo4SVP5J
+      kwUGwYZ01VRHdTSx/RWRuXOCKluIqcmoNCh4f/hEd5yWvAgGqytsqBVKw2EQ9BYJ
+      oSsUedmd9Hjz9QdVj72UWVCwFyBfUgz2VH8SC50FlZgEjHTBNjL5OriRHv4a0nGV
+      +YRZPdsAIja5jUP27XOm+N/dzHDCTQrihPtYsir+idF4hPJNuhwe0yEaq8zqKvKH
+      zU+VoWGZB4EssThZAgMBAAGjUDBOMB0GA1UdDgQWBBTRNsNPYUMfmh6xMHsYpdhz
+      GAlUszAfBgNVHSMEGDAWgBTRNsNPYUMfmh6xMHsYpdhzGAlUszAMBgNVHRMEBTAD
+      AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQANX8eve1eV6G8m6kcBeD664yI9v9ELVXPV
+      XJ06Vlrcx3xYzpyO2aIDlbA++zfS1Fdlczmn1bSh2jKyRi0JPq8Bc2bvpKUPU+jL
+      vYIcbLaUkT+YeknDOOMDLpwpZRyuTWw1dZg/LnlGkuSgjgpvyrNhXdx216TwgjGX
+      ao7hqQDzumH/CIX1/Bw19xjvy8y21fqgIjpgL4yB/1erC4i/I2Z+mZEb3DH459gz
+      sTmrUHUjO0mSVHmnLYKaYJbRYQGPUQTg5fIYasOAFG3K3C485MGRgMiSkrAC7A2M
+      ZHioUNtm3XF9tfE1srtLsPGfypiM/hiGWIlgYJHUh8NYjQIXF9Pb
+      -----END CERTIFICATE-----
+    nrf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDZDCCAkygAwIBAgIUTBgs4LBgsdzo0XRe06FLgoJpclwwDQYJKoZIhvcNAQEL
+      BQAwYjELMAkGA1UEBhMCVFcxDzANBgNVBAgTBlRhaXdhbjEQMA4GA1UEBxMHSHNp
+      bmNodTEQMA4GA1UEChMHZnJlZTVnYzEQMA4GA1UECxMHZnJlZTVnYzEMMAoGA1UE
+      AxMDTlJGMB4XDTI0MDUyMTA3NDcxOVoXDTM0MDUyMTA3NDcxOVowYjELMAkGA1UE
+      BhMCVFcxDzANBgNVBAgTBlRhaXdhbjEQMA4GA1UEBxMHSHNpbmNodTEQMA4GA1UE
+      ChMHZnJlZTVnYzEQMA4GA1UECxMHZnJlZTVnYzEMMAoGA1UEAxMDTlJGMIIBIjAN
+      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnrbgWnBF/nCKyHHQWkUWC8oLJBFA
+      J1vUCekFG0LPcOSjyDD9SfzOLODGKi2VNbsPoHbZbxdLyqDYxBu4OHEAaeWWuNUX
+      76E6uTb8l0BqqRDzADaINA3dPdqXQh64OnBYdokmPZEYuH8cDS5YoraZHavVE6xa
+      wgwBPSDGFWrvLQ6tbwttdgOCN7WvUpRVVC6O5J6HaSm4diWtorcTrJl6DgST74iU
+      hTs8O8cO8nWDZyBdQA44XHcM8e+ZJYlIkcXQhOd0m9rvXRPTDbGR8Pefw82FL3P5
+      qr8Gl1lObiW2MTCApp3eggOaxQJQQzGu8ticwkR++DCAzox6+iYIWcF7MQIDAQAB
+      oxIwEDAOBgNVHREEBzAFggNOUkYwDQYJKoZIhvcNAQELBQADggEBAJowQ/uTfeQt
+      6qXX7u2vR8KWO/tejfZYSRk9pBm6JQnDGeetSXPRKcdtTOHLkdzjXjqHjVW/3EdR
+      OKtWNuPYl7HD+RJgljvZAqxYk/OfgTBLIpb+m9ElT33bM4YReNcjql9XLomFmleL
+      cSVQVhe9qCh/MPjPHABw7oSs7UUum9HfHdn7e0ZoBK8vXwCxTzahlFBiac2X65E/
+      1x/SNJapIoYdK43n04+oOFyAKoBwTT/ZlQAuTKpTxnVipJVjpyIaUdjXrtSLLQGq
+      QdeeRUFKNw/626fbqN1SFsVLFC52topKEmtNidkt6KVAepEsdADpyGeY9LiFFZr8
+      K0XTu7+tuog=
+      -----END CERTIFICATE-----
+    nssf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDXTCCAkWgAwIBAgIJAKvguoLGe9PUMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
+      BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+      aWRnaXRzIFB0eSBMdGQwHhcNMTkwNzI0MDUwMTQ2WhcNMjkwNzIxMDUwMTQ2WjBF
+      MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50
+      ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+      CgKCAQEAwsrvEP7x76q1/dMEovHMHDowdcpHUfffSsLHiHE/fNpu+8FJ3l0M4sBt
+      BkoZ4ymlJOtUGGAbRKSy9CB01WfEd/zSeoxbk+oxZVLlopXJMaowTmiwfmqrhHTf
+      4+gOzWLl3Qws19FiQrEpOPPUIRLejXjVt1iSjpUBqklfk6qme2ajv7SWAWZ2J5Jc
+      OAvnPHCdiW0LhR02veU3c/Hjcvz1tvbUYPHdUdfT4Z78qLHNG7R033E59GoVcmQT
+      GvBOGkjTO+7tuzoB6uV/iNsIZ62xh2NUKpoi/2NHO5uzN9XvNnGBPWPM6vEuIG7R
+      TgLZXkjr1ntRDPjTxR9uxbOTtoKlhQIDAQABo1AwTjAdBgNVHQ4EFgQU3YRaENrE
+      WQ3PIe0ZrpLhRhqhYIowHwYDVR0jBBgwFoAU3YRaENrEWQ3PIe0ZrpLhRhqhYIow
+      DAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAnP/DtbZ++F5/92myjfkW
+      0onqZ053xJXJTUzwKqUhsxLjRUo1tpZRLksVC3oh9e41pg0s2hHM7aZARGyBEsxo
+      NiZr0xUYS3RAnedd7zAUwigTTdWesBlcvePNO73dYzui1sPVx1RVZgH8uUONqKot
+      W07pBiQBcI0MMpmwYm3kC7Uvuaf99VZrhhR+jPFyQrawNROD4/tIvFYj26TVtmrn
+      GFvz6GqWgOGSZAmMx2ZZh+KvU4pnxJVoeWP/TXluiaWpAnzOmGvQqP32gaDBozLc
+      smIg0D5rSovfshZQgLUbnLSqBKwwYGdFdA7/0IKs5YeAKnjSBBC5vLrOaNGLlNwM
+      8g==
+      -----END CERTIFICATE-----
+    pcf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDSDCCAjACCQDQLErVY/eE8DANBgkqhkiG9w0BAQsFADBmMQswCQYDVQQGEwJU
+      VzEPMA0GA1UECAwGVGFpd2FuMQ8wDQYDVQQHDAZUYWlwZWkxDTALBgNVBAoMBE5U
+      Q1UxDDAKBgNVBAsMA0lPVDEYMBYGA1UEAwwPd3d3Lm50Y3UuZWR1LnR3MB4XDTE5
+      MDcyMzAzMjcwM1oXDTI5MDcyMDAzMjcwM1owZjELMAkGA1UEBhMCVFcxDzANBgNV
+      BAgMBlRhaXdhbjEPMA0GA1UEBwwGVGFpcGVpMQ0wCwYDVQQKDAROVENVMQwwCgYD
+      VQQLDANJT1QxGDAWBgNVBAMMD3d3dy5udGN1LmVkdS50dzCCASIwDQYJKoZIhvcN
+      AQEBBQADggEPADCCAQoCggEBAL6wA/eNxFxRtbFkGL+B8zFgLGXb8qRPrWkRmhQe
+      CKKj6Tyi44CTesLBxNenoYrIsTFy8EzZrmok+gQFgyykri0wCRDQf98F/PRmtyhh
+      KPQSjlctI5VNz2Q3xkugq3NSNsck+XMLWXvOYfeNV7TwpLksiDtmQ89rk+XDo/x5
+      tYC3mahFwvun5cuyvOw1K6LDlwFcUbTIcmBDXkxkD2VfVnMKqot3/tNZFYREpk94
+      U8OLuX/55/iLMffbmcLBwZZJolAvaa4Hn/Y3TdfhsH1CqbUwzz8yjTJ/2hu4JSrP
+      VZyN6XIIWlqFBDTJIUjsCL33jz39Txd+chCuX3Zth38QjU0CAwEAATANBgkqhkiG
+      9w0BAQsFAAOCAQEABtO5Re3ekkXGgBGDBBxBzfIV9H19s4xi3sIhav8d20uaT0lK
+      rYlYIFH4U7yi2eIs60OWDa5kATrOtTeE3Q9hQ4zZMq8xlerz8w/muRS/1AcjI6y0
+      MXQIiv+RVNeWrWSwaOXPDjOXIP1QjG8WEddJg4DMu4copGSmLlv+ETYRuE6OklgU
+      YUgu+Fo+73UAL8LMQFwXNpfvtkvwWLEZhPvkbMgnTY/1da+BIX0nJqkKxy2E5xYf
+      gRMPsd6DdcQ1yHc/b90G0X3VRSaUgW97SPoEn+LFuQMJ0aIN7o5O+GW74yUfyxMo
+      VVF59Dz6FUAk+PupYWvjsh2tL92R/tdykSlDVw==
+      -----END CERTIFICATE-----
+    root.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDOTCCAiGgAwIBAgIVALruLaz4zHWdgdhROVI5MVPCea0kMA0GCSqGSIb3DQEB
+      CwUAMFQxCzAJBgNVBAYTAlRXMQ8wDQYDVQQIEwZUYWl3YW4xEDAOBgNVBAcTB0hz
+      aW5jaHUxEDAOBgNVBAoTB2ZyZWU1Z2MxEDAOBgNVBAsTB2ZyZWU1Z2MwHhcNMjMx
+      MTIyMDIzODExWhcNMzMxMTIyMDIzODExWjBUMQswCQYDVQQGEwJUVzEPMA0GA1UE
+      CBMGVGFpd2FuMRAwDgYDVQQHEwdIc2luY2h1MRAwDgYDVQQKEwdmcmVlNWdjMRAw
+      DgYDVQQLEwdmcmVlNWdjMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+      4ccG+PxGQ02YN2lKFecv0+YOPKzF/I3UdsN6yuWJAtjKaR3PG8ERLugApak/tySX
+      daurEau1sMD1glCLzl18Ax/2D9SvStbQYpAb6NNQq1Td5K/kd2omFNGepyfatGyb
+      ftxDj+KNEi1AClsgNI/5KETmJzHuR9l0IZHX822UemHmVa8e0p6rjjvJfuSRtPMn
+      Y08Z01lWPi+aeVFXK2kbsKWcaDsF0u39Vz+4Ap4/invqO+6OHwg9MttkPK9GKaTu
+      qxjNaXY5zBYDCfXdZw841AD4nbvFCh1N8BEh5ND0xjffeh/w7ECs1oDGpXdH8s5N
+      Qf0OMf5WnQR9wTRbc9WJWwIDAQABowIwADANBgkqhkiG9w0BAQsFAAOCAQEAxNV4
+      3mbtzLKKZ26Vh0Fn/LDmiEkn/Eya7Z9XnEeGMomM98wa3XNvC/i9I2Toivu0r7FG
+      Z5y7AU3nnM0cyHqiObupIUPOb4Xzq0MUwVGSMHQN0o0nm3dIGHoQQTdcFxsov4jJ
+      jtI8O6uBQ3IH7v+NXzwJu5dL7RF/WO/KoegoVWvO06EL7/pg4Z55zsvImlJrowxu
+      cquwZUlqZkUOAgtcqfiPOvEAkS2z0coUuqUFXx2EwCGl7wBirbQGQtdSSTjUl6A9
+      R9iaGkfZ8cGFucOQ4iQ48gqNxpTeqQabaUjFXiGgUJUBGt6uyuwxYii7Dxcpnz/J
+      LW2/bvRulg75CRCfIA==
+      -----END CERTIFICATE-----
+    smf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDazCCAlOgAwIBAgIUejW3Iw+Jqc6UimDjNL5A2iiTLLIwDQYJKoZIhvcNAQEL
+      BQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM
+      GEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0xOTA3MTEwNzI1MThaFw0yOTA3
+      MDgwNzI1MThaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEw
+      HwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwggEiMA0GCSqGSIb3DQEB
+      AQUAA4IBDwAwggEKAoIBAQDdJTfJWunkiD1pEWHc5a2/J3EkL9nMDzOKOtJGV2sI
+      wSEI+xcLqG3E+KiXJh9f3migbeVSFTwoe6dDpGQGpi3EoeuT+5J43qIM7G/Z3hyn
+      sy1OUee5z1KbM46JT23owfZSJcLS3uEYFCyETqVJcsRID5kZZtutptraPlyjIhpH
+      com3K5zd3RfwBPskVScz+E8sF0YnmDV6Tv/aY3SNdbLiIJch4Pmw8P5ojSMjnBqr
+      lcx+XYps5T1fr3PZ8ufAJzDFZeSneFkO3FnduBYNl76XszHblBTA/sYj4wdZjsIx
+      ERRjgIAy5Zwue4LGG6NsTcIMDvZxngHn81asd2jitAvhAgMBAAGjUzBRMB0GA1Ud
+      DgQWBBQXefTGBKHZzWVpSISL/O3UKOjuuDAfBgNVHSMEGDAWgBQXefTGBKHZzWVp
+      SISL/O3UKOjuuDAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQAH
+      fponBxtMoweVP24tpY/gIYIQDMmr6zGslWJjBTS4azBL5/rdk1pZk6onRfQD7zAZ
+      BBz+RBSnNQx9N23ZiNe+93w9L7gF74EOxRL9sCa2i1IDbUverxTmv0RmV4XuGtbI
+      raj02DlULI+RGsKUfqSBNcZUAYyjEKIZja531eq+dRyP7qgyvcwK44f1BsnLSySH
+      j958x1zYQFqvb4qaqC05bNU+CVuwaS0e+wbP1hCXncog3YKAkHYJqZZTjn15b8Op
+      v1rppEFdjK7pCoRb6vP39Efo5uRCjGwdTZYgphX4begnN/muD69o8sEsw60Fuzgt
+      OW7CHtwR2ZAUPJYUK04F
+      -----END CERTIFICATE-----
+    tngf.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIID+TCCAuGgAwIBAgIUC6tC02a9u8PUgOu1sSL1EfS65AUwDQYJKoZIhvcNAQEL
+      BQAwgZwxCzAJBgNVBAYTAlRXMQ8wDQYDVQQIDAZUYWl3YW4xDzANBgNVBAcMBlRh
+      aXBlaTEQMA4GA1UECgwHV2lyZUxhYjERMA8GA1UECwwIV2lyZWxlc3MxKjAoBgkq
+      hkiG9w0BCQEWG3dpcmVsYWJAd2lyZS5jcy5uY3R1LmVkdS50dzEaMBgGA1UEAwwR
+      bjNpd2YuZnJlZTVnYy5vcmcwHhcNMjAwMzI5MTE0MzA1WhcNMzAwMzI3MTE0MzA1
+      WjCBnDELMAkGA1UEBhMCVFcxDzANBgNVBAgMBlRhaXdhbjEPMA0GA1UEBwwGVGFp
+      cGVpMRAwDgYDVQQKDAdXaXJlTGFiMREwDwYDVQQLDAhXaXJlbGVzczEqMCgGCSqG
+      SIb3DQEJARYbd2lyZWxhYkB3aXJlLmNzLm5jdHUuZWR1LnR3MRowGAYDVQQDDBFu
+      M2l3Zi5mcmVlNWdjLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+      AMOQgRPfW5dvPPfy3rkLksdv3CUXwlVZ2Nv9hBPcXWua/hZ4cwMdrd7Ij4rvMmOc
+      QSJhC6a++k9G92/KCdmC3zEgYEVyn3GFfPr1/TGPoXTT+ACKbrK9ivmSpUhvdI9N
+      5kHUGAjXL8VtgFY71k4pzFWMKu4jl/QnxdUnAWECog8dOMeI99cuXqk56yNB1ZQi
+      AJkAyn048jcrkXBUJr/SvdSyJ+8SrfwyNYxGg3BgllkfXGkLGqGvWNsyxmMEDYJB
+      9o9/DYayQxcajN8xrHpWFBzMFVJYnL3ujozD2hovVyQ0dpxc+040PYUrrBg61Qy1
+      fMAbpkhO0h7wrYBmJriIBAkCAwEAAaMxMC8wHAYDVR0RBBUwE4IRbjNpd2YuZnJl
+      ZTVnYy5vcmcwDwYDVR0TBAgwBgEB/wIBADANBgkqhkiG9w0BAQsFAAOCAQEAUaLd
+      BA0CzUuyV822joNkAU3NFNoyfBWUI/j7oWb0WssCYAsGanFmMqqQIzyoqKjT6gjv
+      YgSHqV01W46qZ9u/9qeeqFS3wvAaXr1q7Rb8zKnaRmHzddSj4Mm6wfb1+M8ljhMR
+      Cy3Ea8IdG3FssP+V6AHWaiSJRwtJWSYRikpDLrrcBorNdBi/Ma1+sKYcXNQug9O5
+      2dBwH3NArETEE+mVeI6DeU+812ZPIhc37GISkps96EGvL1L9fYXzx5u0iQypWMo9
+      FUMxp4658G3KCpNoHZCfKd6jWtcrsm7Hz6730i5ZgIuVgIM/BYUS5reQcWA9G5WB
+      eedhdbt2ra+iM0pxVg==
+      -----END CERTIFICATE-----
+    udm.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIID7TCCAtWgAwIBAgIUfjRzF91Mkg/m/bXUK3kIJ1QH/FkwDQYJKoZIhvcNAQEL
+      BQAwgYUxCzAJBgNVBAYTAlRXMRcwFQYDVQQIDA5Ic2luY2h1IENvdW50eTEVMBMG
+      A1UEBwwMSHNpbmNodSBjaXR5MQ0wCwYDVQQKDAROQ1RVMREwDwYDVQQLDAhXSVJF
+      IExBQjEkMCIGCSqGSIb3DQEJARYVZnJlZTVnYy5vcmdAZ21haWwuY29tMB4XDTE5
+      MDcyOTA3NDg1OVoXDTI5MDcyNjA3NDg1OVowgYUxCzAJBgNVBAYTAlRXMRcwFQYD
+      VQQIDA5Ic2luY2h1IENvdW50eTEVMBMGA1UEBwwMSHNpbmNodSBjaXR5MQ0wCwYD
+      VQQKDAROQ1RVMREwDwYDVQQLDAhXSVJFIExBQjEkMCIGCSqGSIb3DQEJARYVZnJl
+      ZTVnYy5vcmdAZ21haWwuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+      AQEAo544dewlx0hksbXlgVVw0kZ2xdUehMDlgwQaQQOO8tntQ3lGH+3UeI2K8QUj
+      rc9DlqkEkzLz7yLQDIFtXV063DWlH521xOTCbsU3iYjb+pZ0uRLVoRsrIflt8LQW
+      3rELnOStI9crni5qd3gV6FT1Tr7puv2UDy8rIE32fbnVr1HvWWw5uSAmE3MRaS6D
+      lO08/DQ/oto63ZFqxjc/x0lbJN3qGB5epgbVxTc1Q+VekPx7qMhjVkTZWueo6DZk
+      iGg0qAI1cN6OI8yjM4yH34DQF2eQjJbTELH5rrrs/2LWJSXnvrXetfxkuzvivUCF
+      6xecU5SMMV117Q+4VheA9s/7xwIDAQABo1MwUTAdBgNVHQ4EFgQUKIlDmYIRzDmi
+      0LELxqiOtUccCbowHwYDVR0jBBgwFoAUKIlDmYIRzDmi0LELxqiOtUccCbowDwYD
+      VR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEARL2nK9jNzjXCgDU5m/nh
+      UmseSK4VtrxHCcyP5Mvt6uAyIdgb5bPoOUXn36/4cTvJHnpttzarnxyxsZKcKRvK
+      PrQs+yPGDCH46g6XCq/zHK4k5BemQapwUjXvcPW4+7E6EqzjWhY7/Dz7///Z3UpV
+      RFoEFb1YYlM7Fl4tY1XLDNFsKGTcHL0gNMSbNKuYbVl4LufFshxOhPhh/p0YMtAu
+      q5p3WIWawOLWMpzR9CHb7GW7m5v+nis2SUTyNR+2EWCN6htybLt7mNF4Be+xdgcy
+      aDZ/Bcc/LyCsBoHujco6XxHb3AFURPOqF8GPppFl0kSDW/oSftiGZT70mFcZvAIu
+      BA==
+      -----END CERTIFICATE-----
+    udr.pem: |2
+
+      -----BEGIN CERTIFICATE-----
+      MIIDYDCCAkigAwIBAgIJAIYfrQTLTPZiMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
+      BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+      aWRnaXRzIFB0eSBMdGQwHhcNMTkwNzIyMTM1MDU5WhcNMjkwNzE5MTM1MDU5WjBF
+      MQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50
+      ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+      CgKCAQEAyL2vLO4vrQu2gGMsnjJ+ECkB0ThuA4CmhEktmhZx7uQCrDoXJG+qNgA5
+      Xx5g/iM8otHB14X4CQB0ghjDSlw6z/M+eCL6fQaqjFkhrXj+LPeqNnWUICDRxzYk
+      yxnZ795yrs2HaQMnI053HRuuX4qssD31MTrlsoCXYQJrXP9yEZ9CaKMNQvDe1ZEh
+      Hx8odb0dvSTpXrdt8gv52Ro7c3Pt+igkuCOCRnOWiEUxcGIpNVad5nMFBMg6d8IL
+      moZCbof6DAneoDAsUYkh5BvKwUkQuRLWrRnU0zgw6QQfgQiYiz0DzQt8JqLOq+f8
+      XsMQM/dFnsDEha1iSNf14mcZQd7N/wIDAQABo1MwUTAdBgNVHQ4EFgQUE/jHBVVy
+      PlHey2lIv8CS9sIXHS4wHwYDVR0jBBgwFoAUE/jHBVVyPlHey2lIv8CS9sIXHS4w
+      DwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAZusdlEbXhDdmwZDN
+      gBlO7oVV6kuWUR3v2udzFZN4EzP2qnf2JRkiMOnIn9l+NOcQVarGzI5+aZs4GbLr
+      fGi6QOlu5zQ9rWR4kn2rSeIHhRMsYHtl/w+Dm3V/cV1u0ANcIfo1sVl1FTSEMwIl
+      Xr/OZOtUgWwuRw4hwl2OaMDrK3Z2jTCtHONInRVKuyySqYgR6ZMJFKiKSfYYxSl9
+      +i1bYCG5tVR1jZe5xvrF8gAABU+b24MJHGJfcXvSn8Z5JxgqRDX/cfKi1g27wewJ
+      p5PRv659sSaHrk5yUTCar8s9zdNnaAkqtBmru0JxBkzEMN2mCoubwxyq1QVAI7u2
+      yEIc7A==
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: free5gc-public-certs
+    namespace: free5gc
+    resourceVersion: "2249"
+    uid: 0c29a411-63da-41f3-9207-d0bbfd4e4e09
+- apiVersion: v1
+  data:
+    gnb-config.yaml: |
+      mcc: '208' # Mobile Country Code value
+      mnc: '93'  # Mobile Network Code value (2 or 3 digits)
+      nci: '0x000000010'  # NR Cell Identity (36-bit)
+      idLength: 32        # NR gNB ID length in bits [22...32]
+      tac: 1     # Tracking Area Code
+      # List of supported S-NSSAIs by this gNB
+      slices:
+        - sst: 0x1
+          sd: 0x010203
+      # Indicates whether or not SCTP stream number errors should be ignored.
+      ignoreStreamIds: true
+      linkIp: GNB_POD_IP   # gNB's local IP address for Radio Link Simulation
+      ngapIp: GNB_POD_IP   # gNB's local IP address for N2 Interface
+      gtpIp: GNB_POD_IP    # gNB's local IP address for N3 Interface
+
+      # List of AMF address information
+      amfConfigs:
+        - address: free5gc-free5gc-amf-amf-n2
+          port: 38412
+    wrapper.sh: |
+      #!/bin/sh
+      set -e
+      # Dynamic Pod IP mode
+      # Get Pod IP dynamically
+      POD_IP=$(hostname -i | awk '{print $1}')
+      echo "[gNB wrapper] Pod IP detected: $POD_IP"
+
+      # Copy config to writable location
+      cp /ueransim/config/gnb-config.yaml /tmp/gnb-config.yaml
+
+      # Replace POD_IP placeholder
+      sed -i "s/GNB_POD_IP/$POD_IP/g" /tmp/gnb-config.yaml
+
+      echo "[gNB wrapper] Configuration prepared:"
+      cat /tmp/gnb-config.yaml | grep -E "linkIp|ngapIp|gtpIp"
+
+      # Execute gNB
+      exec ./nr-gnb -c /tmp/gnb-config.yaml
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: ueransim
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:51:22Z"
+    labels:
+      app: ueransim
+      app.kubernetes.io/managed-by: Helm
+      component: gnb
+    name: gnb-configmap
+    namespace: free5gc
+    resourceVersion: "3088"
+    uid: eee17d80-4685-4a99-b6fc-423fbe762b50
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIBdzCCAR2gAwIBAgIBADAKBggqhkjOPQQDAjAjMSEwHwYDVQQDDBhrM3Mtc2Vy
+      dmVyLWNhQDE3OTQ5MjIzNzQwHhcNMjYxMTE3MTIzMjU0WhcNMzYxMTE0MTIzMjU0
+      WjAjMSEwHwYDVQQDDBhrM3Mtc2VydmVyLWNhQDE3OTQ5MjIzNzQwWTATBgcqhkjO
+      PQIBBggqhkjOPQMBBwNCAAQrODrGNiRB5vKctPe3CAuxOnvniVfUHLOjZOOmSf0R
+      lEZbUE0VJ4sWqbS7YxmqwTH6zBGhCWIvYo1SbIF0cHXAo0IwQDAOBgNVHQ8BAf8E
+      BAMCAqQwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUlhvQ4bnhRGJNkXux9IM3
+      pdtoR7owCgYIKoZIzj0EAwIDSAAwRQIgP6CT46fDtUrQUhm1Om3ZV86t5RnHe5xZ
+      +L8y/40IS8YCIQDO2BBpbDqtK/ig4FLa+TpOiYmnyCCujNPWxxnlY5ExqA==
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubernetes.io/description: Contains a CA bundle that can be used to verify the
+        kube-apiserver when using internal endpoints such as the internal service
+        IP or kubernetes.default.svc. No other usage is guaranteed across distributions
+        of Kubernetes clusters.
+    creationTimestamp: "2026-11-24T08:46:34Z"
+    name: kube-root-ca.crt
+    namespace: free5gc
+    resourceVersion: "1346"
+    uid: 4e4c4b8c-36da-45d9-9f8b-3069e5300c66
+- apiVersion: v1
+  data:
+    ping-mongodb.sh: |
+      #!/bin/bash
+      exec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval "db.adminCommand('ping')"
+    readiness-probe.sh: |
+      #!/bin/bash
+      # Run the proper check depending on the version
+      [[ $(mongod -version | grep "db version") =~ ([0-9]+\.[0-9]+\.[0-9]+) ]] && VERSION=${BASH_REMATCH[1]}
+      . /opt/bitnami/scripts/libversion.sh
+      VERSION_MAJOR="$(get_sematic_version "$VERSION" 1)"
+      VERSION_MINOR="$(get_sematic_version "$VERSION" 2)"
+      VERSION_PATCH="$(get_sematic_version "$VERSION" 3)"
+      readiness_test='db.isMaster().ismaster || db.isMaster().secondary'
+      if [[ ( "$VERSION_MAJOR" -ge 5 ) || ( "$VERSION_MAJOR" -ge 4 && "$VERSION_MINOR" -ge 4 && "$VERSION_PATCH" -ge 2 ) ]]; then
+          readiness_test='db.hello().isWritablePrimary || db.hello().secondary'
+      fi
+      exec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval "if (!(${readiness_test})) { throw new Error(\"Not ready\") }"
+    startup-probe.sh: |
+      #!/bin/bash
+      exec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval 'if (!(db.hello().isWritablePrimary || db.hello().secondary)) { throw new Error("Not ready") }'
+  immutable: true
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app.kubernetes.io/component: mongodb
+      app.kubernetes.io/instance: free5gc
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/version: 7.0.9
+      helm.sh/chart: mongodb-15.6.0
+    name: mongodb-common-scripts
+    namespace: free5gc
+    resourceVersion: "2255"
+    uid: d69e8c5a-4145-41e0-9f57-200478fbaefb
+- apiVersion: v1
+  data:
+    ue-config.yaml: |
+      supi: "imsi-208930000000001"  # IMSI number
+      mcc: "208" # Mobile Country Code value
+      mnc: "93" # Mobile Network Code value (2 or 3 digits)
+      key: "8baf473f2f8fd09487cccbd7097c6862" # Operator code (OP or OPC) of the UE
+      op: "8e27b6af0e692e750f32667a3b14605d" # This value specifies the OP type and it can be either 'OP' or 'OPC'
+      opType: "OPC" # This value specifies the OP type and it can be either 'OP' or 'OPC'
+      amf: "8000" # Authentication Management Field (AMF) value
+      imei: "356938035643803" # IMEI number of the device
+      imeiSv: "4370816125816151"
+      # UAC Access Identities Configuration
+      uacAic:
+        mps: false
+        mcs: false
+      # UAC Access Control Class
+      uacAcc:
+        normalClass: 0
+        class11: false
+        class12: false
+        class13: false
+        class14: false
+        class15: false
+      sessions:
+        - type: "IPv4"
+          apn: "internet"
+          slice:
+            sst: 0x01
+            sd: 0x010203
+      # Configured NSSAI for this UE by HPLMN
+      configured-nssai:
+        - sst: 0x01
+          sd: 0x010203
+      # Default Configured NSSAI for this UE
+      default-nssai:
+        - sst: 1
+          sd: 1
+      # Supported encryption and integrity algorithms by this UE
+      integrity:
+        IA1: true
+        IA2: true
+        IA3: true
+      ciphering:
+        EA1: true
+        EA2: true
+        EA3: true
+      # Integrity protection maximum data rate for user plane
+      integrityMaxRate:
+        uplink: "full"
+        downlink: "full"
+
+      # List of gNB IP addresses for Radio Link Simulation
+      gnbSearchList:
+        - gnb-service
+    wrapper.sh: |
+      #!/bin/bash
+
+      mkdir /dev/net
+      mknod /dev/net/tun c 10 200
+
+      ./nr-ue -c ./config/ue-config.yaml
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: ueransim
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:51:22Z"
+    labels:
+      app: ueransim
+      app.kubernetes.io/managed-by: Helm
+      component: ue
+    name: ue-configmap
+    namespace: free5gc
+    resourceVersion: "3087"
+    uid: a63f9883-a0f1-4fcb-832e-3ed3bd593c72
+- apiVersion: v1
+  data:
+    webuicfg.yaml: "info:\n  version: 1.0.3\n  description: WEBUI initial local configuration\n\nconfiguration:\n
+      \ mongodb:\n    name: free5gc\n    url: mongodb://mongodb:27017\n  nrfUri: http://nrf-nnrf:8000\n
+      \ nrfCertPem: cert/nrf.pem\n  webServer:\n    scheme: http\n    ipv4Address:
+      0.0.0.0\n    port: 5000\n  billingServer:\n    enable: true\n    hostIPv4: 0.0.0.0\n
+      \   listenPort: 2122\n    portRange: # passive port range\n      start: 2123\n
+      \     end: 2130\n    basePath: /tmp/webconsole\n    port: 2121\n    tls:\n      pem:
+      ./cert/chf.pem\n      key: ./cert/chf.key\n    \nlogger:\n  enable: true\n  level:
+      info\n  reportCaller: false\n"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: free5gc
+      meta.helm.sh/release-namespace: free5gc
+    creationTimestamp: "2026-11-24T08:48:57Z"
+    labels:
+      app: free5gc
+      app.kubernetes.io/managed-by: Helm
+    name: webui-configmap
+    namespace: free5gc
+    resourceVersion: "2254"
+    uid: 43270ea4-365b-422f-a646-3be2e6e6d338
+kind: List
+metadata:
+  resourceVersion: ""
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIBdzCCAR2gAwIBAgIBADAKBggqhkjOPQQDAjAjMSEwHwYDVQQDDBhrM3Mtc2Vy
+      dmVyLWNhQDE3OTQ5MjIzNzQwHhcNMjYxMTE3MTIzMjU0WhcNMzYxMTE0MTIzMjU0
+      WjAjMSEwHwYDVQQDDBhrM3Mtc2VydmVyLWNhQDE3OTQ5MjIzNzQwWTATBgcqhkjO
+      PQIBBggqhkjOPQMBBwNCAAQrODrGNiRB5vKctPe3CAuxOnvniVfUHLOjZOOmSf0R
+      lEZbUE0VJ4sWqbS7YxmqwTH6zBGhCWIvYo1SbIF0cHXAo0IwQDAOBgNVHQ8BAf8E
+      BAMCAqQwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUlhvQ4bnhRGJNkXux9IM3
+      pdtoR7owCgYIKoZIzj0EAwIDSAAwRQIgP6CT46fDtUrQUhm1Om3ZV86t5RnHe5xZ
+      +L8y/40IS8YCIQDO2BBpbDqtK/ig4FLa+TpOiYmnyCCujNPWxxnlY5ExqA==
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubernetes.io/description: Contains a CA bundle that can be used to verify the
+        kube-apiserver when using internal endpoints such as the internal service
+        IP or kubernetes.default.svc. No other usage is guaranteed across distributions
+        of Kubernetes clusters.
+    creationTimestamp: "2026-11-24T08:44:02Z"
+    name: kube-root-ca.crt
+    namespace: mec
+    resourceVersion: "1242"
+    uid: f9065026-9022-4390-aa3d-08b596c28f04
+kind: List
+metadata:
+  resourceVersion: ""

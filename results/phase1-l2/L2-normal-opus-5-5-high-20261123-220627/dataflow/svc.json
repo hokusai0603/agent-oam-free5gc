@@ -1,0 +1,1316 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": "2026-11-17T13:32:57Z",
+                "labels": {
+                    "component": "apiserver",
+                    "provider": "kubernetes"
+                },
+                "name": "kubernetes",
+                "namespace": "default",
+                "resourceVersion": "40",
+                "uid": "2672094e-ad82-4dc4-a58d-7412a9c3e37e"
+            },
+            "spec": {
+                "clusterIP": "10.43.0.1",
+                "clusterIPs": [
+                    "10.43.0.1"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "https",
+                        "port": 443,
+                        "protocol": "TCP",
+                        "targetPort": 6443
+                    }
+                ],
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "nf": "amf",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-amf-amf-n2",
+                "namespace": "free5gc",
+                "resourceVersion": "1408",
+                "uid": "4008f913-713b-42fe-b209-ffeec756c6aa"
+            },
+            "spec": {
+                "clusterIP": "10.43.152.8",
+                "clusterIPs": [
+                    "10.43.152.8"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "n2",
+                        "port": 38412,
+                        "protocol": "SCTP",
+                        "targetPort": 38412
+                    }
+                ],
+                "selector": {
+                    "nf": "amf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-amf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-amf-0.2.7",
+                    "nf": "amf",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-amf-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1400",
+                "uid": "84f3b661-b9eb-40fa-a2f4-8ed8d8822a89"
+            },
+            "spec": {
+                "clusterIP": "10.43.146.224",
+                "clusterIPs": [
+                    "10.43.146.224"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-amf",
+                    "nf": "amf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-ausf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-ausf-0.2.7",
+                    "nf": "ausf",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-ausf-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1412",
+                "uid": "c8fa84fa-035f-4fdf-b9b2-bed41fdc23e8"
+            },
+            "spec": {
+                "clusterIP": "10.43.244.181",
+                "clusterIPs": [
+                    "10.43.244.181"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-ausf",
+                    "nf": "ausf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-bsf",
+                    "app.kubernetes.io/version": "v4.3.0",
+                    "helm.sh/chart": "free5gc-bsf-0.1.0"
+                },
+                "name": "free5gc-helm-free5gc-bsf-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1447",
+                "uid": "0989ed8a-26c3-44b2-8d68-d89a13d30ed0"
+            },
+            "spec": {
+                "clusterIP": "10.43.72.17",
+                "clusterIPs": [
+                    "10.43.72.17"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8000,
+                        "protocol": "TCP",
+                        "targetPort": "sbi"
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-bsf"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-chf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-chf-0.1.0",
+                    "nf": "chf",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-chf-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1428",
+                "uid": "7a62aecf-a22f-48e7-b3e0-5ef8091f9c1d"
+            },
+            "spec": {
+                "clusterIP": "10.43.115.189",
+                "clusterIPs": [
+                    "10.43.115.189"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-chf",
+                    "nf": "chf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-nef",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-nef-0.1.0",
+                    "nf": "nef",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-nef-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1426",
+                "uid": "7b2d88ea-0599-4396-a4a8-8cd6752c39b2"
+            },
+            "spec": {
+                "clusterIP": "10.43.171.157",
+                "clusterIPs": [
+                    "10.43.171.157"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-nef",
+                    "nf": "nef",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-nssf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-nssf-0.2.7",
+                    "nf": "nssf",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-nssf-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1418",
+                "uid": "0b4e3dc2-72d3-4302-b056-f16db9f84d08"
+            },
+            "spec": {
+                "clusterIP": "10.43.164.225",
+                "clusterIPs": [
+                    "10.43.164.225"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-nssf",
+                    "nf": "nssf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-pcf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-pcf-0.2.7",
+                    "nf": "pcf",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-pcf-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1456",
+                "uid": "646ac78b-f3aa-4487-bb99-3add2dd46e46"
+            },
+            "spec": {
+                "clusterIP": "10.43.240.97",
+                "clusterIPs": [
+                    "10.43.240.97"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-pcf",
+                    "nf": "pcf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-scp",
+                    "app.kubernetes.io/version": "v4.3.0",
+                    "helm.sh/chart": "free5gc-scp-0.1.0"
+                },
+                "name": "free5gc-helm-free5gc-scp-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1437",
+                "uid": "133692eb-9573-4a88-bc9e-e286f036363a"
+            },
+            "spec": {
+                "clusterIP": "10.43.110.223",
+                "clusterIPs": [
+                    "10.43.110.223"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8000,
+                        "protocol": "TCP",
+                        "targetPort": "sbi"
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-scp"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-smf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-smf-0.2.7",
+                    "nf": "smf",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-smf-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1435",
+                "uid": "b547e1a6-c887-49fd-a30f-e41ed75fbd90"
+            },
+            "spec": {
+                "clusterIP": "10.43.142.45",
+                "clusterIPs": [
+                    "10.43.142.45"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-smf",
+                    "nf": "smf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-udm",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-udm-0.2.7",
+                    "nf": "udm",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-udm-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1438",
+                "uid": "f84ad2b6-9fd3-447c-bba8-ae2d8e07c034"
+            },
+            "spec": {
+                "clusterIP": "10.43.37.63",
+                "clusterIPs": [
+                    "10.43.37.63"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-udm",
+                    "nf": "udm",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-udr",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-udr-0.2.7",
+                    "nf": "udr",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-udr-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1448",
+                "uid": "0b89d83f-4938-40f0-8b7a-3a6c9bc5fc26"
+            },
+            "spec": {
+                "clusterIP": "10.43.240.89",
+                "clusterIPs": [
+                    "10.43.240.89"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-udr",
+                    "nf": "udr",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-upf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-upf-0.2.6",
+                    "nf": "iupf1",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-upf-iupf1-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1399",
+                "uid": "cda4de8e-f1fd-4f03-b06c-cba670aff332"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "pfcp",
+                        "port": 8805,
+                        "protocol": "UDP",
+                        "targetPort": 8805
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-upf",
+                    "nf": "iupf1",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-upf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-upf-0.2.6",
+                    "nf": "psaupf1",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-upf-psaupf1-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1405",
+                "uid": "bd192f30-59d6-412a-9464-9a024ffb39df"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "pfcp",
+                        "port": 8805,
+                        "protocol": "UDP",
+                        "targetPort": 8805
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-upf",
+                    "nf": "psaupf1",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-upf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-upf-0.2.6",
+                    "nf": "psaupf2",
+                    "project": "free5gc"
+                },
+                "name": "free5gc-helm-free5gc-upf-psaupf2-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1403",
+                "uid": "8d8a547a-b0e8-4ce4-84e4-541f744ff9dc"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "clusterIPs": [
+                    "None"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "pfcp",
+                        "port": 8805,
+                        "protocol": "UDP",
+                        "targetPort": 8805
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-upf",
+                    "nf": "psaupf2",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "ueransim",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:13:09Z",
+                "labels": {
+                    "app": "ueransim",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "component": "gnb"
+                },
+                "name": "gnb-service",
+                "namespace": "free5gc",
+                "resourceVersion": "2207",
+                "uid": "f08262cb-afae-436b-ac04-d7280291c998"
+            },
+            "spec": {
+                "clusterIP": "10.43.27.223",
+                "clusterIPs": [
+                    "10.43.27.223"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "gnb-ue",
+                        "port": 4997,
+                        "protocol": "UDP",
+                        "targetPort": 4997
+                    }
+                ],
+                "selector": {
+                    "app": "ueransim",
+                    "component": "gnb"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/component": "mongodb",
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "mongodb",
+                    "app.kubernetes.io/version": "7.0.9",
+                    "helm.sh/chart": "mongodb-15.6.0"
+                },
+                "name": "mongodb",
+                "namespace": "free5gc",
+                "resourceVersion": "1389",
+                "uid": "63605ee2-c338-4568-857a-13a19f182939"
+            },
+            "spec": {
+                "clusterIP": "10.43.94.156",
+                "clusterIPs": [
+                    "10.43.94.156"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "mongodb",
+                        "port": 27017,
+                        "protocol": "TCP",
+                        "targetPort": "mongodb"
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/component": "mongodb",
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "mongodb"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-nrf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-nrf-0.2.7",
+                    "nf": "nrf",
+                    "project": "free5gc"
+                },
+                "name": "nrf-nnrf",
+                "namespace": "free5gc",
+                "resourceVersion": "1391",
+                "uid": "66fc124b-2bd8-4b7a-a3e5-01b586c23aea"
+            },
+            "spec": {
+                "clusterIP": "10.43.249.209",
+                "clusterIPs": [
+                    "10.43.249.209"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8000,
+                        "protocol": "TCP",
+                        "targetPort": 8000
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-nrf",
+                    "nf": "nrf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-webui",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-webui-0.1.5",
+                    "nf": "webui",
+                    "project": "free5gc"
+                },
+                "name": "webui-nbiling",
+                "namespace": "free5gc",
+                "resourceVersion": "1454",
+                "uid": "aecd3107-b331-4b45-b755-4bbac77b4b7e"
+            },
+            "spec": {
+                "clusterIP": "10.43.4.130",
+                "clusterIPs": [
+                    "10.43.4.130"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "webui-nbiling",
+                        "port": 2122,
+                        "protocol": "TCP",
+                        "targetPort": 2122
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-webui",
+                    "nf": "webui",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-chf",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-chf-0.1.0",
+                    "nf": "chf",
+                    "project": "free5gc"
+                },
+                "name": "webui-ncgf",
+                "namespace": "free5gc",
+                "resourceVersion": "1394",
+                "uid": "466ba5c1-410e-4850-a980-46f577ecf63e"
+            },
+            "spec": {
+                "clusterIP": "10.43.195.198",
+                "clusterIPs": [
+                    "10.43.195.198"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "webui-ncgf",
+                        "port": 2121,
+                        "protocol": "TCP",
+                        "targetPort": 2121
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-chf",
+                    "nf": "chf",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "meta.helm.sh/release-name": "free5gc-helm",
+                    "meta.helm.sh/release-namespace": "free5gc"
+                },
+                "creationTimestamp": "2026-11-23T14:09:10Z",
+                "labels": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "free5gc-webui",
+                    "app.kubernetes.io/version": "latest",
+                    "helm.sh/chart": "free5gc-webui-0.1.5",
+                    "nf": "webui",
+                    "project": "free5gc"
+                },
+                "name": "webui-service",
+                "namespace": "free5gc",
+                "resourceVersion": "1462",
+                "uid": "29d58bf7-e7f9-4992-ae9e-39383a0e1510"
+            },
+            "spec": {
+                "clusterIP": "10.43.52.146",
+                "clusterIPs": [
+                    "10.43.52.146"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 5000,
+                        "protocol": "TCP",
+                        "targetPort": 5000
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/instance": "free5gc-helm",
+                    "app.kubernetes.io/name": "free5gc-webui",
+                    "nf": "webui",
+                    "project": "free5gc"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "objectset.rio.cattle.io/applied": "H4sIAAAAAAAA/4ySQYvbMBCF/0p5Z9m142TjFfRQdimUQgmk7aXsQZYnG9W2JKRJSgj+70WJl00b0vZm8958vHmjI5Q33yhE4ywk9iUEOmNbSKwp7I0mCAzEqlWsII9Q1jpWbJyN6dc1P0hzJM6DcblWzD3lxr01iQBxU3c/LYXsed9BoqvihbIvxZtPxrbv3rets/9EWDUQJLQL1Nr4X/bolU4z3a6hLB4i0wABH9xAvKVdTG7vAkPivlxUV1rUQfkE4LAjjAK9aqg/1dHVMVPev8DPidJnsMR0mtb9LjKFLE71Tpg/bdNeDy7Q4+f1X/baqriFRKNpVlez+7ouy+W8UkVV36lmURab2eZuSZvlfDYv9GKZ8k7si4i3ahkFoiedVptyf1xBoizyeZUXeVlAvAoR8vul9CRg/Ac1mP6wcr3Rh/SojH3uac1Kd6lXFzhNHV8indOcy19Up+LZaddD4uvjCqO4dGas/S33l4ff3ANxMPqVne567X8SiNSTZhduHHMcx18BAAD//5X9LCMyAwAA",
+                    "objectset.rio.cattle.io/id": "",
+                    "objectset.rio.cattle.io/owner-gvk": "k3s.cattle.io/v1, Kind=Addon",
+                    "objectset.rio.cattle.io/owner-name": "coredns",
+                    "objectset.rio.cattle.io/owner-namespace": "kube-system",
+                    "prometheus.io/port": "9153",
+                    "prometheus.io/scrape": "true"
+                },
+                "creationTimestamp": "2026-11-17T13:33:01Z",
+                "labels": {
+                    "k8s-app": "kube-dns",
+                    "kubernetes.io/cluster-service": "true",
+                    "kubernetes.io/name": "CoreDNS",
+                    "objectset.rio.cattle.io/hash": "bce283298811743a0386ab510f2f67ef74240c57"
+                },
+                "name": "kube-dns",
+                "namespace": "kube-system",
+                "resourceVersion": "296",
+                "uid": "585a67fa-5ba7-4447-bee3-bcb503b23c8d"
+            },
+            "spec": {
+                "clusterIP": "10.43.0.10",
+                "clusterIPs": [
+                    "10.43.0.10"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "dns",
+                        "port": 53,
+                        "protocol": "UDP",
+                        "targetPort": 53
+                    },
+                    {
+                        "name": "dns-tcp",
+                        "port": 53,
+                        "protocol": "TCP",
+                        "targetPort": 53
+                    },
+                    {
+                        "name": "metrics",
+                        "port": 9153,
+                        "protocol": "TCP",
+                        "targetPort": 9153
+                    }
+                ],
+                "selector": {
+                    "k8s-app": "kube-dns"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "objectset.rio.cattle.io/applied": "H4sIAAAAAAAA/4SQQWsbMRCF/0p5Z9nNep04FfRQWnopBUNKL6WHWe04VleWhGa8xZj970UbFxLaJCchvZn3vqczKPvvXMSnCIuxgcHgYw+LOy6jdwyDAyv1pAR7BsWYlNSnKPWaul/sVFiXxaelI9XAS5/e+uoA86yefkcui/txgMXQyiNlbMybLz727z/0fYqvWkQ6MGxFLN7JQriMXObjgf31bcnkqsVw7HghJ1E+YDII1HGYO1ahRFaWuujCUfRRhIWWY016Onbh+vqE6wWePckeFnTdt527uWrc7abhZtXuqF11q83uev2uu2HabK46t1tTJfxvdTy8P1NKMrtayefPdPDhtE3BuxMstoV3XD4dKdwpuQEGORUV2B/nvzl71SwXAXa9bg1ySZpcCrD49nELA6Vyz7qdJy4L008D4cBOU5l/81YWlPO/4NM0/QkAAP//sKxN444CAAA",
+                    "objectset.rio.cattle.io/id": "",
+                    "objectset.rio.cattle.io/owner-gvk": "k3s.cattle.io/v1, Kind=Addon",
+                    "objectset.rio.cattle.io/owner-name": "metrics-server-service",
+                    "objectset.rio.cattle.io/owner-namespace": "kube-system"
+                },
+                "creationTimestamp": "2026-11-17T13:33:01Z",
+                "labels": {
+                    "kubernetes.io/cluster-service": "true",
+                    "kubernetes.io/name": "Metrics-server",
+                    "objectset.rio.cattle.io/hash": "a5d3bc601c871e123fa32b27f549b6ea770bcf4a"
+                },
+                "name": "metrics-server",
+                "namespace": "kube-system",
+                "resourceVersion": "356",
+                "uid": "0178a89c-81e6-4582-86fb-0384ad6410a3"
+            },
+            "spec": {
+                "clusterIP": "10.43.14.53",
+                "clusterIPs": [
+                    "10.43.14.53"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "PreferDualStack",
+                "ports": [
+                    {
+                        "name": "https",
+                        "port": 443,
+                        "protocol": "TCP",
+                        "targetPort": "https"
+                    }
+                ],
+                "selector": {
+                    "k8s-app": "metrics-server"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"mec-app\",\"namespace\":\"mec\"},\"spec\":{\"clusterIP\":\"10.43.200.10\",\"ports\":[{\"name\":\"http\",\"port\":80,\"targetPort\":80}],\"selector\":{\"app\":\"mec-app\"}}}\n"
+                },
+                "creationTimestamp": "2026-11-23T14:07:09Z",
+                "name": "mec-app",
+                "namespace": "mec",
+                "resourceVersion": "1247",
+                "uid": "5bf34946-c138-44f3-9a6b-6ac2ff516419"
+            },
+            "spec": {
+                "clusterIP": "10.43.200.10",
+                "clusterIPs": [
+                    "10.43.200.10"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": 80
+                    }
+                ],
+                "selector": {
+                    "app": "mec-app"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

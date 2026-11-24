@@ -91,7 +91,9 @@ for e in events:
         api_error_texts.append(json.dumps(e, ensure_ascii=False)[:2000])
 blob = "\n".join(api_error_texts)
 RATE_LIMIT_RE = re.compile(r"rate.?limit|usage limit|limit reached|limit will reset|resets? at|out of usage|"
-                           r"\b429\b|overloaded|\b529\b|too many requests", re.I)
+                           r"\b429\b|too many requests", re.I)
+# 529 Overloaded：Anthropic 伺服器暫時過載，和我們的額度無關，等一下重試即可（run_matrix 會自動重試）
+OVERLOAD_RE = re.compile(r"overloaded|\b529\b", re.I)
 AUTH_RE = re.compile(r"invalid api key|authentication|unauthori[sz]ed|\b401\b|oauth token|please run /login|"
                      r"credit balance", re.I)
 invalid_reasons = []
@@ -99,6 +101,8 @@ if off_model:
     invalid_reasons.append("off_model_messages")
 if RATE_LIMIT_RE.search(blob):
     invalid_reasons.append("rate_limited")
+if OVERLOAD_RE.search(blob):
+    invalid_reasons.append("api_overloaded")
 if AUTH_RE.search(blob):
     invalid_reasons.append("auth_error")
 

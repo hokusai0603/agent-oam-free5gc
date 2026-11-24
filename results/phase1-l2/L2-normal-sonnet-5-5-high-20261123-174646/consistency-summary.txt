@@ -1,0 +1,13 @@
+[ skip] found.amf              找不到 amf 的設定檔
+[ skip] found.smf              找不到 smf 的設定檔
+[ skip] found.upf              找不到 upf 的設定檔
+[ skip] found.nssf             找不到 nssf 的設定檔
+[ skip] found.ausf             找不到 ausf 的設定檔
+[ skip] found.udm              找不到 udm 的設定檔
+[ skip] found.udr              找不到 udr 的設定檔
+[ skip] found.pcf              找不到 pcf 的設定檔
+[ skip] found.nrf              找不到 nrf 的設定檔
+[ skip] found.gnb              找不到 gnb 的設定檔
+[ skip] found.ue               找不到 ue 的設定檔
+[ skip] subs                   沒有 subscriber 資料（舊 trial 沒有存 MongoDB），只能由 V2 間接確認
+V5 PASS  exact=yes  {'ok': 0, 'error': 0, 'extra': 0, 'warn': 0, 'info': 0, 'skip': 12}

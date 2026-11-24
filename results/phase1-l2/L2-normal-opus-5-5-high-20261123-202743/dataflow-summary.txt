@@ -1,0 +1,73 @@
+[  ok ] capture.reattach         UE 去註冊、重啟後 1 秒重新建好 uesimtun0（10.60.0.4）
+[ info] capture.dedup            去掉 794 個重複的封包（cni0 上同一個封包出現兩次）
+[  ok ] capture.dereg            UE 重啟前有送出 Deregistration Request
+[  ok ] ngsetup                  gNB → AMF NG Setup 成功（AMF 10.42.0.41）
+[  ok ] content.ngsetup_plmn     NG Setup Request 的 PLMN = ['208/93']
+[  ok ] content.ngsetup_tac      gNB 宣告的 TAC = [1]
+[  ok ] content.ngsetup_gnb_slice gNB 宣告的 S-NSSAI = ['1/010203']
+[extra] content.ngsetup_amf_slice AMF 回應支援的 S-NSSAI = ['1/010203', '1/112233']
+[  ok ] reg.request              UE 經 gNB 送 Registration Request 給 AMF
+[  ok ] reg.ausf                 AMF → AUSF 開始認證（201，9.0 ms）
+[  ok ] reg.udm_auth             AUSF → UDM 產生認證向量（200，4.0 ms）
+[  ok ] reg.udr_auth             UDM → UDR 讀 subscriber 的認證資料（200，1.0 ms）
+[  ok ] reg.auth_req             AMF → UE Authentication Request
+[  ok ] reg.auth_resp            UE → AMF Authentication Response
+[  ok ] reg.aka_confirm          AMF → AUSF 5G-AKA 確認（200，3.0 ms）
+[  ok ] reg.smc                  AMF → UE Security Mode Command
+[  ok ] reg.smc_complete         UE → AMF Security Mode Complete
+[  ok ] reg.uecm                 AMF → UDM 登記為服務這個 UE 的 AMF（201，2.0 ms）
+[  ok ] reg.sdm_am               AMF → UDM 取 access and mobility 訂閱資料（200，1.0 ms）
+[  ok ] reg.am_policy            AMF → PCF 建立 AM policy（201，1.0 ms）
+[  ok ] reg.accept               AMF → UE Registration Accept
+[  ok ] reg.complete             UE → AMF Registration Complete
+[  ok ] pdu.request              UE → AMF PDU Session Establishment Request
+[  ok ] pdu.smf_create           AMF → SMF 建立 SM context（201，2360.0 ms）
+[  ok ] pdu.sdm_sm               SMF → UDM 取 session management 訂閱資料（200，6.0 ms）
+[  ok ] pdu.sm_policy            SMF → PCF 建立 SM policy（201，16.0 ms）
+[  ok ] pdu.pfcp_est             SMF → UPF PFCP Session Establishment
+[  ok ] pdu.pfcp_est_resp        UPF → SMF PFCP Session Establishment Response
+[  ok ] pdu.n1n2                 SMF → AMF 下發 N1（NAS）／N2（NGAP）訊息（200，0.0 ms）
+[  ok ] pdu.ran_setup            AMF → gNB PDU Session Resource Setup（帶 Establishment Accept）
+[  ok ] pdu.ran_setup_resp       gNB → AMF PDU Session Resource Setup Response
+[  ok ] pdu.smf_modify           AMF → SMF 更新 SM context（帶 gNB 的 N3 位址）（200，2020.0 ms）
+[  ok ] pdu.pfcp_mod             SMF → UPF PFCP Session Modification（設定下行）
+[  ok ] pdu.pfcp_mod_resp        UPF → SMF PFCP Session Modification Response
+[  ok ] data.ul                  上行 GTP-U：gNB → UPF
+[  ok ] data.dl                  下行 GTP-U：UPF → gNB
+[  ok ] content.suci_plmn        Registration Request 的 SUCI PLMN = 208/93
+[  ok ] content.allowed_nssai    Registration Accept 給 UE 的 Allowed NSSAI = ['1/010203']
+[  ok ] content.guti_plmn        5G-GUTI 的 PLMN = ['208/93']
+[  ok ] content.pdu_req_dnn      UE 請求的 DNN = ['internet']
+[  ok ] content.pdu_req_slice    UE 請求的 S-NSSAI = ['1/010203']
+[  ok ] content.pdu_addr         Establishment Accept 給的 UE IP = ['10.60.0.3']，uesimtun0 = 10.60.0.3
+[  ok ] content.pdu_acc_dnn      Accept 的 DNN = ['internet']
+[  ok ] content.pdu_acc_slice    Accept 的 S-NSSAI = ['1/010203']
+[ info] content.qos              5QI = [9]，Session-AMBR DL/UL = ('100', '200')（單位依 NAS 編碼）
+[  ok ] pfcp.node_cause          UPF psaupf1：1 個 PFCP 請求，都回 accepted
+[  ok ] pfcp.node_cause          UPF iupf1：3 個 PFCP 請求，都回 accepted
+[  ok ] pfcp.node_cause          UPF psaupf2：2 個 PFCP 請求，都回 accepted
+[ info] pfcp.nodes               3 個 UPF 收到 PFCP session：['psaupf1', 'iupf1', 'psaupf2']；接 N3 的是 iupf1
+[  ok ] pfcp.node_ul_dl          UPF psaupf1：上行 PDR 1 條、下行 1 條
+[  ok ] pfcp.node_ul_dl          UPF iupf1：上行 PDR 2 條、下行 2 條
+[  ok ] pfcp.node_ul_dl          UPF psaupf2：上行 PDR 1 條、下行 1 條
+[  ok ] teid.ul_ngap_pfcp        AMF 告訴 gNB 的上行 TEID/IP [(10, '10.42.0.68'), (11, '10.42.0.68')]，PFCP 給 iupf1 的預設上行 F-TEID (10, '10.42.0.68')
+[  ok ] teid.dl_ngap_pfcp        gNB 回報的下行 TEID/IP [(2, '10.42.0.74')]，PFCP 設給 iupf1 的下行 outer header [(2, '10.42.0.74')]
+[  ok ] teid.n9                  N9 轉送規則 4 條，對方都有對應的 F-TEID：['psaupf1 PDR6 → iupf1 TEID 0x9', 'iupf1 PDR9 → psaupf1 TEID 0xa', 'iupf1 PDR11 → psaupf2 TEID 0xa', 'psaupf2 PDR6 → iupf1 TEID 0x9']
+[  ok ] pfcp.default_anchor      預設路徑：iupf1 → psaupf1
+[  ok ] gtp.ul_teid              上行 GTP-U 的 TEID [10]（PFCP F-TEID (10, '10.42.0.68')）
+[  ok ] gtp.ul_src               上行封包內層的來源 IP = ['10.60.0.3']（UE 10.60.0.3）
+[  ok ] gtp.dl_teid              下行 GTP-U 的 TEID [2]（gNB 回報 [2]）
+[  ok ] data.n9_internet         上網的流量：iupf1 → ['psaupf1']（預設 anchor psaupf1），回程 5 個
+[  ok ] ulcl.pdr                 iupf1 有 MEC 分流規則 PDR 11（優先序 30，['permit out ip from 10.43.200.10/32 to 10.60.0.3']）→ psaupf2
+[  ok ] data.mec_ul              往 MEC 的上行：iupf1 → ['psaupf2']（分流規則指向 psaupf2）
+[  ok ] data.mec_dl              MEC 的回應：['psaupf2'] → iupf1 12 個
+[ info] sbi.count                重新註冊後共 47 個 SBI 呼叫
+[  ok ] sbi.error                沒有 4xx／5xx 回應
+[ info] sbi.slow                 amf → smf POST /nsmf-pdusession/v1/sm-contexts 花了 2360.0 ms
+[ info] sbi.slow                 amf → smf POST /nsmf-pdusession/v1/sm-contexts/urn:uuid:9f236e4c-d2b6-4869-90df-e7f6703756de/mo 花了 2020.0 ms
+[ info] sbi.slow                 smf → chf POST /nchf-convergedcharging/v3/chargingdata 花了 2004.0 ms
+[ info] sbi.mode                 NF 間直接溝通（沒有經過 SCP）
+[ info] gnb_restart.ue_recovers  gNB 重啟後 UE 沒有在 20 秒內自己恢復，重啟 UE 後才恢復
+[ info] time.registration        註冊花了 34 ms
+[ info] time.pdu                 PDU session 建立花了 2367 ms
+V6 PASS  exact=no  {'ok': 60, 'error': 0, 'extra': 1, 'warn': 0, 'info': 11, 'skip': 0}

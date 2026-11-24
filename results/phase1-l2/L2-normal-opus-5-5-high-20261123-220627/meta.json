@@ -1,0 +1,150 @@
+{
+  "trial_id": "L2-normal-opus-5-5-high-20261123-220627",
+  "task": "L2",
+  "prompt_variant": "normal",
+  "prompt_sha256": "02c6e20e79058f14",
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "harness": {
+    "name": "claude-code",
+    "version": "2.1.325",
+    "tools": [
+      "Task",
+      "Bash",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "DesignSync",
+      "Edit",
+      "EnterWorktree",
+      "ExitWorktree",
+      "ListAgents",
+      "Monitor",
+      "NotebookEdit",
+      "PushNotification",
+      "Read",
+      "RemoteTrigger",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "SendMessage",
+      "Skill",
+      "TaskStop",
+      "ToolSearch",
+      "Workflow",
+      "Write"
+    ],
+    "disallowed": [
+      "WebSearch",
+      "WebFetch"
+    ]
+  },
+  "limits": {
+    "timeout_min": 60,
+    "budget_usd": 15.0
+  },
+  "auth": "subscription_oauth",
+  "start_snapshot": "S1-agent",
+  "agent": {
+    "exit_code": "0",
+    "result_subtype": "success",
+    "is_error": false,
+    "num_turns": 75,
+    "result_segments": 1,
+    "cost_usd": 2.9554296,
+    "cost_is_estimate": true,
+    "duration_ms": 842892,
+    "wall_s": 844,
+    "usage": {
+      "input_tokens": 148,
+      "output_tokens": 37545,
+      "cache_read_input_tokens": 5977608,
+      "cache_creation_input_tokens": 126052
+    },
+    "models_seen": {
+      "claude-opus-5-5": 148
+    },
+    "off_model_messages": {},
+    "stop_reasons": {},
+    "refusal": false,
+    "tool_calls": {
+      "Bash": 74
+    },
+    "final_text": "部署完成，兩項要求都達成。UE 已註冊並建立 PDU session，介面是 `uesimtun0`，IP 10.60.0.2。經由這個 tunnel，ping 8.8.8.8 成功，`http://10.43.200.10/` 也回 200。封包擷取顯示 MEC 流量只經過 MEC 專用的 PSA-UPF，上網流量只經過另一個 PSA-UPF。`mec` namespace 沒有改動。\n\n要注意的是，指定 commit 的 chart 原樣部署時 **ULCL 不會生效**。我第一次部署時 MEC 連得到，但 MEC 回報的來源 IP 是上網用 PSA-UPF 的 pod IP，代表流量根本沒分流。這是 chart 範本和 SMF v4.3.0 不相容造成的，我在本機 chart 副本裡修了 SMF 範本才解決（見下面第 1 部分）。\n\n## 1. 部署的元件與設定\n\n全部放在 namespace `free5gc`。\n- **free5GC v4.3.0**（helm release `free5gc-helm`）：AMF、AUSF、BSF、CHF、NEF、NRF、NSSF、PCF、SCP、SMF、UDM、UDR、WebUI、MongoDB。所有映像都是 `v4.3.0`。不用 Multus，各元件直接用 pod IP（chart 預設的 cloud-native 模式）。\n- **3 個 UPF**（gtp5g 轉送）：\n\n  | Pod | 在 SMF 裡的名稱 | 角色 |\n  |---|---|---|\n  | `iupf1` | BranchingUPF | I-UPF／ULCL：N3 接 gNB，N9 接兩個 PSA |\n  | `psaupf1` | AnchorUPF1 | 上網用的 PSA-UPF（預設路徑），對外 NAT |\n  | `psaupf2` | AnchorUPF2 | MEC 專用的 PSA-UPF，只處理 `10.43.200.10/32` |\n- **UERANSIM**（helm release `ueransim`）：1 個 gNB、1 個 UE。\n- **網路參數**：PLMN 208/93；slice SST 1、SD 010203；DNN `internet`；UE 位址池 10.60.0.0/16。\n- **訂閱者** `imsi-208930000000001`：透過 WebUI API 新增，內容在 `subscriber.json`，格式照 WebUI v1.4.6（free5GC v4.3.0 用的版本）的原始碼。\n\n**Chart**：用的是 commit `07139fcc…`。原始 clone 在 `~/src/free5gc-helm`，沒有動過。下面三處修改都在 `~/deploy/charts` 這份副本的 SMF ULCL 範本裡，完整差異在 `free5gc-helm-07139fc-local.patch`：\n1. **加上 `ulcl: true`。** 少了這一行，SMF 會完全不讀分流設定檔 `uerouting.yaml`，所有流量都走預設路徑。\n2. **讓 AnchorUPF2 同時宣告 N3 介面。** SMF v4.3.0 選第二個 PSA（`SelectPSA2`）時，只接受同時有 N3 和 N9 介面的 UPF；這是上游 2025-12 的修改（commit 0a5d00f）。不加的話，MEC 路徑會被默默跳過，日誌只寫 \"No more valid PSA2 path found\"。\n3. **把 UE1 的分流目的地從 `1.0.0.1/32` 改成 `10.43.200.10/32`**，路徑為 BranchingUPF → AnchorUPF2。\n\n**values 檔**（不需要改 chart 就能設定的部分）：\n- 兩個 PSA 的下行路由都設成整個 10.60.0.0/16。\n- MongoDB 改用 K3s 的 local-path，原本 chart 附的是 microk8s 專用的 PV。\n- 調低 UPF 的 CPU requests。\n\n所有檔案、說明（`README.md`）和工具都在 `~/deploy`。\n\n## 2. 我怎麼確認網路是正確的\n\n**控制面**\n- SMF 和 3 個 UPF 都完成 PFCP association。\n- UE 的日誌依序出現 Registration accept、PDU Session Establishment Accept、`uesimtun0` 建立。\n- SMF 日誌依序出現 `Has pre-config ULCL paths`、`Establish PSA2`、`EstablishULCL`，表示分流確實有建起來。\n- 每個 UPF 目前只剩一個 PFCP session：重啟前留下的舊 session 已被刪除。\n\n**使用者面**：`~/deploy/tools/verify-paths.sh` 會從主機進入每個 UPF pod 的網路空間擷取封包，同時讓 UE 經 tunnel 送 5 個 ping 到 8.8.8.8、3 次 HTTP GET 到 MEC。GTP-U 封包再由 `gtp_flows.py` 拆開，看出隧道裡面裝的是哪一種流量。結果如下：\n\n| UPF | 看到的流量 |\n|---|---|\n| iupf1 (.49) | 只有 GTP-U 封包，沒有任何解封裝後送出去的流量。ICMP 8.8.8.8 走 .49→**.50**（5 包），TCP 10.43.200.10:80 走 .49→**.51**（15 包）；回程對應 |\n| psaupf1 (.50) | 只有 ICMP 8.8.8.8，解封裝後 NAT 出去；沒有任何往 MEC 的封包 |\n| psaupf2 (.51) | 只有 TCP 10.43.200.10:80，解封裝後送往 MEC；沒有任何 ICMP 8.8.8.8 |\n\n**應用層也能獨立佐證**：MEC 應用（whoami）回報的 `RemoteAddr` 是 `10.42.0.51`，也就是 psaupf2 的 pod IP。修正前這裡顯示的是 psaupf1 的 `10.42.0.27`，也就是一開始那個問題被抓到的地方。\n\n## 其他注意事項\n- **UPF pod 重建後要重啟一輪。** SMF 只在啟動時解析一次 UPF 的 pod IP，所以任何 UPF pod 被重建後，都要執行 `~/deploy/tools/restart-userplane.sh`。它會依序重啟 UPF → SMF → gNB → UE。\n- **MEC 測試沒用 curl。** UE 映像裡沒有 curl，而 Debian 鏡像站不同步，`apt-get` 裝不起來。我改用映像內建的 perl 寫了 `tools/httpget.pl`，綁定 UE 的 tunnel IP 發送請求。UERANSIM 有一條「從 UE IP 出發就查 `rt_uesimtun0` 路由表」的規則，所以這個請求一定經過 5G tunnel。"
+  },
+  "verify": {
+    "pass": true,
+    "v1": true,
+    "v2": true,
+    "v3": true,
+    "req": true,
+    "v3x": true,
+    "v3x_checks": {
+      "first_hop_is_upf": true,
+      "dns": true,
+      "http": true,
+      "https": true,
+      "download_1mb": true
+    },
+    "pass_strict": true,
+    "v4": true,
+    "v4_checks": {
+      "mec_reachable": true,
+      "separate_anchors": true,
+      "via_branching_upf": true,
+      "remote_addr_consistent": true
+    },
+    "setup_untouched": true,
+    "failed_req": [],
+    "v5": {
+      "pass": true,
+      "exact": false,
+      "counts": {
+        "ok": 41,
+        "error": 0,
+        "extra": 4,
+        "warn": 4,
+        "info": 5,
+        "skip": 0
+      },
+      "issues": [
+        "plmn: AUSF plmnSupportList 除了 208/93 還有 ['123/45']",
+        "snssai.amf: AMF plmnSupportList 的 S-NSSAI 多了 ['1/112233']",
+        "snssai.nssf: NSSF supportedNssaiInPlmnList 的 S-NSSAI 多了 ['1/000003', '1/112233', '2/000001', '2/000002']",
+        "ulcl.extra_groups: uerouting 還有其他群組 ['UE2']（chart 預設的 UE2 之類）"
+      ]
+    },
+    "v6": {
+      "pass": true,
+      "exact": false,
+      "counts": {
+        "ok": 60,
+        "error": 0,
+        "extra": 1,
+        "warn": 0,
+        "info": 9,
+        "skip": 0
+      },
+      "issues": [
+        "content.ngsetup_amf_slice: AMF 回應支援的 S-NSSAI = ['1/010203', '1/112233']"
+      ]
+    }
+  },
+  "side_effects": {
+    "infra_changes": 0,
+    "tooling_changes": 0,
+    "auto_changes": 4,
+    "infra": [],
+    "tooling": [],
+    "auto": [
+      "modules:added:ip_set_hash_ip",
+      "modules:added:xt_sctp",
+      "modules:added:xt_set",
+      "modules:added:xt_statistic"
+    ]
+  },
+  "valid": true,
+  "invalid_reasons": [],
+  "human_interventions": 0,
+  "error_class": null,
+  "notes": "2026-11-24 V6 重算：預設上行 PDR 帶 PCF 計費 PCC rule 的萬用 SDF（permit out ip from any to assigned），舊版只認沒有 SDF → 誤判 FAIL；原結果在 dataflow.orig.json"
+}

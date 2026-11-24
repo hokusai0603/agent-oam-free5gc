@@ -8,7 +8,8 @@
   tooling ：裝套件、裝執行檔（tcpdump、jq…）→ 通常無害，但也是變更
   auto    ：建 iptables／ipset 規則時 kernel 自動載入的 netfilter module（xt_*、ip_set*…）。
             部署 free5GC 本身就會出現（SCTP Service → xt_sctp、UPF → xt_TCPMSS、kube-router → xt_set），
-            另外列出、不算 infra（2026-11-19 phase1-r2 發現）
+            另外列出、不算 infra（2026-11-19 phase1-r2 發現）。
+            唯讀查詢自動載入的 *_diag（`ss` 會載入 inet_diag／tcp_diag／udp_diag…）也算 auto（2026-11-24 L2 Haiku 重跑發現）
 """
 import json
 import re
@@ -23,7 +24,7 @@ NOISE = [
 noise_re = re.compile("|".join(NOISE))
 # 依需要自動起停的系統服務（不是 agent 啟動的）
 # kernel 在建 iptables／ipset／nft 規則時自動載入的 module
-auto_mod_re = re.compile(r"^(xt_|ipt_|ip6t_|ip_set|nf_|nft_|ip_vs|ebt_)")
+auto_mod_re = re.compile(r"^(xt_|ipt_|ip6t_|ip_set|nf_|nft_|ip_vs|ebt_)|^(inet|tcp|udp|raw|unix|netlink|af_packet|sock)_diag$")
 svc_noise_re = re.compile(r"^running (systemd-(timedated|hostnamed|localed|timesyncd)|fwupd|packagekit|apt-daily|"
                           r"apt-daily-upgrade|motd-news|man-db|unattended-upgrades|polkit|udisks2|e2scrub)")
 

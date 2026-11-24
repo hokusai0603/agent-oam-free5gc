@@ -11,3 +11,8 @@ tasks/*/reference/build/
 env/secrets/
 results/**/work.tgz
 env/registry-cache/
+
+# 可重新產生的檔案
+__pycache__/
+*.pyc
+results/**/capture.pcap.dedup

@@ -1,0 +1,32 @@
+[2026-11-23 16:39:56] matrix start task=L2 rounds=3 models=claude-opus-5-5 claude-sonnet-5-5 claude-haiku-5-5
+[2026-11-23 16:39:56] round 1 model claude-opus-5-5
+[2026-11-23 17:15:16] rc=0 RESULT L2-normal-opus-5-5-high-20261123-163956: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$2.5225334000000004 (est.) turns=65 wall=1837s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 17:15:16] round 1 model claude-sonnet-5-5
+[2026-11-23 17:45:45] rc=0 RESULT L2-normal-sonnet-5-5-high-20261123-171516: pass=False strict=False (V1=False V2=True V3=True V3x=True V4=False req=False setup_untouched=True V5=False V6=False) cost=$1.2746435 (est.) turns=62 wall=1521s exit=1 valid=False rate_limited side_effects(infra=0 tooling=0 auto=4)
+matrix stopped: invalid trial (rate limit / auth)
+[2026-11-23 17:46:46] matrix start task=L2 rounds=3 skip=1 models=claude-opus-5-5 claude-sonnet-5-5 claude-haiku-5-5
+[2026-11-23 17:46:46] round 1 model claude-sonnet-5-5
+[2026-11-23 17:52:45] rc=0 RESULT L2-normal-sonnet-5-5-high-20261123-174646: pass=False strict=False (V1=True V2=False V3=False V3x=False V4=False req=False setup_untouched=True V5=True V6=False) cost=$0.01355 (est.) turns=3 wall=191s exit=1 valid=False rate_limited side_effects(infra=0 tooling=0 auto=0)
+matrix stopped: invalid trial (rate limit / auth)
+[2026-11-23 19:16:40] matrix start task=L2 rounds=3 skip=1 models=claude-opus-5-5 claude-sonnet-5-5 claude-haiku-5-5
+[2026-11-23 19:16:40] round 1 model claude-sonnet-5-5
+[2026-11-23 19:50:49] rc=0 RESULT L2-normal-sonnet-5-5-high-20261123-191640: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$1.6179224999999997 (est.) turns=70 wall=1774s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 19:50:49] round 1 model claude-haiku-5-5
+[2026-11-23 20:27:43] rc=0 RESULT L2-normal-haiku-5-5-high-20261123-195049: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$2.271835239999999 (est.) turns=180 wall=1918s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 20:27:43] round 2 model claude-opus-5-5
+[2026-11-23 21:00:15] rc=0 RESULT L2-normal-opus-5-5-high-20261123-202743: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$3.8683531999999983 (est.) turns=87 wall=1675s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 21:00:15] round 2 model claude-sonnet-5-5
+[2026-11-23 21:38:26] rc=0 RESULT L2-normal-sonnet-5-5-high-20261123-210015: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$1.9715304000000007 (est.) turns=86 wall=1980s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 21:38:26] round 2 model claude-haiku-5-5
+[2026-11-23 22:06:26] rc=0 RESULT L2-normal-haiku-5-5-high-20261123-213826: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$1.02288914 (est.) turns=115 wall=1375s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 22:06:26] round 3 model claude-opus-5-5
+[2026-11-23 22:25:17] rc=0 RESULT L2-normal-opus-5-5-high-20261123-220627: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=False) cost=$2.9554296 (est.) turns=75 wall=844s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 22:25:17] round 3 model claude-sonnet-5-5
+[2026-11-23 23:00:06] rc=0 RESULT L2-normal-sonnet-5-5-high-20261123-222517: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$1.3966391 (est.) turns=66 wall=1802s exit=0 valid=True  side_effects(infra=0 tooling=0 auto=4)
+[2026-11-23 23:00:06] round 3 model claude-haiku-5-5
+[2026-11-23 23:23:24] rc=0 RESULT L2-normal-haiku-5-5-high-20261123-230006: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=True V6=True) cost=$1.0312806100000003 (est.) turns=100 wall=1116s exit=1 valid=False rate_limited side_effects(infra=0 tooling=0 auto=4)
+matrix stopped: invalid trial (rate limit / auth)
+[2026-11-24 16:43:16] matrix start task=L2 rounds=3 skip=8 models=claude-opus-5-5 claude-sonnet-5-5 claude-haiku-5-5
+[2026-11-24 16:43:16] round 3 model claude-haiku-5-5
+[2026-11-24 17:13:06] rc=0 RESULT L2-normal-haiku-5-5-high-20261124-164316: pass=True strict=True (V1=True V2=True V3=True V3x=True V4=True req=True setup_untouched=True V5=None V6=True) cost=$1.27045209 (est.) turns=111 wall=1491s exit=0 valid=True  side_effects(infra=2 tooling=0 auto=4)
+[2026-11-24 17:13:06] matrix done

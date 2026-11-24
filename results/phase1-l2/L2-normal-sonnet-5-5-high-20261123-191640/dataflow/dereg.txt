@@ -1,0 +1,2 @@
+Defaulted container "ue" out of: ue, curl (ephem)
+De-registration procedure triggered. UE device will be switched off.

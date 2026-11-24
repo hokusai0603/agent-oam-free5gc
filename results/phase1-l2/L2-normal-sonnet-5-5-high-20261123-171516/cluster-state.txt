@@ -1,0 +1,146 @@
+NAME           	NAMESPACE  	REVISION	UPDATED                                	STATUS  	CHART                  	APP VERSION
+free5gc-helm   	free5gc    	3       	2026-11-23 17:31:39.385355511 +0800 CST	deployed	free5gc-1.1.7          	latest     
+gateway-api-crd	kube-system	1       	2026-11-17 13:33:18.595604881 +0000 UTC	deployed	gateway-api-crd-1.6.301	v1.6.3     
+ueransim       	free5gc    	1       	2026-11-23 17:25:32.251335508 +0800 CST	deployed	ueransim-2.0.17        	latest     
+
+NAMESPACE     NAME                                                    READY   STATUS      RESTARTS        AGE     IP           NODE        NOMINATED NODE   READINESS GATES
+free5gc       pod/free5gc-helm-free5gc-amf-amf-5b59bc4c94-jpxtd       1/1     Running     0               19m     10.42.0.44   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-ausf-ausf-65665d474c-fh9hr     1/1     Running     0               19m     10.42.0.38   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-bsf-bsf-765fbcc649-h9vqc       1/1     Running     0               19m     10.42.0.41   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-chf-chf-58d4d99464-8nnm6       1/1     Running     0               19m     10.42.0.39   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-nef-nef-d6d5b6889-khsgb        1/1     Running     0               19m     10.42.0.43   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-nrf-nrf-7fdf6ddddc-cfw9z       1/1     Running     0               19m     10.42.0.50   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-nssf-nssf-cdfdcf6c6-pk7qk      1/1     Running     0               19m     10.42.0.45   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-pcf-pcf-55f4fcc548-cwlg5       1/1     Running     0               19m     10.42.0.49   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-scp-scp-77c7f47d7b-sxsm7       1/1     Running     0               19m     10.42.0.53   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-smf-smf-58b6d67c8d-vj292       1/1     Running     0               2m16s   10.42.0.64   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-udm-udm-84ff4df648-7mhxz       1/1     Running     0               19m     10.42.0.51   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-udr-udr-74878c446-jw4wk        1/1     Running     0               19m     10.42.0.54   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-iupf1-685f9fcddf-jcndl     0/1     Pending     0               9m47s   <none>       <none>      <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-iupf1-b76c4875-qmfpq       1/1     Running     0               19m     10.42.0.48   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-psaupf1-7ffb4c968d-nxk2d   1/1     Running     0               19m     10.42.0.42   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-psaupf1-97d7b9d58-pldxq    0/1     Pending     0               9m47s   <none>       <none>      <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-psaupf2-64f5988475-fr2ds   1/1     Running     0               19m     10.42.0.47   oam-node1   <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-upf-psaupf2-7846456b45-n8gpl   0/1     Pending     0               9m47s   <none>       <none>      <none>           <none>
+free5gc       pod/free5gc-helm-free5gc-webui-webui-6986bd7c45-gjmwv   1/1     Running     0               19m     10.42.0.40   oam-node1   <none>           <none>
+free5gc       pod/mongodb-0                                           1/1     Running     0               19m     10.42.0.55   oam-node1   <none>           <none>
+free5gc       pod/ueransim-gnb-784866c694-dl2q5                       1/1     Running     0               2m5s    10.42.0.65   oam-node1   <none>           <none>
+free5gc       pod/ueransim-ue-5bfccf6748-kwh68                        1/1     Running     0               2m3s    10.42.0.66   oam-node1   <none>           <none>
+kube-system   pod/coredns-577d995dff-btjvw                            1/1     Running     4 (4d19h ago)   5d20h   10.42.0.18   oam-node1   <none>           <none>
+kube-system   pod/helm-install-gateway-api-crd-4mt4j                  0/1     Completed   0               5d20h   <none>       oam-node1   <none>           <none>
+kube-system   pod/local-path-provisioner-56c6584955-jq2lt             1/1     Running     4 (4d19h ago)   5d20h   10.42.0.19   oam-node1   <none>           <none>
+kube-system   pod/metrics-server-778c4649b4-kx4tr                     1/1     Running     4 (4d19h ago)   5d20h   10.42.0.17   oam-node1   <none>           <none>
+mec           pod/mec-app-6c88c84d99-wlv68                            1/1     Running     0               25m     10.42.0.20   oam-node1   <none>           <none>
+
+NAMESPACE     NAME                                               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE     SELECTOR
+default       service/kubernetes                                 ClusterIP   10.43.0.1       <none>        443/TCP                  5d20h   <none>
+free5gc       service/free5gc-helm-free5gc-amf-amf-n2            ClusterIP   10.43.27.237    <none>        38412/SCTP               19m     nf=amf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-amf-service           ClusterIP   10.43.209.127   <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-amf,nf=amf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-ausf-service          ClusterIP   10.43.33.134    <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-ausf,nf=ausf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-bsf-service           ClusterIP   10.43.58.32     <none>        8000/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-bsf
+free5gc       service/free5gc-helm-free5gc-chf-service           ClusterIP   10.43.246.195   <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-chf,nf=chf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-nef-service           ClusterIP   10.43.206.165   <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nef,nf=nef,project=free5gc
+free5gc       service/free5gc-helm-free5gc-nssf-service          ClusterIP   10.43.251.252   <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nssf,nf=nssf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-pcf-service           ClusterIP   10.43.112.99    <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-pcf,nf=pcf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-scp-service           ClusterIP   10.43.59.206    <none>        8000/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-scp
+free5gc       service/free5gc-helm-free5gc-smf-service           ClusterIP   10.43.49.74     <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-smf,nf=smf,project=free5gc
+free5gc       service/free5gc-helm-free5gc-udm-service           ClusterIP   10.43.86.49     <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udm,nf=udm,project=free5gc
+free5gc       service/free5gc-helm-free5gc-udr-service           ClusterIP   10.43.13.74     <none>        8080/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udr,nf=udr,project=free5gc
+free5gc       service/free5gc-helm-free5gc-upf-iupf1-service     ClusterIP   None            <none>        8805/UDP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=iupf1,project=free5gc
+free5gc       service/free5gc-helm-free5gc-upf-psaupf1-service   ClusterIP   None            <none>        8805/UDP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf1,project=free5gc
+free5gc       service/free5gc-helm-free5gc-upf-psaupf2-service   ClusterIP   None            <none>        8805/UDP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf2,project=free5gc
+free5gc       service/gnb-service                                ClusterIP   10.43.172.142   <none>        4997/UDP                 16m     app=ueransim,component=gnb
+free5gc       service/mongodb                                    ClusterIP   10.43.166.10    <none>        27017/TCP                19m     app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=mongodb
+free5gc       service/nrf-nnrf                                   ClusterIP   10.43.93.102    <none>        8000/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nrf,nf=nrf,project=free5gc
+free5gc       service/webui-nbiling                              ClusterIP   10.43.63.32     <none>        2122/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-webui,nf=webui,project=free5gc
+free5gc       service/webui-ncgf                                 ClusterIP   10.43.38.231    <none>        2121/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-chf,nf=chf,project=free5gc
+free5gc       service/webui-service                              ClusterIP   10.43.57.25     <none>        5000/TCP                 19m     app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-webui,nf=webui,project=free5gc
+kube-system   service/kube-dns                                   ClusterIP   10.43.0.10      <none>        53/UDP,53/TCP,9153/TCP   5d20h   k8s-app=kube-dns
+kube-system   service/metrics-server                             ClusterIP   10.43.14.53     <none>        443/TCP                  5d20h   k8s-app=metrics-server
+mec           service/mec-app                                    ClusterIP   10.43.200.10    <none>        80/TCP                   25m     app=mec-app
+
+NAMESPACE     NAME                                               READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS               IMAGES                                    SELECTOR
+free5gc       deployment.apps/free5gc-helm-free5gc-amf-amf       1/1     1            1           19m     amf                      free5gc/amf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-amf,nf=amf,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-ausf-ausf     1/1     1            1           19m     ausf                     free5gc/ausf:v4.3.0                       app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-ausf,nf=ausf,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-bsf-bsf       1/1     1            1           19m     bsf                      free5gc/bsf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-bsf
+free5gc       deployment.apps/free5gc-helm-free5gc-chf-chf       1/1     1            1           19m     chf                      free5gc/chf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-chf,nf=chf,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-nef-nef       1/1     1            1           19m     nef                      free5gc/nef:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nef,nf=nef,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-nrf-nrf       1/1     1            1           19m     nrf                      free5gc/nrf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nrf,nf=nrf,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-nssf-nssf     1/1     1            1           19m     nssf                     free5gc/nssf:v4.3.0                       app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nssf,nf=nssf,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-pcf-pcf       1/1     1            1           19m     pcf                      free5gc/pcf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-pcf,nf=pcf,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-scp-scp       1/1     1            1           19m     scp                      free5gc/scp:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-scp
+free5gc       deployment.apps/free5gc-helm-free5gc-smf-smf       1/1     1            1           19m     smf                      free5gc/smf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-smf,nf=smf,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-udm-udm       1/1     1            1           19m     udm                      free5gc/udm:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udm,nf=udm,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-udr-udr       1/1     1            1           19m     udr                      free5gc/udr:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udr,nf=udr,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-upf-iupf1     1/1     1            1           19m     iupf1                    free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=iupf1,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-upf-psaupf1   1/1     1            1           19m     psaupf1                  free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf1,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-upf-psaupf2   1/1     1            1           19m     psaupf2                  free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf2,project=free5gc
+free5gc       deployment.apps/free5gc-helm-free5gc-webui-webui   1/1     1            1           19m     webui                    free5gc/webui:v4.3.0                      app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-webui,nf=webui,project=free5gc
+free5gc       deployment.apps/ueransim-gnb                       1/1     1            1           16m     gnb                      free5gc/ueransim:v4.0.1                   app=ueransim,app.kubernetes.io/instance=ueransim,app.kubernetes.io/name=ueransim,component=gnb
+free5gc       deployment.apps/ueransim-ue                        1/1     1            1           16m     ue                       free5gc/ueransim:v4.0.1                   app=ueransim,app.kubernetes.io/instance=ueransim,app.kubernetes.io/name=ueransim,component=ue
+kube-system   deployment.apps/coredns                            1/1     1            1           5d20h   coredns                  rancher/mirrored-coredns-coredns:1.14.7   k8s-app=kube-dns
+kube-system   deployment.apps/local-path-provisioner             1/1     1            1           5d20h   local-path-provisioner   rancher/local-path-provisioner:v0.0.37    app=local-path-provisioner
+kube-system   deployment.apps/metrics-server                     1/1     1            1           5d20h   metrics-server           rancher/mirrored-metrics-server:v0.9.0    k8s-app=metrics-server
+mec           deployment.apps/mec-app                            1/1     1            1           25m     whoami                   traefik/whoami:v1.10.3                    app=mec-app
+
+NAMESPACE     NAME                                                          DESIRED   CURRENT   READY   AGE     CONTAINERS               IMAGES                                    SELECTOR
+free5gc       replicaset.apps/free5gc-helm-free5gc-amf-amf-5b59bc4c94       1         1         1       19m     amf                      free5gc/amf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-amf,nf=amf,pod-template-hash=5b59bc4c94,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-ausf-ausf-65665d474c     1         1         1       19m     ausf                     free5gc/ausf:v4.3.0                       app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-ausf,nf=ausf,pod-template-hash=65665d474c,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-bsf-bsf-765fbcc649       1         1         1       19m     bsf                      free5gc/bsf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-bsf,pod-template-hash=765fbcc649
+free5gc       replicaset.apps/free5gc-helm-free5gc-chf-chf-58d4d99464       1         1         1       19m     chf                      free5gc/chf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-chf,nf=chf,pod-template-hash=58d4d99464,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-nef-nef-d6d5b6889        1         1         1       19m     nef                      free5gc/nef:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nef,nf=nef,pod-template-hash=d6d5b6889,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-nrf-nrf-7fdf6ddddc       1         1         1       19m     nrf                      free5gc/nrf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nrf,nf=nrf,pod-template-hash=7fdf6ddddc,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-nssf-nssf-cdfdcf6c6      1         1         1       19m     nssf                     free5gc/nssf:v4.3.0                       app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-nssf,nf=nssf,pod-template-hash=cdfdcf6c6,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-pcf-pcf-55f4fcc548       1         1         1       19m     pcf                      free5gc/pcf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-pcf,nf=pcf,pod-template-hash=55f4fcc548,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-scp-scp-77c7f47d7b       1         1         1       19m     scp                      free5gc/scp:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-scp,pod-template-hash=77c7f47d7b
+free5gc       replicaset.apps/free5gc-helm-free5gc-smf-smf-5485ddcd55       0         0         0       19m     smf                      free5gc/smf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-smf,nf=smf,pod-template-hash=5485ddcd55,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-smf-smf-58b6d67c8d       1         1         1       2m16s   smf                      free5gc/smf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-smf,nf=smf,pod-template-hash=58b6d67c8d,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-smf-smf-7bf95884d5       0         0         0       14m     smf                      free5gc/smf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-smf,nf=smf,pod-template-hash=7bf95884d5,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-smf-smf-dfb96dfdd        0         0         0       10m     smf                      free5gc/smf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-smf,nf=smf,pod-template-hash=dfb96dfdd,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-udm-udm-84ff4df648       1         1         1       19m     udm                      free5gc/udm:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udm,nf=udm,pod-template-hash=84ff4df648,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-udr-udr-74878c446        1         1         1       19m     udr                      free5gc/udr:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-udr,nf=udr,pod-template-hash=74878c446,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-upf-iupf1-685f9fcddf     1         1         0       9m47s   iupf1                    free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=iupf1,pod-template-hash=685f9fcddf,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-upf-iupf1-b76c4875       1         1         1       19m     iupf1                    free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=iupf1,pod-template-hash=b76c4875,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-upf-psaupf1-7ffb4c968d   1         1         1       19m     psaupf1                  free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf1,pod-template-hash=7ffb4c968d,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-upf-psaupf1-97d7b9d58    1         1         0       9m47s   psaupf1                  free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf1,pod-template-hash=97d7b9d58,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-upf-psaupf2-64f5988475   1         1         1       19m     psaupf2                  free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf2,pod-template-hash=64f5988475,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-upf-psaupf2-7846456b45   1         1         0       9m47s   psaupf2                  free5gc/upf:v4.3.0                        app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-upf,nf=psaupf2,pod-template-hash=7846456b45,project=free5gc
+free5gc       replicaset.apps/free5gc-helm-free5gc-webui-webui-6986bd7c45   1         1         1       19m     webui                    free5gc/webui:v4.3.0                      app.kubernetes.io/instance=free5gc-helm,app.kubernetes.io/name=free5gc-webui,nf=webui,pod-template-hash=6986bd7c45,project=free5gc
+free5gc       replicaset.apps/ueransim-gnb-59795bb5b                        0         0         0       14m     gnb                      free5gc/ueransim:v4.0.1                   app=ueransim,app.kubernetes.io/instance=ueransim,app.kubernetes.io/name=ueransim,component=gnb,pod-template-hash=59795bb5b
+free5gc       replicaset.apps/ueransim-gnb-784866c694                       1         1         1       13m     gnb                      free5gc/ueransim:v4.0.1                   app=ueransim,app.kubernetes.io/instance=ueransim,app.kubernetes.io/name=ueransim,component=gnb,pod-template-hash=784866c694
+free5gc       replicaset.apps/ueransim-gnb-79cb499969                       0         0         0       16m     gnb                      free5gc/ueransim:v4.0.1                   app=ueransim,app.kubernetes.io/instance=ueransim,app.kubernetes.io/name=ueransim,component=gnb,pod-template-hash=79cb499969
+free5gc       replicaset.apps/ueransim-ue-5bfccf6748                        1         1         1       14m     ue                       free5gc/ueransim:v4.0.1                   app=ueransim,app.kubernetes.io/instance=ueransim,app.kubernetes.io/name=ueransim,component=ue,pod-template-hash=5bfccf6748
+free5gc       replicaset.apps/ueransim-ue-f5dc6d7f5                         0         0         0       16m     ue                       free5gc/ueransim:v4.0.1                   app=ueransim,app.kubernetes.io/instance=ueransim,app.kubernetes.io/name=ueransim,component=ue,pod-template-hash=f5dc6d7f5
+kube-system   replicaset.apps/coredns-577d995dff                            1         1         1       5d20h   coredns                  rancher/mirrored-coredns-coredns:1.14.7   k8s-app=kube-dns,pod-template-hash=577d995dff
+kube-system   replicaset.apps/local-path-provisioner-56c6584955             1         1         1       5d20h   local-path-provisioner   rancher/local-path-provisioner:v0.0.37    app=local-path-provisioner,pod-template-hash=56c6584955
+kube-system   replicaset.apps/metrics-server-778c4649b4                     1         1         1       5d20h   metrics-server           rancher/mirrored-metrics-server:v0.9.0    k8s-app=metrics-server,pod-template-hash=778c4649b4
+mec           replicaset.apps/mec-app-6c88c84d99                            1         1         1       25m     whoami                   traefik/whoami:v1.10.3                    app=mec-app,pod-template-hash=6c88c84d99
+
+NAMESPACE   NAME                       READY   AGE   CONTAINERS   IMAGES
+free5gc     statefulset.apps/mongodb   1/1     19m   mongodb      docker.io/bitnamilegacy/mongodb:7.0.9-debian-12-r4
+
+NAMESPACE     NAME                                     STATUS     COMPLETIONS   DURATION   AGE     CONTAINERS   IMAGES                                       SELECTOR
+kube-system   job.batch/helm-install-gateway-api-crd   Complete   1/1           17s        5d20h   helm         rancher/klipper-helm:v0.13.3-build20261021   batch.kubernetes.io/controller-uid=68aa2809-ac45-469f-9ee1-6036d1389cf7
+
+free5gc           free5gc-helm-free5gc-amf-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-ausf-configmap                    1     19m
+free5gc           free5gc-helm-free5gc-bsf-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-chf-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-nef-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-nrf-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-nssf-configmap                    1     19m
+free5gc           free5gc-helm-free5gc-pcf-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-scp-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-smf-configmap                     3     19m
+free5gc           free5gc-helm-free5gc-udm-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-udr-configmap                     1     19m
+free5gc           free5gc-helm-free5gc-upf-iupf1-configmap               2     19m
+free5gc           free5gc-helm-free5gc-upf-psaupf1-configmap             2     19m
+free5gc           free5gc-helm-free5gc-upf-psaupf2-configmap             2     19m
+free5gc           free5gc-public-certs                                   14    19m
+free5gc           gnb-configmap                                          2     16m
+free5gc           kube-root-ca.crt                                       1     24m
+free5gc           mongodb-common-scripts                                 3     19m
+free5gc           ue-configmap                                           2     16m
+free5gc           webui-configmap                                        1     19m
+mec               kube-root-ca.crt                                       1     25m

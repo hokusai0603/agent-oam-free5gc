@@ -1,0 +1,1 @@
+Nov 23 17:31:57 oam-node1 k3s[775]: E1123 17:31:57.887857     775 replica_set.go:640] "Unhandled Error" err="sync \"free5gc/free5gc-helm-free5gc-upf-psaupf2-7846456b45\" failed with read version: 3644 is not as new as written version: 3649 for group resource replicasets.apps" logger="UnhandledError"
